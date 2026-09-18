@@ -24,6 +24,10 @@ jobs:
         # Installs dependencies, runs the build, and uploads dist/ as the
         # Pages artifact. Image processing takes a couple of minutes.
         uses: withastro/action@v3
+        with:
+          # The action defaults to a Node version Astro 7 refuses to run on
+          # ("Node.js v20 is not supported, please upgrade to >=22.12.0").
+          node-version: 22
 
   deploy:
     needs: build
