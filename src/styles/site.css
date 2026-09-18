@@ -338,7 +338,12 @@ footer a.social:hover{text-decoration:underline}
 .band.has-photo{position:relative;isolation:isolate;background-color:var(--brown-deep)}
 .band-bg{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 58%;z-index:-2;
+  /* The band is content-height, so the wider the screen the thinner the
+     slice of a 4:3 photograph that survives: 42% of it at 2000px, 33% at
+     2560px, a quarter on an ultrawide. At 58% that slice landed on the bar
+     mat and the taps were cut off entirely. 32% keeps the row of taps in
+     frame from 1400px all the way to 3440px. */
+  object-fit:cover;object-position:center 32%;z-index:-2;
 }
 .band.has-photo::after{
   content:"";position:absolute;inset:0;z-index:-1;
@@ -378,6 +383,25 @@ footer a{color:var(--cream)}
    object-fit zooms into the brightest area of the frame. */
 .hero .eyebrow,.band.has-photo .kicker{color:var(--sign-gold)}
 .band.has-photo .note,.band.has-photo li small,.band.has-photo .caption{color:var(--cream)}
+/* Once the band is wider than the text column there are margins containing
+   nothing but photograph, and a flat scrim dims those for no reason. The
+   gradient tracks the column instead: full strength where the words are,
+   lifted in the margins where the taps are the only thing there. The
+   plateau is 1000px against a 900px column plus its padding, so the dark
+   part always reaches past the text. */
+@media (min-width:1100px){
+  .band.has-photo::after{
+    --gutter:max(0px,(100% - 1000px)/2);
+    background:linear-gradient(90deg,
+      rgba(24,17,13,.38) 0,
+      rgba(24,17,13,.38) calc(var(--gutter) * .5),
+      rgba(24,17,13,.84) var(--gutter),
+      rgba(24,17,13,.84) calc(100% - var(--gutter)),
+      rgba(24,17,13,.38) calc(100% - var(--gutter) * .5),
+      rgba(24,17,13,.38) 100%);
+  }
+}
+
 @media (max-width:700px){
   .hero::after{background:linear-gradient(rgba(30,22,17,.74),rgba(30,22,17,.90))}
   .band.has-photo::after{background:linear-gradient(rgba(24,17,13,.76),rgba(24,17,13,.88))}
