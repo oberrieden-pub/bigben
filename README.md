@@ -85,6 +85,7 @@ cannot do this; see below.
 | Managing director | Paul Michael Tischler, sole signatory |
 | Address | Alte Landstrasse 20, 8942 Oberrieden ZH |
 | Phone | 043 388 55 08 (landline, to be redirected to Paul's mobile) |
+| Email | bigben@oberrieden.pub — Cloudflare Email Routing, forwards to Paul's mailbox |
 | Stale phone | 044 722 20 62 — still circulating on third-party listings, not ours |
 | Instagram | @bigbenpubzh — confirmed correct, the other handle is to be closed |
 | Facebook | Big Ben Pub Oberrieden — confirmed correct |
@@ -95,10 +96,11 @@ is not guessing at any of them.
 
 ## Still open
 
-1. **An email address on the domain.** The only placeholder left on the page, and the
-   Impressum is legally incomplete without it. Cloudflare Email Routing is free and would
-   forward `info@oberrieden.pub` to Paul's own address in about five minutes. Nothing else
-   is needed, since the site has no contact form.
+1. **Replying as the pub.** `bigben@oberrieden.pub` receives, but Cloudflare Email Routing
+   forwards only, so Paul's replies leave from his own address. Fixing that means either
+   Gmail "Send mail as" over Gmail's SMTP (free, needs an app password and a hand-edited
+   SPF record, and never gets aligned DKIM) or a real mailbox. Not urgent: a pub is
+   contacted by phone. Costs are in the session notes; nothing here exceeds CHF 115/year.
 2. **Replace the photographs.** The two shots in `assets/photos/` were taken from the
    previous owner's site so the layout could be seen with real images in it. They carry no
    licence. Strip EXIF from the replacements: the originals were 5 MB phone files carrying
