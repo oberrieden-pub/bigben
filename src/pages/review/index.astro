@@ -1,0 +1,53 @@
+---
+/* oberrieden.pub/review -> the pub's Google listing.
+
+   Exists so printed material can carry a short, readable address instead of a
+   seventy-character Google URL. Two further reasons it is worth a page:
+
+   - A short URL makes a far less dense QR code, which scans from further away
+     across a pub.
+   - If the Google link ever changes, this file changes and every printed
+     banner keeps working. Nothing has to be reprinted.
+
+   Deliberately not built on Base.astro: no fonts, no stylesheet, no images.
+   Nobody should ever see this page for more than an instant, so it carries the
+   redirect, a visible link for anyone whose browser blocks it, and nothing
+   else. */
+import { pub } from "../../data/pub";
+
+const target = pub.googleProfile;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Big Ben Pub — review us on Google</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #531c23;
+        color: #f0e8dc;
+        font: 16px/1.5 system-ui, Arial, sans-serif;
+        text-align: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      a { color: #ddba7a }
+    </style>
+  </head>
+  <body>
+    <p>
+      Taking you to Google &hellip;<br />
+      <a href={target}>Big Ben Pub on Google</a>
+    </p>
+    <script is:inline define:vars={{ target }}>
+      location.replace(target);
+    </script>
+  </body>
+</html>
