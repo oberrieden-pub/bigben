@@ -435,3 +435,21 @@ html.lb-open{overflow:hidden}
   border-left:3px solid var(--accent);padding:4px 0 4px 14px;
 }
 .highlight strong{color:var(--accent);font-weight:600}
+
+/* Below a menu, a plain paragraph reads as one more item on the list. These two
+   are separated by shape, not by colour: over a photograph the colour has to
+   stay at full contrast and cannot be dimmed to signal "aside". */
+.pull{
+  margin:24px 0 0;padding:0 0 0 20px;position:relative;
+  font-family:"Bitter",Georgia,serif;font-weight:500;
+  font-size:clamp(18px,2.2vw,21px);line-height:1.35;
+  border-left:3px solid var(--accent);
+}
+.pull::before{
+  content:"C";position:absolute;left:4px;top:-6px;
+  font-family:"Bitter",Georgia,serif;font-size:34px;line-height:1;
+  color:var(--accent);opacity:.5;
+}
+.fineprint{
+  font-size:14px;font-style:italic;margin:14px 0 0;opacity:.8;
+}
