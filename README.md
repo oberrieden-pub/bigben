@@ -1,0 +1,98 @@
+# Big Ben Pub, Oberrieden — two-page site
+
+Static files. No build step, no dependencies, no server-side code.
+
+The site deliberately carries **no fixture list**. Match nights live on the pub's Google
+Business Profile and on Instagram, where they expire on their own. These pages only point
+at those, so there is nothing here that can go stale and nothing the landlord has to edit.
+
+English and German are separate pages, not one bilingual page. The switch is the link in
+the top right of each page and in the footer.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `index.html` | English page. |
+| `de.html` | German page. Swiss spelling, so `ss` rather than `ß`. |
+| `assets/site.css` | All styling, shared by both pages. Edit once, both change. |
+| `assets/status.js` | The open/closed line. Shared. Language comes from `data-lang`. |
+| `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
+| `google-sites/` | Everything needed to rebuild this in Google Sites instead. |
+| `CNAME` | Not committed. Add it only when the custom domain is settled. |
+
+## Publishing on GitHub Pages
+
+1. Create a repository under **the landlord's own GitHub account**, not a consultant's.
+   Free GitHub Pages requires the repository to be public.
+2. Commit these files at the repository root.
+3. Settings → Pages → Source: *Deploy from a branch*, branch `main`, folder `/ (root)`.
+4. The site appears at `https://<account>.github.io/<repo>/` within a couple of minutes.
+
+### Custom domain
+
+1. Add a file named `CNAME` at the root containing just the bare domain, e.g. `example.ch`.
+2. At the DNS host, point the apex at GitHub Pages with four A records, and add `www` as a
+   CNAME to `<account>.github.io`. Take the current A record addresses from GitHub's own
+   documentation at the time you do it rather than from any list copied earlier; they have
+   changed before.
+3. Settings → Pages → Custom domain, then tick **Enforce HTTPS** once the certificate is
+   issued. It can take an hour.
+
+GitHub Pages serves the apex domain directly. Google Sites cannot; see below.
+
+## Three ways to host this
+
+- **GitHub Pages.** Free, patches nothing, serves the apex domain, keeps the design exactly
+  as built. Adds a GitHub account to the credentials list, needs a public repository, is a
+  US service with no support line, and assumes whoever takes over can use a git repository.
+- **Infomaniak.** Bundles hosting and an email address with the CHF 8.90 `.ch` domain.
+  Domain, DNS, email and files sit in one Swiss account with a phone number, and updates
+  are a drag into a web file manager. One account instead of three, and the easiest
+  handover for a landlord who may one day need to ring somebody.
+- **Google Sites.** Cannot host these files at all; the page has to be rebuilt in its own
+  editor. Free and maintenance-free, but it costs the apex domain, the design, and the
+  claim that the site embeds nothing from third parties. See `google-sites/BUILD-SHEET.md`,
+  which has the full trade-off and paste-ready copy for both languages.
+
+## Before it goes live
+
+Each page carries a visible "Before this goes live" block, and the placeholders in the
+Impressum are marked in orange. Both must be filled in or removed. In short:
+
+1. Legal operator name, contact email on the new domain, UID if registered.
+2. Host's log retention period, for the privacy paragraph.
+3. **Self-host the fonts.** The pages currently load Bodoni Moda, Faustina and Archivo
+   Narrow from `fonts.googleapis.com`, which discloses the visitor's IP address to Google
+   and contradicts the pages' own claim to embed nothing from third parties. Either
+   download the woff2 files into `assets/fonts/` and swap the `<link>` for a local
+   `@font-face` block, or delete the `<link>` and let the fallback stacks do the work.
+4. One new photograph of the bar. The old logo and interior photographs are not reused
+   here, because ownership of them is unclear.
+5. Confirm control of the Instagram handle before linking it anywhere permanent.
+6. Replace the Google Maps search links with the pub's own profile short link.
+7. Add `hreflang` tags between the two pages once the domain exists, so Google serves the
+   right language.
+8. Have a native speaker read the German page aloud once.
+9. Remove the draft strip and the "Before this goes live" section from both pages.
+
+## Notes on the code
+
+- The open/closed line is computed in the browser from `Europe/Zurich`, so it is correct
+  for a visitor in any timezone. If the script does not run, each page keeps its static
+  fallback line and nothing is broken.
+- Hours are written in three places: the `hours` object in `assets/status.js`, and the
+  visible table on each page. Change all three together. Regular hours change rarely;
+  day-to-day variation belongs on the Google profile, not here.
+- No cookies, no storage, no analytics, no forms, nothing embedded.
+
+## Local preview
+
+The pages use relative links to `assets/`, so opening `index.html` straight from the disk
+works in a normal browser. To serve it over HTTP instead:
+
+```bash
+python -m http.server 8765
+```
+
+Then open `http://localhost:8765/`.
