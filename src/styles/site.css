@@ -445,6 +445,9 @@ html.lb-open{overflow:hidden}
   margin:24px 0 0;padding:0 0 0 20px;position:relative;
   font-family:"Bitter",Georgia,serif;font-weight:500;
   font-size:clamp(18px,2.2vw,21px);line-height:1.35;
+  /* Evens the lines out so the quote does not end on a single orphan word,
+     which it otherwise does at several widths in both languages. */
+  text-wrap:balance;
   border-left:3px solid var(--accent);
 }
 .pull::before{
