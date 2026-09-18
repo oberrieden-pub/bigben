@@ -117,8 +117,18 @@ notes will flag them as unsourced. They are not.
 
 ## Still open
 
-1. **Remove the `noindex` tag** in `src/layouts/Base.astro` when the site should be
-   findable. Until then Google lists nothing. This is deliberate.
+1. **Going live is held pending the owner's final approval.** Every page carries
+   `noindex, nofollow`, so Google lists nothing. This is deliberate, not an
+   oversight, and it is one decision with three parts that belong together:
+
+   1. Remove the `noindex` meta in `src/layouts/Base.astro`.
+   2. Point the Google Business Profile website field at `oberrieden.pub`
+      (it currently points at flowsight.ch/bigben-pub).
+   3. Submit the domain to Google Search Console.
+
+   Doing only the first leaves the site findable but unlinked from the pub's
+   most valuable asset. Doing only the second sends people to a page search
+   engines are told to ignore. Wait for approval, then do all three.
 2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
    target of the Google Business Profile website field. Two live pages for one pub is
    worse than either alone.

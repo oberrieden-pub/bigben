@@ -63,8 +63,11 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     {
       noindex && (
         <>
-          {/* Draft. Keeps the site out of search results so it cannot compete
-              with the pub's own Google listing. Drop when it should be found. */}
+          {/* HELD DELIBERATELY. The site is kept out of search results until the
+              owner gives final approval. Going live is one change with three
+              parts, in this order: remove this tag, point the Google Business
+              Profile website field here, then submit to Search Console. Do not
+              flip this on its own, and do not flip it without that approval. */}
           <meta name="robots" content="noindex, nofollow" />
         </>
       )
