@@ -13,7 +13,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const DIST = "dist";
-const INLINE = "strong|a|em|b|i|span|abbr";
+const INLINE = "strong|a|em|b|i|span|abbr|s|del";
 
 const CHECKS = [
   {

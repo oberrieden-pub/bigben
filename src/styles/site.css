@@ -324,7 +324,15 @@ footer a.social:hover{text-decoration:underline}
 .claim-line{
   font-family:"Bitter",Georgia,serif;font-weight:700;
   font-size:clamp(26px,4.6vw,44px);line-height:1.1;letter-spacing:-.01em;
-  color:var(--sign-gold);margin:0;
+  color:var(--sign-gold);margin:0;text-wrap:balance;
+}
+/* The struck words are the joke and nothing else: <s> is not announced, so
+   they carry aria-hidden in the markup and the claim reads plainly as "the
+   best Guinness in Zurich". Dimmed so the eye lands on what replaces them,
+   and the rule is thickened because a hairline vanishes at display size. */
+.claim-line s{
+  opacity:.45;font-weight:600;
+  text-decoration-thickness:.07em;
 }
 .claim-sub{
   font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;
