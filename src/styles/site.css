@@ -326,18 +326,6 @@ footer a.social:hover{text-decoration:underline}
   font-size:clamp(26px,4.6vw,44px);line-height:1.1;letter-spacing:-.01em;
   color:var(--sign-gold);margin:0;text-wrap:balance;
 }
-/* The struck words are the joke and nothing else: <s> is not announced, so
-   they carry aria-hidden in the markup and the claim reads plainly as "the
-   best Guinness in Zurich". Dimmed so the eye lands on what replaces them,
-   and the rule is thickened because a hairline vanishes at display size.
-   Dimmed only as far as .6: the struck words are still text that gets read
-   out, and below that they measured 2.6:1 on the maroon, under the 3:1 that
-   large text needs. At .6 they are 3.6:1 and "Zurich" is 7.3:1, so the
-   hierarchy survives without the strike becoming unreadable. */
-.claim-line s{
-  opacity:.6;font-weight:600;
-  text-decoration-thickness:.07em;
-}
 .claim-sub{
   font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;
   color:var(--cream-muted);margin:10px 0 0;
@@ -419,14 +407,6 @@ footer a.social{text-decoration:underline}
 /* vw grows with width, so in landscape these were eating a short screen. */
 .hero .inner{padding-block:clamp(40px,8vmin,104px)}
 .scroller .photo-btn img{height:clamp(190px,26vmin,300px)}
-
-/* Text for screen readers only. Deliberately not display:none or
-   visibility:hidden, either of which would take it out of the accessibility
-   tree along with the layout. */
-.vh{
-  position:absolute;width:1px;height:1px;overflow:hidden;
-  clip-path:inset(50%);white-space:nowrap;
-}
 
 /* Skip link */
 .skip{
