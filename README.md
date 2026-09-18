@@ -1,80 +1,85 @@
 # Big Ben Pub, Oberrieden — oberrieden.pub
 
-Static files. No build step, no dependencies, no server-side code.
+An [Astro](https://astro.build) site that builds to static HTML. Nothing is shipped to the
+browser except one small inline script for the open/closed line.
 
-The site deliberately carries **no fixture list**. Match nights live on the pub's Google
-Business Profile and on Instagram, where they expire on their own. These pages only point
-at those, so there is nothing here that can go stale and nothing the landlord has to edit.
+The site deliberately carries **no fixture list and no event listings**. Match nights and
+music go on the pub's Google Business Profile and Instagram, where they expire on their
+own. These pages only point at those, so there is nothing here that goes stale and nothing
+the landlord has to edit. If you are ever asked to "add the fixtures to the site", that
+request undoes the design. Raise it first.
 
-English and German are separate pages, not one bilingual page. The switch is the link in
-the top right of each page and in the footer.
+English and German are separate pages. The switch is in the top right and in the footer.
 
-## Files
+## Running it
 
-| File | Purpose |
+```bash
+npm install
+npm run dev
+```
+
+`npm run build` writes `dist/`. The first build takes a couple of minutes because Astro
+generates every image size and format; later builds use its cache.
+
+## Where things live
+
+| Path | What it is |
 | --- | --- |
-| `index.html` | English page. |
-| `de.html` | German page. Swiss spelling, so `ss` rather than `ß`. |
-| `getting-here.html` | Map and directions, English. |
-| `anfahrt.html` | Map and directions, German. |
-| `assets/site.css` | All styling, shared by both pages. Edit once, both change. |
-| `assets/status.js` | The open/closed line. Shared. Language comes from `data-lang`. |
-| `assets/photos/` | **Placeholders taken from the old site.** Unlicensed. Replace. |
-| `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
-| `google-sites/` | Everything needed to rebuild this in Google Sites instead. |
-| `CNAME` | Binds GitHub Pages to `oberrieden.pub`. |
+| `src/data/pub.ts` | **Every fact about the pub.** Hours, address, phone, email, links. |
+| `src/pages/*.astro` | One file per page. `index` and `de` are the front pages. |
+| `src/layouts/Base.astro` | Head, top bar, footer. Edit once, all pages change. |
+| `src/components/Hours.astro` | Opening hours table, generated from the data. |
+| `src/components/StatusPill.astro` | The open/closed line and its browser script. |
+| `src/components/Gallery.astro` | Photo grid. |
+| `src/assets/photos/` | Source photographs. Astro derives the responsive sizes. |
+| `src/styles/site.css` | All styling, as design tokens. |
+| `public/CNAME` | Binds GitHub Pages to `oberrieden.pub`. |
+| `google-sites/` | An earlier alternative, kept for the reasoning. Not in use. |
 
-## Publishing on GitHub Pages
+**Opening hours are defined once**, in `src/data/pub.ts`, as minutes from midnight indexed
+by day. The table, the day grouping (`Tuesday – Wednesday` appears by itself when two days
+match) and the open/closed line all derive from it. They used to live in three places.
 
-1. Create a repository under **the landlord's own GitHub account**, not a consultant's.
-   Free GitHub Pages requires the repository to be public.
-2. Commit these files at the repository root.
-3. Settings → Pages → Source: *Deploy from a branch*, branch `main`, folder `/ (root)`.
-4. The site appears at `https://<account>.github.io/<repo>/` within a couple of minutes.
+## Photographs
+
+Put new ones in `src/assets/photos/` and import them in the page. Astro generates AVIF at
+several widths and writes the `srcset`, so a phone downloads roughly 25KB where it used to
+get a 1600px JPEG.
+
+Two rules that have already come up:
+
+- **Strip EXIF.** The originals arrive from a phone carrying GPS coordinates.
+- **Check for people.** Photographs with identifiable customers or musicians need their
+  consent before they go on a public site. The live-music set is excluded for this reason.
+
+Also watch for Samsung's burnt-in "AI-generated content" label on edited shots. One
+supplied photo had a wall digitally rendered smooth that is actually bare concrete; the
+unedited original is the one on the site.
+
+## Deployment
+
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds with Astro and deploys
+to GitHub Pages. Pages is set to **build from a workflow**, not from a branch. There is no
+committed build output.
 
 ### Custom domain
 
-The domain is **oberrieden.pub**, registered at Cloudflare, which also runs the DNS. The
-`CNAME` file at the repository root holds the bare domain and is what binds Pages to it.
-
-DNS records in the Cloudflare zone, all of them **DNS only (grey cloud)**:
+`oberrieden.pub`, registered at Cloudflare in the landlord's own account, which also runs
+the DNS. Records, all **DNS only (grey cloud)**:
 
 | Type | Name | Value |
 | --- | --- | --- |
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| AAAA | `@` | `2606:50c0:8000::153` |
-| AAAA | `@` | `2606:50c0:8001::153` |
-| AAAA | `@` | `2606:50c0:8002::153` |
-| AAAA | `@` | `2606:50c0:8003::153` |
+| A | `@` | `185.199.108.153`, `.109.153`, `.110.153`, `.111.153` |
+| AAAA | `@` | `2606:50c0:8000::153` through `8003::153` |
 | CNAME | `www` | `thrd-gh.github.io` |
+| MX + TXT | `@` | Cloudflare Email Routing, added by its own onboarding |
 
-**The grey cloud matters.** A proxied (orange cloud) record stops GitHub issuing its TLS
-certificate, and Cloudflare's Flexible SSL mode would put the site in a redirect loop. If
-the proxy is ever switched on later, GitHub's certificate must already exist and
-Cloudflare's SSL mode must be **Full (strict)**.
+**The grey cloud matters.** A proxied record stops GitHub issuing its TLS certificate, and
+Cloudflare's Flexible SSL mode would cause a redirect loop.
 
-Once the records resolve, tick **Enforce HTTPS** in Settings → Pages. The certificate can
-take up to an hour, and DNS up to 24.
-
-GitHub Pages serves the apex domain directly, so no `www` prefix is needed. Google Sites
-cannot do this; see below.
-
-## Three ways to host this
-
-- **GitHub Pages.** Free, patches nothing, serves the apex domain, keeps the design exactly
-  as built. Adds a GitHub account to the credentials list, needs a public repository, is a
-  US service with no support line, and assumes whoever takes over can use a git repository.
-- **Infomaniak.** Bundles hosting and an email address with the CHF 8.90 `.ch` domain.
-  Domain, DNS, email and files sit in one Swiss account with a phone number, and updates
-  are a drag into a web file manager. One account instead of three, and the easiest
-  handover for a landlord who may one day need to ring somebody.
-- **Google Sites.** Cannot host these files at all; the page has to be rebuilt in its own
-  editor. Free and maintenance-free, but it costs the apex domain, the design, and the
-  claim that the site embeds nothing from third parties. See `google-sites/BUILD-SHEET.md`,
-  which has the full trade-off and paste-ready copy for both languages.
+**A trap worth knowing:** changing the Pages custom domain through the API makes GitHub
+commit to this repository itself (`Delete CNAME`, `Create CNAME`), so the next push is
+rejected as non-fast-forward. Rebase onto it rather than forcing.
 
 ## The business, for the record
 
@@ -85,63 +90,29 @@ cannot do this; see below.
 | Managing director | Paul Michael Tischler, sole signatory |
 | Address | Alte Landstrasse 20, 8942 Oberrieden ZH |
 | Phone | 043 388 55 08 (landline, to be redirected to Paul's mobile) |
-| Email | bigben@oberrieden.pub — Cloudflare Email Routing, forwards to Paul's mailbox |
-| Stale phone | 044 722 20 62 — still circulating on third-party listings, not ours |
-| Instagram | @bigbenpubzh — confirmed correct, the other handle is to be closed |
-| Facebook | Big Ben Pub Oberrieden — confirmed correct |
+| Email | bigben@oberrieden.pub, forwards via Cloudflare to Paul's mailbox |
+| Instagram | @bigbenpubzh — the other handle is to be closed |
+| Facebook | Big Ben Pub Oberrieden |
 | Hours | Confirmed with the landlord 13 September 2026 |
-
-Hours, phone, food and handles all come from the landlord's own review notes, so the site
-is not guessing at any of them.
+| Music | Live Irish music most Sundays, not every Sunday |
 
 ## Still open
 
-1. **Replying as the pub.** `bigben@oberrieden.pub` receives, but Cloudflare Email Routing
-   forwards only, so Paul's replies leave from his own address. Fixing that means either
-   Gmail "Send mail as" over Gmail's SMTP (free, needs an app password and a hand-edited
-   SPF record, and never gets aligned DKIM) or a real mailbox. Not urgent: a pub is
-   contacted by phone. Costs are in the session notes; nothing here exceeds CHF 115/year.
-2. **Replace the photographs.** The two shots in `assets/photos/` were taken from the
-   previous owner's site so the layout could be seen with real images in it. They carry no
-   licence. Strip EXIF from the replacements: the originals were 5 MB phone files carrying
-   GPS coordinates. Both are captioned as placeholders on the page until then.
-3. **Self-host the fonts.** The pages pull Bodoni Moda, Faustina and Geist from
+1. **Remove the `noindex` tag** in `src/layouts/Base.astro` when the site should be
+   findable. Until then Google lists nothing. This is deliberate.
+2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
+   target of the Google Business Profile website field. Two live pages for one pub is
+   worse than either alone.
+3. **Replying as the pub.** Cloudflare Email Routing forwards only, so replies leave from
+   Paul's own address. Fixing it means Gmail "Send mail as" over Gmail's SMTP, or a real
+   mailbox. Not urgent: a pub is contacted by phone.
+4. **Self-host the fonts.** The pages pull Bodoni Moda, Faustina and Geist from
    `fonts.googleapis.com`, which discloses each visitor's IP address to Google.
-4. **Remove the `noindex` tag** from all four pages when the site should be findable. Until
-   then Google will not list it at all. This is deliberate, not an oversight.
-5. **Decide what happens to flowsight.ch/bigben-pub**, which is currently the official page
-   and the target of the Google Business Profile website field. Two live pages for one pub
-   is worse than either alone.
-6. **Parking**, if there is anything to say. The row was removed from the getting-here page
-   rather than shipped empty.
-7. **A fixtures calendar**, if wanted. The link was removed because it pointed at a
-   calendar that does not exist. It goes back the moment one does.
-8. **Confirm control of the Instagram account**, as distinct from the handle being correct.
-9. **Have a native speaker read the German page aloud once.** Swiss spelling throughout,
-   `ss` not `ß`, but it has not been checked by a native speaker.
-10. **Replace the two Google Maps search links** with the pub's own profile short link.
+5. **Consent for the live-music photographs**, if you want to use them.
+6. **Replace the Google Maps search links** with the pub's own profile short link.
+7. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
+   `ss` not `ß`, but unchecked by a native speaker.
 
+## Running cost
 
-## Notes on the code
-
-- The open/closed line is computed in the browser from `Europe/Zurich`, so it is correct
-  for a visitor in any timezone. If the script does not run, each page keeps its static
-  fallback line and nothing is broken.
-- Hours are written in three places: the `hours` object in `assets/status.js`, and the
-  visible table on each page. Change all three together. Regular hours change rarely;
-  day-to-day variation belongs on the Google profile, not here.
-- No cookies, no storage, no analytics, no forms. The only embedded third-party content
-  is the Google map on the getting-here pages, which the privacy notice declares.
-- `canonical` and `hreflang` tags point at the live domain, so Google serves the right
-  language. They hard-code `https://oberrieden.pub/`; change them if the domain changes.
-
-## Local preview
-
-The pages use relative links to `assets/`, so opening `index.html` straight from the disk
-works in a normal browser. To serve it over HTTP instead:
-
-```bash
-python -m http.server 8765
-```
-
-Then open `http://localhost:8765/`.
+About CHF 25 a year, all of it the domain. Hosting, DNS, TLS and email forwarding are free.

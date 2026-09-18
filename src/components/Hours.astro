@@ -1,0 +1,19 @@
+---
+import { weekRows, type Lang } from "../data/pub";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const rows = weekRows(lang);
+---
+
+<ul class="hours">
+  {
+    rows.map((r) => (
+      <li class={r.closed ? "shut" : undefined}>
+        <span class="d">{r.label}</span>
+        <span class="leaders" />
+        <span class="h">{r.value}</span>
+      </li>
+    ))
+  }
+</ul>

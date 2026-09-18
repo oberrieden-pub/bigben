@@ -1,0 +1,75 @@
+---
+import "../styles/site.css";
+import { pub, type Lang } from "../data/pub";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Path of this page, e.g. "" for the front page or "de.html". */
+  path: string;
+  /** Paths of the English and German versions of this page. */
+  alt: { en: string; de: string };
+  /** Draft pages stay out of search results. */
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, alt, noindex = true } = Astro.props;
+const site = "https://oberrieden.pub/";
+const other = lang === "en" ? alt.de : alt.en;
+const otherLabel = lang === "en" ? "Deutsch" : "English";
+const otherLang = lang === "en" ? "de-CH" : "en";
+const home = lang === "en" ? "index.html" : "de.html";
+---
+
+<!doctype html>
+<html lang={lang === "en" ? "en" : "de-CH"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={site + path} />
+    <link rel="alternate" hreflang="en" href={site + alt.en} />
+    <link rel="alternate" hreflang="de-CH" href={site + alt.de} />
+    <link rel="alternate" hreflang="x-default" href={site + alt.en} />
+    {
+      noindex && (
+        <>
+          {/* Draft. Keeps the site out of search results so it cannot compete
+              with the pub's own Google listing. Drop when it should be found. */}
+          <meta name="robots" content="noindex, nofollow" />
+        </>
+      )
+    }
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,700&family=Faustina:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="inner">
+        <a class="chip" href={pub.instagram}>{pub.instagramHandle}</a>
+        <a class="topmark" href={home}>Big Ben<br />Pub</a>
+        <a class="chip right" href={other} hreflang={otherLang} lang={otherLang}>
+          {otherLabel}
+        </a>
+      </div>
+    </div>
+
+    <slot />
+
+    <footer>
+      <div class="inner">
+        <span>
+          {pub.name} &middot; {pub.street} &middot; {pub.postcode} {pub.town}
+          {" "}{pub.canton}
+        </span>
+        <a href={pub.facebook}>Facebook</a>
+        <a href={pub.instagram}>Instagram</a>
+        <a href={other} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
+      </div>
+    </footer>
+  </body>
+</html>

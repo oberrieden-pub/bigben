@@ -1,0 +1,99 @@
+---
+/* Open/closed line. Computed in the browser from Europe/Zurich, so it is right
+   for a visitor in any timezone. The hours come from the same data the table
+   uses, passed into the script below, so the two cannot drift apart.
+   If the script does not run, the static fallback stays and nothing breaks. */
+import { hours, dayNames, type Lang } from "../data/pub";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const copy = {
+  en: {
+    fallback: "Tuesday to Saturday from 17:00. Sunday from 12:00.",
+    open: "Open now until ",
+    today: "Closed. Opens today at ",
+    tomorrow: "Closed. Opens tomorrow at ",
+    later: "Closed. Opens ",
+    at: " at ",
+    suffix: "",
+  },
+  de: {
+    fallback: "Dienstag bis Samstag ab 17:00. Sonntag ab 12:00.",
+    open: "Jetzt offen bis ",
+    today: "Geschlossen. Öffnet heute um ",
+    tomorrow: "Geschlossen. Öffnet morgen um ",
+    later: "Geschlossen. Öffnet am ",
+    at: " um ",
+    suffix: " Uhr",
+  },
+}[lang];
+
+const days = dayNames[lang];
+---
+
+<p class="status" id="status">
+  <span class="s-txt">{copy.fallback}</span>
+</p>
+
+<script is:inline define:vars={{ hours, days, copy }}>
+  (function () {
+    function fmt(mins) {
+      var h = Math.floor(mins / 60), m = mins % 60;
+      return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+    }
+    function nowZurich() {
+      try {
+        var parts = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Zurich", weekday: "short",
+          hour: "2-digit", minute: "2-digit", hour12: false,
+        }).formatToParts(new Date());
+        var o = {};
+        for (var i = 0; i < parts.length; i++) o[parts[i].type] = parts[i].value;
+        var map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+        var d = map[o.weekday];
+        if (d === undefined) return null;
+        var h = parseInt(o.hour, 10) % 24, m = parseInt(o.minute, 10);
+        if (isNaN(h) || isNaN(m)) return null;
+        return { d: d, t: h * 60 + m };
+      } catch (e) { return null; }
+    }
+
+    var el = document.getElementById("status");
+    var now = nowZurich();
+    if (!el || !now) return;
+
+    var today = hours[now.d], text, isOpen = false;
+    if (today && now.t >= today[0] && now.t < today[1]) {
+      isOpen = true;
+      text = copy.open + fmt(today[1]) + copy.suffix;
+    } else {
+      var next = null;
+      for (var i = 0; i < 8; i++) {
+        var idx = (now.d + i) % 7, slot = hours[idx];
+        if (!slot) continue;
+        if (i === 0) {
+          if (now.t < slot[0]) { next = { idx: idx, open: slot[0], when: "today" }; break; }
+          continue;
+        }
+        next = { idx: idx, open: slot[0], when: i === 1 ? "tomorrow" : "later" };
+        break;
+      }
+      if (!next) return;
+      var at = fmt(next.open);
+      if (next.when === "today") text = copy.today + at + copy.suffix;
+      else if (next.when === "tomorrow") text = copy.tomorrow + at + copy.suffix;
+      else text = copy.later + days[next.idx] + copy.at + at + copy.suffix;
+    }
+
+    el.className = "status" + (isOpen ? " is-open" : "");
+    el.textContent = "";
+    var dot = document.createElement("span");
+    dot.className = "dot";
+    var span = document.createElement("span");
+    span.className = "s-txt";
+    span.textContent = text;
+    el.appendChild(dot);
+    el.appendChild(span);
+  })();
+</script>

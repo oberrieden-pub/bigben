@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import { pub } from "../data/pub";
+import parkingSign from "../assets/photos/parking-sign.jpg";
+import exteriorStreet from "../assets/photos/exterior-street.jpg";
+
+const alt = { en: "getting-here.html", de: "anfahrt.html" };
+---
+
+<Base
+  lang="de"
+  title="Anfahrt zum Big Ben Pub"
+  description="So erreichen Sie den Big Ben Pub an der Alten Landstrasse 20 in Oberrieden. Zwei Minuten vom Bahnhof Oberrieden Dorf, rund 15 Minuten mit der S-Bahn von Zürich und Zug."
+  path="anfahrt.html"
+  alt={alt}
+>
+  <header class="subhead">
+    <div class="inner">
+      <a class="back" href="de.html">&larr; Big Ben Pub</a>
+      <h1>Anfahrt</h1>
+      <p class="tagline">
+        {pub.street} &middot; {pub.postcode} {pub.town} {pub.canton}
+      </p>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="inner">
+      <div class="mapwrap">
+        <iframe
+          title="Karte mit dem Big Ben Pub an der Alten Landstrasse 20 in Oberrieden"
+          src={pub.mapEmbed("de")}
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+      <p class="caption">
+        Die Karte wird von Google geladen. Dabei können Cookies von Google
+        gesetzt werden.
+      </p>
+
+      <p>Oder direkt die Route öffnen, mit dem Pub bereits als Ziel.</p>
+
+      <div class="linkrow">
+        <a class="btn call" target="_blank" rel="noopener" href={pub.directions("transit")}>
+          Route mit dem Zug
+        </a>
+        <a class="btn" target="_blank" rel="noopener" href={pub.directions("driving")}>
+          Route mit dem Auto
+        </a>
+        <a class="btn" target="_blank" rel="noopener" href={pub.directions("walking")}>
+          Route zu Fuss
+        </a>
+      </div>
+      <p class="caption">
+        Öffnet Google Maps in einem neuen Tab, mit der Route ab Ihrem Standort.
+      </p>
+    </div>
+  </section>
+
+  <section class="band dark find">
+    <div class="inner">
+      <h2>Mit der Bahn</h2>
+      <p class="kicker">Am einfachsten</p>
+      <div class="cols">
+        <div>
+          <dl>
+            <dt>Bahnhof</dt><dd>Oberrieden Dorf, 2 Minuten zu Fuss</dd>
+            <dt>Ab Zürich</dt><dd>Rund 15 Minuten mit der S-Bahn</dd>
+            <dt>Ab Zug</dt><dd>Rund 15 Minuten mit der S-Bahn</dd>
+          </dl>
+          <p class="note">
+            Schauen Sie an einem Spielabend die letzte Verbindung nach. Wir
+            bleiben länger offen als der Fahrplan.
+          </p>
+        </div>
+        <div>
+          <Image
+            class="shot tall"
+            src={exteriorStreet}
+            alt="Der Pub von der Alten Landstrasse aus, mit der roten Fassade."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            format="avif"
+            quality={70}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band find">
+    <div class="inner">
+      <h2>Mit dem Auto</h2>
+      <p class="kicker">Und wohin damit</p>
+      <div class="cols">
+        <div>
+          <dl>
+            <dt>Adresse</dt>
+            <dd>{pub.street}<br />{pub.postcode} {pub.town} {pub.canton}</dd>
+            <dt>Parkieren</dt><dd>Einige Plätze, nur für Gäste</dd>
+            <dt>Telefon</dt>
+            <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
+          </dl>
+          <p class="note">
+            Rufen Sie an, wenn Sie uns nicht finden. Wir gehen ans Telefon.
+          </p>
+        </div>
+        <div>
+          <Image
+            class="shot tall"
+            src={parkingSign}
+            alt="Ein Schild mit der Aufschrift Parkplatz Big Ben Pub, nur für Gäste."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            format="avif"
+            quality={70}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
