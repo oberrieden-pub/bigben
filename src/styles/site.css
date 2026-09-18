@@ -299,3 +299,10 @@ footer a{color:var(--cream)}
 footer a.social{display:inline-flex;align-items:center;gap:7px;text-decoration:none}
 footer a.social:hover{text-decoration:underline}
 .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center}
+
+/* A paragraph that runs the full width of the band. Sized up so the line does
+   not stretch to 110 characters, which is what 17.5px across 900px would give. */
+.lead{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.45;
+  margin:0 0 4px;max-width:none;
+}
