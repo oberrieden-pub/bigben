@@ -11,9 +11,9 @@
   color-scheme:light;
 
   /* FlowSight palette, sampled from the live page */
-  --paper:#FAF8F5;
+  --paper:#FBF7F0;
   --paper-card:#FFFFFF;
-  --paper-sunk:#F3EEE6;
+  --paper-sunk:#F3EBDF;
   --ink:#1A1A1A;
   --ink-muted:#6E6357;
   --brown:#261B15;
@@ -355,3 +355,17 @@ footer a.social:hover{text-decoration:underline}
   --rule:#6E2B34;
 }
 .band.sign h2{color:var(--sign-gold)}
+
+/* A second light ground, so two light bands in a row still read as two bands.
+   Most of the page sits on these: the pub is about a room full of people, and a
+   run of near-black sections made it read like a cellar. Dark is now punctuation:
+   the bar band, where the photograph carries it, and the footer. */
+.band.sunk{--surface:var(--paper-sunk)}
+
+/* The claim and the footer take the signboard maroon, bookending the page with
+   the same red as the header. */
+.claim{background:var(--sign-maroon)}
+.claim-line{color:var(--sign-gold)}
+.claim-sub{color:#E3C9AE}
+footer{background:var(--sign-maroon);color:#E3C9AE}
+footer a{color:var(--cream)}
