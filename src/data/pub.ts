@@ -28,6 +28,16 @@ export const pub = {
     "https://www.google.com/maps/search/?api=1&query=Big+Ben+Pub+Oberrieden",
   mapEmbed: (lang: Lang) =>
     `https://www.google.com/maps?q=Big+Ben+Pub%2C+Alte+Landstrasse+20%2C+8942+Oberrieden&z=16&hl=${lang}&output=embed`,
+  /* Street View, pinned to the panorama that actually faces the frontage.
+     Dropping someone at the address alone points them at a blank wall.
+     The pano id is Google's and can change when the street is rephotographed;
+     viewpoint is included so the link still lands nearby if that happens.
+     Heading 287 is west-north-west, looking across the road at the door. */
+  streetView:
+    "https://www.google.com/maps/@?api=1&map_action=pano" +
+    "&pano=oul30Y3EKG8znOIA1lhdmw" +
+    "&viewpoint=47.2788735,8.5749821" +
+    "&heading=287.47&pitch=0&fov=80",
   directions: (mode: "transit" | "driving" | "walking") =>
     `https://www.google.com/maps/dir/?api=1&destination=Alte+Landstrasse+20%2C+8942+Oberrieden&travelmode=${mode}`,
 } as const;
