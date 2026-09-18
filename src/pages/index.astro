@@ -170,6 +170,9 @@ const alt = { en: "", de: "de.html" };
             Scoring disputes are adjudicated by the landlord, on production of
             a beer.
           </p>
+          <p>
+            There is a league in the offing. Ask at the bar if you want in.
+          </p>
         </div>
       </div>
     </div>
@@ -196,7 +199,6 @@ const alt = { en: "", de: "de.html" };
       </div>
       <Gallery
         label="Live music photographs"
-        hint="Scroll for more, or tap a photograph to see it full size."
         items={[
             { src: musicBooth, alt: "Two musicians playing guitar and accordion in a booth." },
             { src: musicTrio, alt: "Three musicians playing together, harp and fiddles." },
@@ -220,7 +222,6 @@ const alt = { en: "", de: "de.html" };
       </p>
       <Gallery
         label="Photographs of the pub"
-        hint="Scroll for more, or tap a photograph to see it full size."
         items={[
           { src: barWide, alt: "The bar from the end, taps and optics." },
           { src: signHanging, alt: "A hanging Big Ben Pub sign on a bracket." },
@@ -238,6 +239,27 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
+
+  <section class="band dark">
+    <div class="inner">
+      <h2>Bookings</h2>
+      <p class="kicker">The phone is quickest</p>
+      <div class="panel">
+        <p class="big">
+          We do take bookings. Ring for a table on a match night, or send an
+          email if you would rather.
+        </p>
+        <p>
+          No app, no QR code on the table, and a human answers, usually Paul.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
+          <a class="btn" href={`mailto:${pub.email}`}>{pub.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="band find">
     <div class="inner">
       <h2>Finding us</h2>
@@ -252,7 +274,7 @@ const alt = { en: "", de: "de.html" };
             <dt>S-Bahn</dt>
             <dd>About 15 minutes from Zurich and from Zug</dd>
             <dt>Bus</dt>
-            <dd>Easy from Horgen or Thalwil</dd>
+            <dd>Direct from Horgen or Thalwil, a few minutes</dd>
             <dt>Parking</dt>
             <dd>A few spaces, guests only. The sign is firm about it.</dd>
             <dt>Phone</dt>
@@ -263,11 +285,14 @@ const alt = { en: "", de: "de.html" };
           <a class="btn call" href="getting-here.html">Map and directions</a>
         </div>
         <div>
-          <p class="note">
-            We do take bookings. Ring us for a table on a match night, that
-            is quickest, or send an email if you would rather. No app, no QR code on the table, and a human answers,
-            usually Paul.
-          </p>
+          <Photo
+            class="shot tall"
+            src={exteriorStreet}
+            alt="The pub seen from across Alte Landstrasse, with its red frontage."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>

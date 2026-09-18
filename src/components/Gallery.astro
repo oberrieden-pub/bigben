@@ -9,9 +9,8 @@ import Photo from "./Photo.astro";
 interface Props {
   items: { src: ImageMetadata; alt: string }[];
   label: string;
-  hint: string;
 }
-const { items, label, hint } = Astro.props;
+const { items, label } = Astro.props;
 ---
 
 <div class="scroller-wrap">
@@ -36,4 +35,3 @@ const { items, label, hint } = Astro.props;
     &rsaquo;
   </button>
 </div>
-<p class="caption">{hint}</p>

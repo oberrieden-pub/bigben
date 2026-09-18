@@ -170,6 +170,10 @@ const alt = { en: "", de: "de.html" };
           <p>
             Punktestreitigkeiten entscheidet der Wirt, gegen ein Bier.
           </p>
+          <p>
+            Eine Liga ist in Planung. Fragen Sie an der Bar, wenn Sie mitspielen
+            möchten.
+          </p>
         </div>
       </div>
     </div>
@@ -196,7 +200,6 @@ const alt = { en: "", de: "de.html" };
       </div>
       <Gallery
         label="Fotos der Live-Musik"
-        hint="Weiterscrollen, oder ein Foto antippen, um es gross zu sehen."
         items={[
             { src: musicBooth, alt: "Zwei Musiker mit Gitarre und Akkordeon in einer Nische." },
             { src: musicTrio, alt: "Drei Musikerinnen und Musiker mit Harfe und Geigen." },
@@ -221,7 +224,6 @@ const alt = { en: "", de: "de.html" };
       </p>
       <Gallery
         label="Fotos vom Pub"
-        hint="Weiterscrollen, oder ein Foto antippen, um es gross zu sehen."
         items={[
           { src: barWide, alt: "Die Bar von der Seite, Zapfhähne und Gläser." },
           { src: signHanging, alt: "Ein Big Ben Pub Schild an einem Ausleger." },
@@ -239,6 +241,28 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
+
+  <section class="band dark">
+    <div class="inner">
+      <h2>Reservationen</h2>
+      <p class="kicker">Am schnellsten per Telefon</p>
+      <div class="panel">
+        <p class="big">
+          Reservationen nehmen wir gerne entgegen. F&uuml;r einen Tisch am
+          Spielabend rufen Sie an, sonst schreiben Sie uns.
+        </p>
+        <p>
+          Keine App, kein QR-Code auf dem Tisch, und es geht jemand ran,
+          meistens Paul.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
+          <a class="btn" href={`mailto:${pub.email}`}>{pub.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="band find">
     <div class="inner">
       <h2>So finden Sie uns</h2>
@@ -253,7 +277,7 @@ const alt = { en: "", de: "de.html" };
             <dt>S-Bahn</dt>
             <dd>Rund 15 Minuten von Zürich und von Zug</dd>
             <dt>Bus</dt>
-            <dd>Gut erreichbar ab Horgen oder Thalwil</dd>
+            <dd>Direkt ab Horgen oder Thalwil, wenige Minuten</dd>
             <dt>Parkieren</dt>
             <dd>Einige Plätze, nur für Gäste. Das Schild ist da deutlich.</dd>
             <dt>Telefon</dt>
@@ -264,11 +288,14 @@ const alt = { en: "", de: "de.html" };
           <a class="btn call" href="anfahrt.html">Karte und Anfahrt</a>
         </div>
         <div>
-          <p class="note">
-            Reservationen nehmen wir gerne entgegen. F&uuml;r einen Tisch am
-            Spielabend am schnellsten per Telefon, sonst per E-Mail. Keine App, kein QR-Code auf dem Tisch, und es geht
-            jemand ran, meistens Paul.
-          </p>
+          <Photo
+            class="shot tall"
+            src={exteriorStreet}
+            alt="Der Pub von der Alten Landstrasse aus, mit der roten Fassade."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
