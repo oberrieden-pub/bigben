@@ -8,24 +8,26 @@
 <!-- DRAFT ONLY. Keeps this mock-up out of search results so it cannot compete with the
      pub's own Google listing. Remove this line when the site goes live for real. -->
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,800;1,6..96,400&family=Faustina:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,700&family=Faustina:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
+<div class="draftline"><div class="inner">Draft &middot; Mock-up for the landlord. Nothing published.</div></div>
+
 <div class="topbar">
-  <span class="draft"><b>Draft</b> Mock-up for the landlord. Nothing published.</span>
-  <a class="lang" href="de.html" hreflang="de" lang="de-CH">Deutsch</a>
+  <div class="inner">
+    <a class="chip" href="https://www.instagram.com/bigbenpubzh/">@bigbenpubzh</a>
+    <a class="topmark" href="index.html">Big Ben<br>Pub</a>
+    <a class="chip right" href="de.html" hreflang="de" lang="de-CH">Deutsch</a>
+  </div>
 </div>
 
-<div class="wrap">
-
-<header>
-  <div class="plaque">
-    <p class="addr">Alte Landstrasse 20 &middot; 8942 Oberrieden ZH</p>
-    <h1 class="wordmark">BIG BEN</h1>
-    <div class="rule-line"><span>British Pub</span></div>
-    <p class="tagline">on Lake Zurich</p>
+<header class="hero">
+  <div class="inner">
+    <p class="eyebrow">Est. Oberrieden</p>
+    <h1 class="wordmark">Big Ben Pub</h1>
+    <p class="tagline">Your neighbourhood pub on the lake.</p>
 
     <p class="status" id="status" data-lang="en">
       <span class="s-txt">Tuesday to Saturday from 17:00. Sunday from 12:00.</span>
@@ -39,156 +41,170 @@
   </div>
 </header>
 
-<section>
-  <h2>Live sport</h2>
-  <p class="kicker">Football and rugby</p>
-  <div class="panel">
-    <p class="big">We show all the major football and rugby. If there is a match you want to see, ring us and we will tell you whether it is on.</p>
-    <p>This week&rsquo;s matches go up on our Google page and on Instagram, usually the day before.</p>
-    <div class="linkrow">
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Big+Ben+Pub+Oberrieden">This week on Google</a>
-      <a class="btn" href="https://www.instagram.com/bigbenpubzh/">@bigbenpubzh</a>
-      <a class="btn" href="https://calendar.google.com/calendar/embed?src=REPLACE_WITH_CALENDAR_ID%40group.calendar.google.com&amp;ctz=Europe%2FZurich">Fixtures calendar</a>
-    </div>
-    <p class="caption">Calendar link is a placeholder. <span class="todo">[Needs the pub's public calendar ID]</span></p>
-  </div>
-</section>
-
-<section>
-  <h2>Opening hours</h2>
-  <p class="kicker">Regular week</p>
-  <div class="cols">
-    <div>
-      <ul class="hours">
-        <li class="shut"><span class="d">Monday</span><span class="leaders"></span><span class="h">Closed</span></li>
-        <li><span class="d">Tuesday &ndash; Wednesday</span><span class="leaders"></span><span class="h">17:00 &ndash; 22:30</span></li>
-        <li><span class="d">Thursday</span><span class="leaders"></span><span class="h">17:00 &ndash; 23:00</span></li>
-        <li><span class="d">Friday &ndash; Saturday</span><span class="leaders"></span><span class="h">17:00 &ndash; 23:30</span></li>
-        <li><span class="d">Sunday</span><span class="leaders"></span><span class="h">12:00 &ndash; 19:30</span></li>
-      </ul>
-    </div>
-    <div>
-      <p>We stay open later for live sport and for events, sometimes a good deal later.</p>
-      <p>The hours for any particular day are always right on our Google page.</p>
+<section class="band dark">
+  <div class="inner">
+    <h2>Live sport</h2>
+    <p class="kicker">Football and rugby</p>
+    <div class="panel">
+      <p class="big">We show all the major football and rugby. If there is a match you want to see, ring us and we will tell you whether it is on.</p>
+      <p>This week&rsquo;s matches go up on our Google page and on Instagram, usually the day before.</p>
+      <div class="linkrow">
+        <a class="btn call" href="https://www.google.com/maps/search/?api=1&amp;query=Big+Ben+Pub+Oberrieden">This week on Google</a>
+        <a class="btn" href="https://www.instagram.com/bigbenpubzh/">@bigbenpubzh</a>
+        <a class="btn" href="https://calendar.google.com/calendar/embed?src=REPLACE_WITH_CALENDAR_ID%40group.calendar.google.com&amp;ctz=Europe%2FZurich">Fixtures calendar</a>
+      </div>
+      <p class="caption">Calendar link is a placeholder. <span class="todo">[Needs the pub&rsquo;s public calendar ID]</span></p>
     </div>
   </div>
 </section>
 
-<section class="menu">
-  <h2>Bar and kitchen</h2>
-  <p class="kicker">Snacks only</p>
-  <div class="cols">
-    <div>
-      <h3>On the bar</h3>
-      <ul>
-        <li>Guinness <small>&mdash; poured properly</small></li>
-        <li>Swiss craft beer</li>
-        <li>Wine by the glass</li>
-        <li>Single malts</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Bar snacks</h3>
-      <ul>
-        <li>Chicken wings</li>
-        <li>Fries</li>
-        <li>Nachos</li>
-        <li>Toasties</li>
-        <li>Pies</li>
-      </ul>
-      <p class="note">Snacks only, no full kitchen.</p>
-    </div>
-  </div>
-  <img class="shot band" src="assets/photos/interior-2.jpg" width="1600" height="1200"
-       alt="The bar: taps including Guinness and Kilkenny, with the spirits shelf behind.">
-  <p class="caption">Placeholder from the old site. To be replaced.</p>
-</section>
-
-<section>
-  <h2>The pub</h2>
-  <p class="kicker">Two minutes from the station</p>
-  <div class="cols">
-    <div>
-      <img class="shot tall" src="assets/photos/interior-1.jpg" width="1600" height="1200"
-           alt="Corner of the pub: a buttoned leather banquette under framed prints, with a screen above.">
-      <p class="caption">Placeholder from the old site. To be replaced.</p>
-    </div>
-    <div>
-      <p>A proper British pub in a village of five thousand people. People meet here halfway between Zurich and Zug, watch the match, and stay for a whisky.</p>
-      <p>Live Irish music now and then. The whole pub can be hired for private parties. Ring Paul on <a href="tel:+41433885508">043 388 55 08</a>.</p>
+<section class="band">
+  <div class="inner">
+    <h2>Opening hours</h2>
+    <p class="kicker">Regular week</p>
+    <div class="cols">
+      <div>
+        <ul class="hours">
+          <li class="shut"><span class="d">Monday</span><span class="leaders"></span><span class="h">Closed</span></li>
+          <li><span class="d">Tuesday &ndash; Wednesday</span><span class="leaders"></span><span class="h">17:00 &ndash; 22:30</span></li>
+          <li><span class="d">Thursday</span><span class="leaders"></span><span class="h">17:00 &ndash; 23:00</span></li>
+          <li><span class="d">Friday &ndash; Saturday</span><span class="leaders"></span><span class="h">17:00 &ndash; 23:30</span></li>
+          <li><span class="d">Sunday</span><span class="leaders"></span><span class="h">12:00 &ndash; 19:30</span></li>
+        </ul>
+      </div>
+      <div>
+        <p>We stay open later for live sport and for events, sometimes a good deal later.</p>
+        <p>The hours for any particular day are always right on our Google page.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="find">
-  <h2>Finding us</h2>
-  <p class="kicker">Oberrieden Dorf</p>
-  <div class="cols">
-    <div>
-      <dl>
-        <dt>Address</dt><dd>Alte Landstrasse 20<br>8942 Oberrieden ZH</dd>
-        <dt>Train</dt><dd>Oberrieden Dorf, two minutes on foot</dd>
-        <dt>S-Bahn</dt><dd>About 15 minutes from Zurich and from Zug</dd>
-        <dt>Phone</dt><dd><a href="tel:+41433885508">043 388 55 08</a></dd>
-      </dl>
-      <a class="btn call" href="getting-here.html">Map and directions</a>
+<section class="band dark menu">
+  <div class="inner">
+    <h2>Bar and kitchen</h2>
+    <p class="kicker">Snacks only</p>
+    <div class="cols">
+      <div>
+        <h3>On the bar</h3>
+        <ul>
+          <li>Guinness <small>&mdash; poured properly</small></li>
+          <li>Swiss craft beer</li>
+          <li>Wine by the glass</li>
+          <li>Single malts</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Bar snacks</h3>
+        <ul>
+          <li>Chicken wings</li>
+          <li>Fries</li>
+          <li>Nachos</li>
+          <li>Toasties</li>
+          <li>Pies</li>
+        </ul>
+        <p class="note">Snacks only, no full kitchen.</p>
+      </div>
     </div>
-    <div>
-      <p class="note">No booking system. For a table on a busy match night, or to hire the pub, ring us. We answer the phone.</p>
+    <img class="shot band-photo" src="assets/photos/interior-2.jpg" width="1600" height="1200"
+         alt="The bar: taps including Guinness and Kilkenny, with the spirits shelf behind.">
+    <p class="caption">Placeholder from the old site. To be replaced.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="inner">
+    <h2>The pub</h2>
+    <p class="kicker">Two minutes from the station</p>
+    <div class="cols">
+      <div>
+        <img class="shot tall" src="assets/photos/interior-1.jpg" width="1600" height="1200"
+             alt="Corner of the pub: a buttoned leather banquette under framed prints, with a screen above.">
+        <p class="caption">Placeholder from the old site. To be replaced.</p>
+      </div>
+      <div>
+        <p>A proper British pub in a village of five thousand people. People meet here halfway between Zurich and Zug, watch the match, and stay for a whisky.</p>
+        <p>Live Irish music now and then. The whole pub can be hired for private parties. Ring Paul on <a href="tel:+41433885508">043 388 55 08</a>.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="legal">
-  <h2>Operator details</h2>
-  <p class="kicker">Impressum &amp; privacy</p>
-  <div class="cols">
-    <div>
-      <h3>Impressum</h3>
-      <address class="addrblock">
-        <span class="todo">[Legal name of the operator]</span><br>
-        Big Ben Pub<br>
-        Alte Landstrasse 20<br>
-        8942 Oberrieden, Switzerland
-      </address>
-      <p>Telephone: 043 388 55 08<br>
-      Email: <span class="todo">[contact@domain.ch]</span><br>
-      <span class="todo">[UID CHE-xxx.xxx.xxx, if entered on the commercial register]</span></p>
-      <p class="note">Responsible for content: <span class="todo">[name]</span></p>
-    </div>
-    <div>
-      <h3>Privacy</h3>
-      <p>This site sets no cookies of its own and uses no analytics. The map on the <a href="getting-here.html">Getting here</a> page is loaded from Google and may set Google&rsquo;s cookies; no other page embeds anything from a third party. When you open a page, our host records ordinary connection data including your IP address for security and server operation, kept for <span class="todo">[X]</span> days. Nothing else is collected.</p>
-      <p>If you telephone or write to us, we use what you tell us only to answer you. You have the right to ask what we hold and to have it corrected. Write to the address above.</p>
+<section class="band dark find">
+  <div class="inner">
+    <h2>Finding us</h2>
+    <p class="kicker">Oberrieden Dorf</p>
+    <div class="cols">
+      <div>
+        <dl>
+          <dt>Address</dt><dd>Alte Landstrasse 20<br>8942 Oberrieden ZH</dd>
+          <dt>Train</dt><dd>Oberrieden Dorf, two minutes on foot</dd>
+          <dt>S-Bahn</dt><dd>About 15 minutes from Zurich and from Zug</dd>
+          <dt>Phone</dt><dd><a href="tel:+41433885508">043 388 55 08</a></dd>
+        </dl>
+        <a class="btn call" href="getting-here.html">Map and directions</a>
+      </div>
+      <div>
+        <p class="note">No booking system. For a table on a busy match night, or to hire the pub, ring us. We answer the phone.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="before">
-    <h2>Before this goes live</h2>
-    <p class="note">For the client. This block and the draft strip come off before publishing, and everything marked <span class="todo">like this</span> needs a real value.</p>
-    <ol>
-      <li>Legal operator name, an email address on the new domain, and the UID if the business is on the commercial register. Required by Art. 3(1)(s) UWG. The same details appear on both language pages.</li>
-      <li>The log retention period from whichever host is chosen, for the privacy paragraph.</li>
-      <li>Self-host the three typefaces, or fall back to system fonts. As it stands the pages pull fonts from Google, which sends the visitor&rsquo;s IP address to Google and contradicts the line about third parties.</li>
-      <li>New photography. The two shots on this page were lifted from the old site and are placeholders for this draft only. Ownership of them is unclear and they carry no licence, so they must be replaced before the site is presented as live or handed to anyone. The old logo is not used at all; the wordmark is set in type.</li>
-      <li>Confirm control of the Instagram handle before it is linked here, in print, or on the Google profile.</li>
-      <li>Replace the Google Maps search links with the pub&rsquo;s own profile short link.</li>
-      <li>Add <code>hreflang</code> tags between the two language pages once the domain exists, so Google serves the right one.</li>
-      <li>Create the public Google Calendar for match nights under the landlord&rsquo;s account, make it public, and put its calendar ID into the fixtures link on both pages. Until then the link goes nowhere.</li>
-      <li>Point the Google Business Profile website field at the new domain once it resolves.</li>
-    </ol>
+<section class="band legal">
+  <div class="inner">
+    <h2>Operator details</h2>
+    <p class="kicker">Impressum &amp; privacy</p>
+    <div class="cols">
+      <div>
+        <h3>Impressum</h3>
+        <address class="addrblock">
+          <span class="todo">[Legal name of the operator]</span><br>
+          Big Ben Pub<br>
+          Alte Landstrasse 20<br>
+          8942 Oberrieden, Switzerland
+        </address>
+        <p>Telephone: 043 388 55 08<br>
+        Email: <span class="todo">[contact@domain.ch]</span><br>
+        <span class="todo">[UID CHE-xxx.xxx.xxx, if entered on the commercial register]</span></p>
+        <p class="note">Responsible for content: <span class="todo">[name]</span></p>
+      </div>
+      <div>
+        <h3>Privacy</h3>
+        <p>This site sets no cookies of its own and uses no analytics. The map on the <a href="getting-here.html">Getting here</a> page is loaded from Google and may set Google&rsquo;s cookies; no other page embeds anything from a third party. When you open a page, our host records ordinary connection data including your IP address for security and server operation, kept for <span class="todo">[X]</span> days. Nothing else is collected.</p>
+        <p>If you telephone or write to us, we use what you tell us only to answer you. You have the right to ask what we hold and to have it corrected. Write to the address above.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="inner">
+    <div class="before">
+      <h2>Before this goes live</h2>
+      <p class="note">For the client. This block and the draft strip come off before publishing, and everything marked <span class="todo">like this</span> needs a real value.</p>
+      <ol>
+        <li>Legal operator name, an email address on the new domain, and the UID if the business is on the commercial register. Required by Art. 3(1)(s) UWG. The same details appear on both language pages.</li>
+        <li>The log retention period from whichever host is chosen, for the privacy paragraph.</li>
+        <li>Self-host the three typefaces, or fall back to system fonts. As it stands the pages pull fonts from Google, which sends the visitor&rsquo;s IP address to Google and contradicts the line about third parties.</li>
+        <li>New photography. The two shots on this page were lifted from the old site and are placeholders for this draft only. Ownership of them is unclear and they carry no licence, so they must be replaced before the site is presented as live or handed to anyone. The old logo is not used at all; the wordmark is set in type.</li>
+        <li>Confirm control of the Instagram handle before it is linked here, in print, or on the Google profile.</li>
+        <li>Replace the Google Maps search links with the pub&rsquo;s own profile short link.</li>
+        <li>Add <code>hreflang</code> tags between the two language pages once the domain exists, so Google serves the right one.</li>
+        <li>Create the public Google Calendar for match nights under the landlord&rsquo;s account, make it public, and put its calendar ID into the fixtures link on both pages. Until then the link goes nowhere.</li>
+        <li>Decide what happens to <strong>flowsight.ch/bigben-pub</strong>, which is currently the pub&rsquo;s official page and the target of the Google website field. Two live pages for one pub is worse than either one alone.</li>
+      </ol>
+    </div>
   </div>
 </section>
 
 <footer>
-  <span>Big Ben Pub &middot; Alte Landstrasse 20 &middot; 8942 Oberrieden ZH</span>
-  <span>No cookies. No tracking. No analytics.</span>
-  <a class="lang" href="de.html" hreflang="de" lang="de-CH">Deutsch</a>
+  <div class="inner">
+    <span>Big Ben Pub &middot; Alte Landstrasse 20 &middot; 8942 Oberrieden ZH</span>
+    <span>No cookies. No tracking. No analytics.</span>
+    <a href="de.html" hreflang="de" lang="de-CH">Deutsch</a>
+  </div>
 </footer>
-
-</div>
 
 <script src="assets/status.js"></script>
 </body>

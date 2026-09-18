@@ -1,155 +1,214 @@
+/* Big Ben Pub.
+   Palette and section rhythm follow flowsight.ch/bigben-pub, which is the pub's current
+   official page, so the two read as the same business: warm off-white ground, dark brown
+   bands, tan primary action, red for emphasis.
+
+   Every component styles itself from the semantic tokens below (--surface, --on-surface,
+   --accent and friends). A section marked .dark re-maps those tokens for its own subtree,
+   so the same markup works on either ground and nothing has to be restyled per band. */
+
 :root{
-  color-scheme:dark;
-  --ground:#1B1013;
-  --ground-2:#241519;
-  --ground-3:#2E1B20;
-  --cream:#F2E8D8;
-  --dim:#B9A38C;
-  --gold:#D8B356;
-  --gold-deep:#8E6E23;
-  --leaf-soft:#7FB394;
-  --rule:#3A2429;
+  color-scheme:light;
+
+  /* FlowSight palette, sampled from the live page */
+  --paper:#FAF8F5;
+  --paper-card:#FFFFFF;
+  --paper-sunk:#F3EEE6;
+  --ink:#1A1A1A;
+  --ink-muted:#6E6357;
+  --brown:#261B15;
+  --brown-deep:#1E1611;
+  --brown-card:#2A1F1A;
+  --cream:#F0E8DC;
+  --cream-muted:#A9998A;
+  --tan:#A2774B;
+  --tan-deep:#8A6239;
+  --tan-light:#C08F5C;
+  --red:#C0392B;
+  --line-light:#E5DDD2;
+  --line-dark:#3B2D24;
+
+  /* Semantic tokens. Components only ever read these. */
+  --surface:var(--paper);
+  --surface-card:var(--paper-card);
+  --surface-sunk:var(--paper-sunk);
+  --on-surface:var(--ink);
+  --on-surface-muted:var(--ink-muted);
+  --rule:var(--line-light);
+  /* FlowSight's tan sits at 3.8:1 on its own off-white, which fails AA for the small
+     uppercase labels it is used on. The darker tan of the same family reaches 5.2:1. */
+  --accent:var(--tan-deep);
+  --accent-ink:#FFFFFF;
+
+  --r-sm:8px;
+  --r-md:12px;
+  --r-pill:999px;
 }
+
+/* Every dark context re-maps the semantic tokens for its own subtree, so the same
+   markup works on either ground. The accent lightens here to clear 4.5:1 on brown. */
+.dark,.hero,.subhead,.topbar,footer{
+  --surface:var(--brown);
+  --surface-card:var(--brown-card);
+  --surface-sunk:var(--brown-deep);
+  --on-surface:var(--cream);
+  --on-surface-muted:var(--cream-muted);
+  --rule:var(--line-dark);
+  --accent:var(--tan-light);
+  --accent-ink:#241A14;
+}
+
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--ground);color:var(--cream);
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
   font-family:"Faustina",Georgia,"Times New Roman",serif;
   font-size:17px;line-height:1.6;
-  padding-inline:clamp(16px,5vw,40px);padding-block:0;
 }
-.wrap{max-width:900px;margin:0 auto}
-h1,h2,h3{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:800;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.02em}
 p{margin:0 0 14px}
-a{color:var(--gold)}
-a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3px}
 
-/* top bar: draft note on the left, language switch on the right */
-.topbar{
-  max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 20px;
-  align-items:baseline;justify-content:space-between;
-  border-bottom:1px solid var(--rule);padding-block:12px;
-}
-.draft{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.draft b{color:var(--gold);font-weight:600}
-.lang{
-  font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.16em;
-  text-transform:uppercase;font-weight:600;color:var(--gold);text-decoration:none;
-  border:1px solid var(--gold-deep);padding:5px 12px;
-}
-.lang:hover{border-color:var(--gold)}
+/* Full-bleed bands. Each band paints its own ground; .inner holds the gutter. */
+.band{background:var(--surface);color:var(--on-surface)}
+.inner{max-width:900px;margin:0 auto;padding-inline:clamp(16px,5vw,40px)}
 
-header{padding-block:clamp(28px,6vw,52px) 0}
-.plaque{
-  border:1px solid var(--gold-deep);
-  box-shadow:inset 0 0 0 5px var(--ground),inset 0 0 0 6px var(--gold-deep);
-  background:linear-gradient(180deg,#25161A 0%,#1B1013 100%);
-  padding:clamp(26px,6vw,50px) clamp(18px,5vw,44px);text-align:center;
+/* Top bar: Instagram pill left, wordmark centre, language pill right */
+.topbar{background:var(--brown-deep);color:var(--cream)}
+.topbar .inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:12px}
+.chip{
+  justify-self:start;display:inline-flex;align-items:center;gap:7px;
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;font-weight:600;
+  color:var(--cream);text-decoration:none;
+  background:var(--brown-card);border:1px solid var(--line-dark);
+  border-radius:var(--r-pill);padding:6px 13px;white-space:nowrap;
 }
-.addr{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin:0 0 18px}
-.wordmark{
-  font-size:clamp(50px,13vw,112px);line-height:.82;letter-spacing:-.015em;
-  color:var(--gold);text-shadow:0 2px 0 rgba(0,0,0,.55);margin:0;
+.chip:hover{border-color:var(--tan)}
+.chip.right{justify-self:end}
+.topmark{
+  font-family:"Bodoni Moda",Didot,Georgia,serif;font-weight:700;font-size:15px;line-height:1.05;
+  letter-spacing:.02em;text-transform:uppercase;text-align:center;color:var(--cream);text-decoration:none;
 }
-.rule-line{display:flex;align-items:center;gap:14px;margin:20px auto 0;max-width:420px}
-.rule-line::before,.rule-line::after{content:"";flex:1;height:1px;background:var(--gold-deep)}
-.rule-line span{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream)}
-.tagline{margin:14px 0 0;font-style:italic;color:var(--dim);font-size:19px}
+.draftline{background:var(--red);color:#fff;font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.draftline .inner{padding-block:7px}
+
+/* Hero */
+.hero{
+  /* The colour is the floor, not the gradient. If the photograph is missing, and it will
+     be when these placeholders are replaced, the hero must still be dark enough to read
+     cream text on it. */
+  background-color:var(--brown-deep);
+  background-image:linear-gradient(rgba(30,22,17,.70),rgba(30,22,17,.88)),url("photos/interior-1.jpg");
+  background-size:cover;background-position:center;
+  color:var(--cream);text-align:center;
+}
+.hero .inner{padding-block:clamp(52px,10vw,104px)}
+.eyebrow{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
+.wordmark{font-size:clamp(46px,11vw,92px);line-height:.9;letter-spacing:-.035em;color:var(--cream);margin:0}
+.tagline{margin:16px 0 0;font-size:20px;color:var(--cream-muted);font-style:italic}
 
 .status{
-  display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;justify-content:center;
-  margin-top:26px;font-family:"Archivo Narrow",Arial,sans-serif;font-size:20px;font-weight:600;letter-spacing:.02em;
+  display:inline-flex;flex-wrap:wrap;align-items:center;gap:9px;
+  margin-top:26px;padding:9px 18px;border-radius:var(--r-pill);
+  background:rgba(240,232,220,.08);border:1px solid var(--line-dark);
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;font-weight:600;color:var(--cream);
 }
-.status .dot{width:9px;height:9px;border-radius:50%;background:var(--dim)}
-.status.is-open .dot{background:var(--leaf-soft)}
-.status.is-open .s-txt{color:var(--leaf-soft)}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--cream-muted)}
+.status.is-open .dot{background:#5FBF7F}
+.status.is-open .s-txt{color:#8FD6A6}
 
-.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
 .btn{
-  display:inline-block;padding:11px 20px;border:1px solid var(--gold-deep);color:var(--gold);
-  text-decoration:none;font-family:"Archivo Narrow",Arial,sans-serif;font-size:15px;
-  letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  display:inline-block;padding:11px 20px;border-radius:var(--r-sm);
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:14px;font-weight:600;letter-spacing:.05em;
+  text-decoration:none;border:1px solid var(--accent);color:var(--accent);background:transparent;
 }
-.btn.call{background:var(--gold);color:#22140F;border-color:var(--gold)}
-.btn:hover{border-color:var(--gold)}
+.btn.call{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.call:hover{background:var(--tan-deep);border-color:var(--tan-deep)}
+.btn:hover{background:rgba(162,119,75,.10)}
+.hero .btn{color:var(--cream);border-color:rgba(240,232,220,.35)}
+/* Must restate the colour: .hero .btn above has the same specificity and comes first,
+   so without this the filled button inherits cream on tan at 2.4:1. */
+.hero .btn.call{color:var(--accent-ink);border-color:var(--accent)}
 
-section{padding-block:clamp(34px,6vw,56px);border-top:1px solid var(--rule)}
-header+section{border-top:0}
-h2{font-size:clamp(28px,5vw,40px);line-height:1;margin-bottom:6px}
-.kicker{font-family:"Archivo Narrow",Arial,sans-serif;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:0 0 22px}
+/* Sections */
+.band .inner{padding-block:clamp(38px,7vw,68px)}
+h2{font-size:clamp(28px,5vw,40px);line-height:1.02;margin-bottom:8px}
+.kicker{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 24px;font-weight:600}
 
-.panel{background:var(--ground-2);border:1px solid var(--rule);border-left:3px solid var(--gold);padding:clamp(20px,4vw,30px)}
-.panel .big{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:clamp(21px,3.4vw,27px);line-height:1.3;margin:0 0 16px}
+.panel{background:var(--surface-card);border:1px solid var(--rule);border-radius:var(--r-md);padding:clamp(20px,4vw,30px)}
+.panel .big{font-family:"Bodoni Moda",Didot,Georgia,serif;font-size:clamp(21px,3.4vw,28px);line-height:1.25;letter-spacing:-.02em;margin:0 0 16px}
 .panel p:last-of-type{margin-bottom:0}
-.linkrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,44px)}
 @media (max-width:700px){.cols{grid-template-columns:1fr}}
 
-.hours{list-style:none;margin:0;padding:0;border:1px solid var(--rule);background:var(--ground-2)}
-.hours li{display:flex;align-items:baseline;padding:14px 16px;border-top:1px solid var(--rule)}
+/* Hours */
+.hours{list-style:none;margin:0;padding:0;border:1px solid var(--rule);border-radius:var(--r-md);background:var(--surface-card);overflow:hidden}
+.hours li{display:flex;align-items:baseline;padding:14px 18px;border-top:1px solid var(--rule)}
 .hours li:first-child{border-top:0}
-.hours li.shut .h{color:var(--dim)}
-.hours .d{font-family:"Archivo Narrow",Arial,sans-serif;font-size:16px;font-weight:600;letter-spacing:.04em}
-.hours .leaders{flex:1;min-width:16px;border-bottom:1px dotted var(--gold-deep);margin:0 10px 5px}
-.hours .h{font-family:"Archivo Narrow",Arial,sans-serif;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold)}
-.note{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;color:var(--dim);line-height:1.5;margin:0 0 12px}
+.hours li.shut .h{color:var(--on-surface-muted)}
+.hours .d{font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;font-weight:600}
+.hours .leaders{flex:1;min-width:16px;border-bottom:1px dotted var(--rule);margin:0 12px 5px}
+.hours .h{font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent)}
+.note{font-family:"Geist",system-ui,Arial,sans-serif;font-size:14px;color:var(--on-surface-muted);line-height:1.55;margin:0 0 12px}
 .note:last-child{margin-bottom:0}
 
-.menu h3{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+/* Menu */
+.menu h3{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
 .menu ul{list-style:none;margin:0 0 20px;padding:0}
-.menu li{padding:5px 0;border-bottom:1px solid var(--rule);font-size:17px}
+.menu li{padding:7px 0;border-bottom:1px solid var(--rule);font-size:17px}
 .menu li:last-child{border-bottom:0}
-.menu li small{color:var(--dim);font-size:14px;font-style:italic}
+.menu li small{color:var(--on-surface-muted);font-size:14px;font-style:italic}
 
-.photo{
-  border:1px dashed var(--gold-deep);aspect-ratio:3/2;max-width:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  background:var(--ground-2);text-align:center;padding:16px;
-}
-.photo .tag{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.photo .sub{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;color:var(--dim);max-width:34ch;line-height:1.45}
-
-/* Photographs. Currently placeholders taken from the old site for the mock-up;
-   they are gitignored and never published. Swap for new photography. */
-/* height:auto is load-bearing. The width/height attributes on the img give the box a
-   definite height, which silently defeats aspect-ratio and renders the photo full size. */
-.shot{display:block;width:100%;height:auto;max-width:100%;object-fit:cover;background:var(--ground-2);border:1px solid var(--gold-deep)}
+/* Photographs */
+.shot{display:block;width:100%;height:auto;max-width:100%;object-fit:cover;background:var(--surface-sunk);border-radius:var(--r-md)}
 .shot.tall{aspect-ratio:3/2}
-.shot.band{aspect-ratio:24/7;object-position:center 38%;margin-top:30px}
-.caption{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.05em;color:var(--dim);margin:8px 0 0}
+.shot.band-photo{aspect-ratio:24/7;object-position:center 38%;margin-top:30px}
+.caption{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;color:var(--on-surface-muted);margin:8px 0 0}
 
-/* Sub-page header, for pages that are not the front page */
-header.sub{padding-block:clamp(26px,5vw,46px) 26px;border-bottom:1px solid var(--rule)}
-.back{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--gold);text-decoration:none}
+/* Find us */
+.find dl{display:grid;grid-template-columns:auto 1fr;gap:12px 20px;margin:0 0 20px}
+.find dt{font-family:"Geist",system-ui,Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-muted);padding-top:5px;font-weight:600}
+.find dd{margin:0;font-size:17px}
+
+/* Legal */
+.legal{font-size:15px;line-height:1.6}
+.legal h3{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.legal p{margin:0 0 12px}
+.legal .addrblock{font-style:normal;margin:0 0 12px}
+.todo{color:var(--red);border-bottom:1px dashed var(--red);font-style:normal}
+.dark .todo{color:#E8836F;border-bottom-color:#E8836F}
+
+/* Client note */
+.before{border:1px solid var(--tan);border-left:4px solid var(--tan);background:var(--surface-card);border-radius:var(--r-md);padding:clamp(20px,4vw,28px)}
+.before h2{font-size:26px;color:var(--accent);margin-bottom:12px}
+.before ol{margin:0;padding-left:20px;font-size:16px}
+.before li{margin-bottom:10px}
+.before li::marker{color:var(--accent);font-family:"Geist",system-ui,Arial,sans-serif;font-weight:700}
+
+/* Sub-page header */
+.subhead{background:var(--brown);color:var(--cream)}
+.subhead .inner{padding-block:clamp(30px,6vw,52px)}
+.back{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--tan);text-decoration:none}
 .back:hover{text-decoration:underline}
-header.sub h1{font-size:clamp(34px,6vw,54px);line-height:.95;margin:16px 0 6px;color:var(--cream)}
+.subhead h1{font-size:clamp(34px,6vw,54px);line-height:.98;margin:16px 0 8px;color:var(--cream)}
 
-/* Map. Loads with the page, so the Getting here page does embed Google content and the
-   privacy notice on the front pages says so. */
-.mapwrap{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--gold-deep);background:var(--ground-2)}
+/* Map */
+.mapwrap{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border-radius:var(--r-md);border:1px solid var(--rule);background:var(--surface-sunk)}
 .mapwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 @media (max-width:700px){.mapwrap{aspect-ratio:4/3}}
 
-.find dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:0 0 18px}
-.find dt{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:4px}
-.find dd{margin:0;font-size:17px}
-
-.legal{font-size:15px;line-height:1.55}
-.legal h3{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
-.legal p{margin:0 0 12px}
-.legal .addrblock{font-style:normal;margin:0 0 12px}
-.todo{color:#E8A87C;border-bottom:1px dashed #E8A87C;font-style:normal}
-
-.before{border:1px solid var(--gold-deep);background:var(--ground-3);padding:clamp(20px,4vw,28px)}
-.before h2{font-size:26px;color:var(--gold);margin-bottom:12px}
-.before ol{margin:0;padding-left:20px;font-size:16px}
-.before li{margin-bottom:9px}
-.before li::marker{color:var(--gold);font-family:"Archivo Narrow",Arial,sans-serif;font-weight:700}
-
-footer{
-  border-top:1px solid var(--rule);padding-block:26px 40px;
-  font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;color:var(--dim);
-  display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center;
+/* Footer */
+footer{background:var(--brown-deep);color:var(--cream-muted)}
+footer .inner{
+  padding-block:28px 36px;font-family:"Geist",system-ui,Arial,sans-serif;font-size:13px;
+  display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;
 }
+footer a{color:var(--cream)}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
