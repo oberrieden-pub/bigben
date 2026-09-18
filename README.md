@@ -1,4 +1,4 @@
-# Big Ben Pub, Oberrieden — two-page site
+# Big Ben Pub, Oberrieden — oberrieden.pub
 
 Static files. No build step, no dependencies, no server-side code.
 
@@ -15,12 +15,14 @@ the top right of each page and in the footer.
 | --- | --- |
 | `index.html` | English page. |
 | `de.html` | German page. Swiss spelling, so `ss` rather than `ß`. |
+| `getting-here.html` | Map and directions, English. |
+| `anfahrt.html` | Map and directions, German. |
 | `assets/site.css` | All styling, shared by both pages. Edit once, both change. |
 | `assets/status.js` | The open/closed line. Shared. Language comes from `data-lang`. |
 | `assets/photos/` | **Placeholders taken from the old site.** Unlicensed. Replace. |
 | `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
 | `google-sites/` | Everything needed to rebuild this in Google Sites instead. |
-| `CNAME` | Not committed. Add it only when the custom domain is settled. |
+| `CNAME` | Binds GitHub Pages to `oberrieden.pub`. |
 
 ## Publishing on GitHub Pages
 
@@ -74,32 +76,49 @@ cannot do this; see below.
   claim that the site embeds nothing from third parties. See `google-sites/BUILD-SHEET.md`,
   which has the full trade-off and paste-ready copy for both languages.
 
-## Before it goes live
+## The business, for the record
 
-Each page carries a visible "Before this goes live" block, and the placeholders in the
-Impressum are marked in orange. Both must be filled in or removed. In short:
+| | |
+|---|---|
+| Operator | The luck of the Irish GmbH, trading as Big Ben Pub |
+| UID | CHE-157.131.031 (SHAB, new entry 26.02.2024) |
+| Managing director | Paul Michael Tischler, sole signatory |
+| Address | Alte Landstrasse 20, 8942 Oberrieden ZH |
+| Phone | 043 388 55 08 (landline, to be redirected to Paul's mobile) |
+| Stale phone | 044 722 20 62 — still circulating on third-party listings, not ours |
+| Instagram | @bigbenpubzh — confirmed correct, the other handle is to be closed |
+| Facebook | Big Ben Pub Oberrieden — confirmed correct |
+| Hours | Confirmed with the landlord 13 September 2026 |
 
-1. Legal operator name, contact email on the new domain, UID if registered.
-2. Host's log retention period, for the privacy paragraph.
-3. **Self-host the fonts.** The pages currently load Bodoni Moda, Faustina and Archivo
-   Narrow from `fonts.googleapis.com`, which discloses the visitor's IP address to Google
-   and contradicts the pages' own claim to embed nothing from third parties. Either
-   download the woff2 files into `assets/fonts/` and swap the `<link>` for a local
-   `@font-face` block, or delete the `<link>` and let the fallback stacks do the work.
-4. **Replace the photographs.** The two shots in `assets/photos/` were taken from the
+Hours, phone, food and handles all come from the landlord's own review notes, so the site
+is not guessing at any of them.
+
+## Still open
+
+1. **An email address on the domain.** The only placeholder left on the page, and the
+   Impressum is legally incomplete without it. Cloudflare Email Routing is free and would
+   forward `info@oberrieden.pub` to Paul's own address in about five minutes. Nothing else
+   is needed, since the site has no contact form.
+2. **Replace the photographs.** The two shots in `assets/photos/` were taken from the
    previous owner's site so the layout could be seen with real images in it. They carry no
-   licence and ownership is unclear, so they must be replaced with new photography before
-   this is presented as live or handed to anyone. Strip EXIF from the replacements: the
-   originals arrived as 5 MB phone files carrying GPS coordinates. The old logo is not used
-   at all; the wordmark is set in type.
-5. Create the public Google Calendar for match nights and put its ID into the fixtures link
-   on both pages. The link is a placeholder and currently goes nowhere.
-5. Confirm control of the Instagram handle before linking it anywhere permanent.
-6. Replace the Google Maps search links with the pub's own profile short link.
-7. Add `hreflang` tags between the two pages once the domain exists, so Google serves the
-   right language.
-8. Have a native speaker read the German page aloud once.
-9. Remove the draft strip and the "Before this goes live" section from both pages.
+   licence. Strip EXIF from the replacements: the originals were 5 MB phone files carrying
+   GPS coordinates. Both are captioned as placeholders on the page until then.
+3. **Self-host the fonts.** The pages pull Bodoni Moda, Faustina and Geist from
+   `fonts.googleapis.com`, which discloses each visitor's IP address to Google.
+4. **Remove the `noindex` tag** from all four pages when the site should be findable. Until
+   then Google will not list it at all. This is deliberate, not an oversight.
+5. **Decide what happens to flowsight.ch/bigben-pub**, which is currently the official page
+   and the target of the Google Business Profile website field. Two live pages for one pub
+   is worse than either alone.
+6. **Parking**, if there is anything to say. The row was removed from the getting-here page
+   rather than shipped empty.
+7. **A fixtures calendar**, if wanted. The link was removed because it pointed at a
+   calendar that does not exist. It goes back the moment one does.
+8. **Confirm control of the Instagram account**, as distinct from the handle being correct.
+9. **Have a native speaker read the German page aloud once.** Swiss spelling throughout,
+   `ss` not `ß`, but it has not been checked by a native speaker.
+10. **Replace the two Google Maps search links** with the pub's own profile short link.
+
 
 ## Notes on the code
 
@@ -109,7 +128,10 @@ Impressum are marked in orange. Both must be filled in or removed. In short:
 - Hours are written in three places: the `hours` object in `assets/status.js`, and the
   visible table on each page. Change all three together. Regular hours change rarely;
   day-to-day variation belongs on the Google profile, not here.
-- No cookies, no storage, no analytics, no forms, nothing embedded.
+- No cookies, no storage, no analytics, no forms. The only embedded third-party content
+  is the Google map on the getting-here pages, which the privacy notice declares.
+- `canonical` and `hreflang` tags point at the live domain, so Google serves the right
+  language. They hard-code `https://oberrieden.pub/`; change them if the domain changes.
 
 ## Local preview
 
