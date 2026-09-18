@@ -303,13 +303,14 @@ footer a.social:hover{text-decoration:underline}
 
 /* A paragraph that runs the full width of the band. Sized up so the line does
    not stretch to 110 characters, which is what 17.5px across 900px would give. */
-/* Full width, but flowed over two columns so the line length stays readable
-   instead of running the whole 820px of the band. */
+/* One paragraph across the full width. Columns were tried and dropped: on a
+   paragraph this short they split it mid-sentence, so the reader finished a
+   clause at the bottom of one column and picked it up at the top of the next.
+   Sized up instead, which keeps the measure near 70 characters at 820px. */
 .lead{
-  font-size:19px;line-height:1.5;margin:0 0 4px;
-  column-count:2;column-gap:clamp(26px,4vw,48px);
+  font-size:clamp(19px,2.4vw,23px);line-height:1.45;
+  margin:0 0 4px;
 }
-@media (max-width:700px){.lead{column-count:1;font-size:18px}}
 
 /* The house boast. One line, centred, given room to be said out loud. */
 .claim{background:var(--brown-deep);color:var(--cream);text-align:center}
