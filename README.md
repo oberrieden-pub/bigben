@@ -17,6 +17,7 @@ the top right of each page and in the footer.
 | `de.html` | German page. Swiss spelling, so `ss` rather than `ß`. |
 | `assets/site.css` | All styling, shared by both pages. Edit once, both change. |
 | `assets/status.js` | The open/closed line. Shared. Language comes from `data-lang`. |
+| `assets/photos/` | **Placeholders taken from the old site.** Unlicensed. Replace. |
 | `.nojekyll` | Stops GitHub Pages running the files through Jekyll. |
 | `google-sites/` | Everything needed to rebuild this in Google Sites instead. |
 | `CNAME` | Not committed. Add it only when the custom domain is settled. |
@@ -67,8 +68,14 @@ Impressum are marked in orange. Both must be filled in or removed. In short:
    and contradicts the pages' own claim to embed nothing from third parties. Either
    download the woff2 files into `assets/fonts/` and swap the `<link>` for a local
    `@font-face` block, or delete the `<link>` and let the fallback stacks do the work.
-4. One new photograph of the bar. The old logo and interior photographs are not reused
-   here, because ownership of them is unclear.
+4. **Replace the photographs.** The two shots in `assets/photos/` were taken from the
+   previous owner's site so the layout could be seen with real images in it. They carry no
+   licence and ownership is unclear, so they must be replaced with new photography before
+   this is presented as live or handed to anyone. Strip EXIF from the replacements: the
+   originals arrived as 5 MB phone files carrying GPS coordinates. The old logo is not used
+   at all; the wordmark is set in type.
+5. Create the public Google Calendar for match nights and put its ID into the fixtures link
+   on both pages. The link is a placeholder and currently goes nowhere.
 5. Confirm control of the Instagram handle before linking it anywhere permanent.
 6. Replace the Google Maps search links with the pub's own profile short link.
 7. Add `hreflang` tags between the two pages once the domain exists, so Google serves the

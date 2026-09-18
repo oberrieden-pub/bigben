@@ -110,6 +110,15 @@ h2{font-size:clamp(28px,5vw,40px);line-height:1;margin-bottom:6px}
 .photo .tag{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 .photo .sub{font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;color:var(--dim);max-width:34ch;line-height:1.45}
 
+/* Photographs. Currently placeholders taken from the old site for the mock-up;
+   they are gitignored and never published. Swap for new photography. */
+/* height:auto is load-bearing. The width/height attributes on the img give the box a
+   definite height, which silently defeats aspect-ratio and renders the photo full size. */
+.shot{display:block;width:100%;height:auto;max-width:100%;object-fit:cover;background:var(--ground-2);border:1px solid var(--gold-deep)}
+.shot.tall{aspect-ratio:3/2}
+.shot.band{aspect-ratio:24/7;object-position:center 38%;margin-top:30px}
+.caption{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.05em;color:var(--dim);margin:8px 0 0}
+
 .find dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:0 0 18px}
 .find dt{font-family:"Archivo Narrow",Arial,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:4px}
 .find dd{margin:0;font-size:17px}
