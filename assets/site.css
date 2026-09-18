@@ -125,14 +125,10 @@ header.sub{padding-block:clamp(26px,5vw,46px) 26px;border-bottom:1px solid var(-
 .back:hover{text-decoration:underline}
 header.sub h1{font-size:clamp(34px,6vw,54px);line-height:.95;margin:16px 0 6px;color:var(--cream)}
 
-/* Map. The iframe is not loaded until the visitor asks for it, so the page keeps its
-   promise to embed nothing from third parties until they choose otherwise. */
+/* Map. Loads with the page, so the Getting here page does embed Google content and the
+   privacy notice on the front pages says so. */
 .mapwrap{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--gold-deep);background:var(--ground-2)}
 .mapwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.mapgate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}
-.mapgate p{max-width:44ch;margin:0;font-family:"Archivo Narrow",Arial,sans-serif;font-size:14px;color:var(--dim);line-height:1.5}
-.mapbtn{font-family:"Archivo Narrow",Arial,sans-serif;font-size:15px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#22140F;background:var(--gold);border:1px solid var(--gold);padding:11px 20px;cursor:pointer}
-.mapbtn:hover{background:var(--cream)}
 @media (max-width:700px){.mapwrap{aspect-ratio:4/3}}
 
 .find dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:0 0 18px}
