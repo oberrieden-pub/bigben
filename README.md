@@ -71,15 +71,27 @@ the DNS. Records, all **DNS only (grey cloud)**:
 | --- | --- | --- |
 | A | `@` | `185.199.108.153`, `.109.153`, `.110.153`, `.111.153` |
 | AAAA | `@` | `2606:50c0:8000::153` through `8003::153` |
-| CNAME | `www` | `thrd-gh.github.io` |
+| CNAME | `www` | `thrd-gh.github.io` — stale, see below |
 | MX + TXT | `@` | Cloudflare Email Routing, added by its own onboarding |
 
 **The grey cloud matters.** A proxied record stops GitHub issuing its TLS certificate, and
 Cloudflare's Flexible SSL mode would cause a redirect loop.
 
+The `www` CNAME still points at `thrd-gh.github.io`, where the repository used to live.
+It works, because GitHub Pages routes on the Host header rather than the CNAME target, but
+it is misleading. Repoint it at `oberrieden-pub.github.io` when convenient.
+
 **A trap worth knowing:** changing the Pages custom domain through the API makes GitHub
 commit to this repository itself (`Delete CNAME`, `Create CNAME`), so the next push is
 rejected as non-fast-forward. Rebase onto it rather than forcing.
+
+### Where this repository lives
+
+`github.com/oberrieden-pub/bigben`, in an organisation owned by Paul's account, so the
+site does not depend on any one person's personal account. It was moved here from
+`THRD-GH/bigben-pub`; GitHub redirects the old URL. A duplicate copy of the history also
+sits at `ptischler5-beep/bigben`, which is now redundant and should be deleted by its
+owner so there is one obvious source.
 
 ## The business, for the record
 
