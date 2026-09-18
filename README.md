@@ -50,7 +50,8 @@ Two rules that have already come up:
 
 - **Strip EXIF.** The originals arrive from a phone carrying GPS coordinates.
 - **Check for people.** Photographs with identifiable customers or musicians need their
-  consent before they go on a public site. The live-music set is excluded for this reason.
+  consent before they go on a public site. Consent for the live-music set is confirmed,
+  which is why it is in use. Anything new needs the same check.
 
 Also watch for Samsung's burnt-in "AI-generated content" label on edited shots. One
 supplied photo had a wall digitally rendered smooth that is actually bare concrete; the
@@ -108,6 +109,12 @@ owner so there is one obvious source.
 | Hours | Confirmed with the landlord 13 September 2026 |
 | Music | Live Irish music most Sundays, not every Sunday |
 
+**Everything on the site is ground truth, verified by the owner.** The written
+notes in the case folder cover hours, phone, socials and the snack list only;
+live music, darts, the sports shown, Guinness, parking and the bus were
+confirmed by him directly and are not in that file. A reviewer reading only the
+notes will flag them as unsourced. They are not.
+
 ## Still open
 
 1. **Remove the `noindex` tag** in `src/layouts/Base.astro` when the site should be
@@ -120,7 +127,8 @@ owner so there is one obvious source.
    mailbox. Not urgent: a pub is contacted by phone.
 4. **Self-host the fonts.** The pages pull Bodoni Moda, Faustina and Geist from
    `fonts.googleapis.com`, which discloses each visitor's IP address to Google.
-5. **Consent for the live-music photographs**, if you want to use them.
+5. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
+   are in use on both front pages.
 6. **Replace the Google Maps search links** with the pub's own profile short link.
 7. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
    `ss` not `ß`, but unchecked by a native speaker.
