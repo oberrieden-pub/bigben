@@ -38,6 +38,32 @@ export const pub = {
     "&pano=oul30Y3EKG8znOIA1lhdmw" +
     "&viewpoint=47.2788735,8.5749821" +
     "&heading=287.47&pitch=0&fov=80",
+  /* What is on, kept in one place: a Google Calendar the landlord owns.
+     The site does not list fixtures of its own and must not start; it only
+     points at this. An empty calendar shows an empty week, which is honest.
+     A fixture list on a page that nobody updates shows last season as though
+     it were tonight, which is how the previous site died.
+
+     id is the calendar's address, e.g. something@group.calendar.google.com.
+     Until it is filled in, nothing links to the calendar and no page loads
+     anything from Google beyond the map. A button was once shipped pointing
+     at a calendar that did not exist; do not repeat that. Requirements:
+     the calendar lives in the landlord's own Google account, is set public,
+     and its timezone is Europe/Zurich. */
+  calendar: {
+    id: "",
+    embed: (id: string, lang: Lang) =>
+      "https://calendar.google.com/calendar/embed" +
+      `?src=${encodeURIComponent(id)}` +
+      "&ctz=Europe/Zurich" +
+      `&hl=${lang}` +
+      /* Agenda, not month: a month grid of a quiet week looks abandoned,
+         whereas an agenda simply lists what there is. */
+      "&mode=AGENDA&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0",
+    /* Where the button sends someone who wants it in their own calendar. */
+    open: (id: string) =>
+      `https://calendar.google.com/calendar/u/0?cid=${encodeURIComponent(id)}`,
+  },
   directions: (mode: "transit" | "driving" | "walking") =>
     `https://www.google.com/maps/dir/?api=1&destination=Alte+Landstrasse+20%2C+8942+Oberrieden&travelmode=${mode}`,
 } as const;
