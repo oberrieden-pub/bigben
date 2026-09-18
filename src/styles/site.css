@@ -177,7 +177,9 @@ h2{font-size:clamp(28px,5vw,40px);line-height:1.02;margin-bottom:8px}
 .note:last-child{margin-bottom:0}
 
 /* Menu */
-.menu h3{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+/* These sit above their own lists, so they need to read as headings rather
+   than as another small label like the section kickers. */
+.menu h3{font-family:"Geist",system-ui,Arial,sans-serif;font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
 .menu ul{list-style:none;margin:0 0 20px;padding:0}
 .menu li{padding:7px 0;border-bottom:1px solid var(--rule);font-size:17px}
 .menu li:last-child{border-bottom:0}
