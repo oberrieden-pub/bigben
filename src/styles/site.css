@@ -309,3 +309,16 @@ footer a.social:hover{text-decoration:underline}
   column-count:2;column-gap:clamp(26px,4vw,48px);
 }
 @media (max-width:700px){.lead{column-count:1;font-size:18px}}
+
+/* The house boast. One line, centred, given room to be said out loud. */
+.claim{background:var(--brown-deep);color:var(--cream);text-align:center}
+.claim .inner{padding-block:clamp(30px,5vw,48px)}
+.claim-line{
+  font-family:"Bitter",Georgia,serif;font-weight:700;
+  font-size:clamp(26px,4.6vw,44px);line-height:1.1;letter-spacing:-.01em;
+  color:var(--sign-gold);margin:0;
+}
+.claim-sub{
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;
+  color:var(--cream-muted);margin:10px 0 0;
+}
