@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Builds print/banner.pptx: the wall banner as an editable PowerPoint.
 
-One slide per language, sized to the finished sign (281 x 92 mm) rather than
-to a sheet of paper, so what is on screen is what gets printed and every piece
-can be dragged, retyped or recoloured.
+One A4 landscape slide carrying both strips, German above and English below,
+so the whole thing is a single sheet through the printer and one cut with a
+guillotine. Every piece is a real shape and can be dragged, retyped or
+recoloured.
 
 Fonts are deliberately ones that ship with Office. The site's own faces
 (Bitter, Cabin, Geist) are web fonts, not installed on a normal machine, so
@@ -16,8 +17,9 @@ import pathlib
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_SHAPE
+from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+from pptx.enum.dml import MSO_LINE_DASH_STYLE
 from pptx.util import Mm, Pt
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -28,11 +30,16 @@ GOLD = RGBColor(0xDD, 0xBA, 0x7A)
 PAPER = RGBColor(0xFB, 0xF7, 0xF0)
 TAN = RGBColor(0x8A, 0x62, 0x39)
 
-W, H = 281, 92          # the finished sign, in mm
-BAR = 12                # fascia board
+PAGE_W, PAGE_H = 297, 210   # A4 landscape
+SHEET = 8                   # a printer cannot reach the paper edge
+W, H = 281, 92              # the finished sign, in mm
+BAR = 12                    # fascia board
 MARGIN = 14
 QRSIZE = 50
 QRX = W - MARGIN - QRSIZE
+# 8 + 92 = 100, cut at 105, second strip 110 to 202, 8mm left at the foot.
+STRIP_Y = (SHEET, 110)
+CUT_Y = 105
 
 CONTENT = [
     dict(quip="Neue Website. Immer noch das gleiche gute Bier.",
@@ -44,7 +51,7 @@ CONTENT = [
 ]
 
 NOTES = (
-    "Finished size 281 x 92 mm. Print at 100% scale with background graphics "
+    "One A4 landscape sheet, two strips, one cut. Finished size 281 x 92 mm each. Print at 100% scale with background graphics "
     "switched on, or the maroon bar will not appear.\n\n"
     "The QR code points at oberrieden.pub/review, which redirects to the pub's "
     "Google listing. If that Google link ever changes, the redirect is what "
@@ -90,43 +97,62 @@ def rect(slide, x, y, w, h, fill, line=None, line_pt=1):
     return shape
 
 
-prs = Presentation()
-prs.slide_width, prs.slide_height = Mm(W), Mm(H)
-blank = prs.slide_layouts[6]
+def strip(slide, oy, c):
+    """One finished sign, drawn at x=SHEET, y=oy."""
+    ox = SHEET
 
-for c in CONTENT:
-    slide = prs.slides.add_slide(blank)
-
-    bg = slide.background.fill
-    bg.solid()
-    bg.fore_color.rgb = PAPER
-
-    # The edge of the sign, so it reads as an object hung on a dark wall.
-    rect(slide, 0.5, 0.5, W - 1, H - 1, PAPER, line=MAROON, line_pt=1)
+    # The edge of the sign, so it reads as an object hung on a dark wall,
+    # and so the cut line is obvious.
+    rect(slide, ox, oy, W, H, PAPER, line=MAROON, line_pt=1)
     # The fascia board.
-    rect(slide, 0, 0, W, BAR, MAROON)
+    rect(slide, ox, oy, W, BAR, MAROON)
 
-    text(slide, MARGIN, 0, W - MARGIN * 2, BAR,
+    text(slide, ox + MARGIN, oy, W - MARGIN * 2, BAR,
          "BIG BEN PUB  ·  OBERRIEDEN DORF",
          font="Trebuchet MS", size=11.5, colour=GOLD, bold=True,
          spacing=3, anchor=MSO_ANCHOR.MIDDLE)
 
-    text(slide, MARGIN, 33, QRX - MARGIN - 6, 20, "oberrieden.pub",
+    text(slide, ox + MARGIN, oy + 33, QRX - MARGIN - 6, 20, "oberrieden.pub",
          font="Georgia", size=50, colour=MAROON, bold=True)
 
-    text(slide, MARGIN, 54.5, QRX - MARGIN - 6, 8, c["quip"],
+    text(slide, ox + MARGIN, oy + 54.5, QRX - MARGIN - 6, 8, c["quip"],
          font="Georgia", size=18, colour=TAN, bold=True)
 
-    text(slide, MARGIN, 64, QRX - MARGIN - 6, 7, c["ask"],
+    text(slide, ox + MARGIN, oy + 64, QRX - MARGIN - 6, 7, c["ask"],
          font="Calibri", size=14, colour=MAROON)
 
-    slide.shapes.add_picture(str(QR), Mm(QRX), Mm(23.5), Mm(QRSIZE), Mm(QRSIZE))
+    slide.shapes.add_picture(str(QR), Mm(ox + QRX), Mm(oy + 23.5),
+                             Mm(QRSIZE), Mm(QRSIZE))
 
-    text(slide, QRX - 8, 75, QRSIZE + 16, 6, c["cap"],
+    text(slide, ox + QRX - 8, oy + 75, QRSIZE + 16, 6, c["cap"],
          font="Trebuchet MS", size=10, colour=MAROON, bold=True,
          spacing=1.5, align=PP_ALIGN.CENTER)
 
-    slide.notes_slide.notes_text_frame.text = NOTES
+
+prs = Presentation()
+prs.slide_width, prs.slide_height = Mm(PAGE_W), Mm(PAGE_H)
+blank = prs.slide_layouts[6]
+
+slide = prs.slides.add_slide(blank)
+bg = slide.background.fill
+bg.solid()
+bg.fore_color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+
+for oy, c in zip(STRIP_Y, CONTENT):
+    strip(slide, oy, c)
+
+# Where to cut.
+line = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT,
+                                  Mm(SHEET), Mm(CUT_Y), Mm(SHEET + W), Mm(CUT_Y))
+line.line.color.rgb = RGBColor(0xC4, 0xBC, 0xB0)
+line.line.width = Pt(0.75)
+line.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+
+text(slide, SHEET + W - 60, CUT_Y - 5.5, 60, 5, "schneiden / cut",
+     font="Calibri", size=8, colour=RGBColor(0xA9, 0x9F, 0x92),
+     align=PP_ALIGN.RIGHT)
+
+slide.notes_slide.notes_text_frame.text = NOTES
 
 out = ROOT / "print" / "banner.pptx"
 prs.save(out)
