@@ -427,3 +427,11 @@ footer a.social{text-decoration:underline}
 }
 /* Stop the page scrolling behind the open dialog. */
 html.lb-open{overflow:hidden}
+
+/* A line that should catch the eye without shouting. Used beside the opening
+   hours, where the Sunday session is the thing worth noticing. */
+.highlight{
+  font-size:17px;line-height:1.5;margin:20px 0 0;
+  border-left:3px solid var(--accent);padding:4px 0 4px 14px;
+}
+.highlight strong{color:var(--accent);font-weight:600}
