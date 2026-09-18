@@ -4,7 +4,11 @@
 
 export const pub = {
   name: "Big Ben Pub",
-  legalName: "The luck of the Irish GmbH",
+  // The commercial register (SHAB, 26.02.2024) files this with a lowercase "l":
+  // "The luck of the Irish GmbH". Capitalised here as the landlord asked. It
+  // identifies the same company either way, but if anyone ever wants the
+  // Impressum to match the register letter for letter, this is the line.
+  legalName: "The Luck of the Irish GmbH",
   uid: "CHE-157.131.031",
   director: "Paul Michael Tischler",
   street: "Alte Landstrasse 20",
