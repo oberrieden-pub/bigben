@@ -16,7 +16,9 @@ export const pub = {
   town: "Oberrieden",
   canton: "ZH",
   country: { en: "Switzerland", de: "Schweiz" },
-  phoneDisplay: "043 388 55 08",
+  // Shown in international form so it is obvious the pub is in Switzerland.
+  // The leading 0 of the area code drops when +41 is used.
+  phoneDisplay: "+41 43 388 55 08",
   phoneHref: "tel:+41433885508",
   email: "bigben@oberrieden.pub",
   instagram: "https://www.instagram.com/bigbenpubzh/",
