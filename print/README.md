@@ -1,5 +1,18 @@
 # Print
 
+Two formats of the same sign:
+
+- `banner.html` - finished, print straight from a browser
+- `banner.pptx` - the same thing editable, one slide per language, the slide
+  sized to the finished sign rather than to a sheet of paper
+
+Keep them in step: both are generated, `make-banner.py` for the HTML and
+`make-banner-pptx.py` for the deck, and the wording lives in both scripts.
+
+The deck uses Georgia and Trebuchet MS rather than the site's own Bitter and
+Cabin. Those are web fonts and are not installed on a normal machine, so naming
+them would only produce a silent substitution that looks wrong.
+
 `banner.html` — one A4 **landscape** sheet holding two banner strips, 281 x 92 mm.
 Top strip German, bottom strip English. One cut across the middle gives one of each.
 
