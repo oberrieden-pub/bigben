@@ -36,7 +36,7 @@ def qr(data):
     # the minimum a phone camera will reliably lock onto.
     segno.make(data, error="m").save(
         buf, kind="svg", xmldecl=False, svgns=True, border=2,
-        dark="#1E1611", svgclass=None, lineclass=None, scale=1,
+        dark="#531C23", svgclass=None, lineclass=None, scale=1,
     )
     svg = buf.getvalue().decode("utf-8")
     # segno writes width/height and no viewBox, so CSS resizes the element but
@@ -59,6 +59,7 @@ for token, value in (
     ("__CABIN__", font("cabin-600-latin.woff2")),
     ("__BITTER__", font("bitter-700-latin.woff2")),
     ("__GEIST6__", font("geist-600-latin.woff2")),
+    ("__QR_SITE__", qr(SITE)),
     ("__QR_REVIEW__", qr(REVIEW)),
 ):
     html = html.replace(token, value)

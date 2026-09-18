@@ -22,9 +22,16 @@ The fonts are embedded and the QR is inline SVG, so `banner.html` is a single
 self-contained file that prints correctly on a machine with no network and none
 of the pub's typefaces installed.
 
-## The QR code
+## Colour
 
-It points at `https://oberrieden.pub/review`, not straight at Google. That page
+Light ground, maroon type. The sign goes on a dark wall, so a maroon panel
+would sink into it and a cream one reads as a sign hung on it. It also uses a
+fraction of the toner.
+
+## The QR codes
+
+Two: the site, and the review link. The review one points at
+`https://oberrieden.pub/review`, not straight at Google. That page
 (`src/pages/review/index.astro`) redirects. Three reasons:
 
 - it is short enough to print as readable text as well
@@ -32,8 +39,10 @@ It points at `https://oberrieden.pub/review`, not straight at Google. That page
 - if the Google link ever changes, that one file changes and **every printed
   banner keeps working**
 
-At 36 mm the code is comfortable at arm's length, which suits a spot by the
-door or on the bar. It is not a code to be scanned from across the room.
+Both are 38 mm, maroon on cream, which measures 12.6:1 - well inside what a
+phone camera reads. That size is comfortable at arm's length, which suits a
+spot by the door or on the bar. It is not a code to be scanned from across the
+room; the printed address is there for that.
 
 ## Before it goes up
 

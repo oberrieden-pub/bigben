@@ -5,70 +5,68 @@
 /* A4 landscape, one cut across the middle: two banner strips, 281 x 92 mm.
    Top strip German, bottom strip English, so one sheet gives one of each.
 
-   Margins of 8mm rather than full bleed, because an office printer cannot
-   print to the paper edge and a full-bleed maroon comes out with white edges
-   that make the cut line impossible to follow.
+   Light ground, because the sign goes on a dark wall: a maroon panel would
+   sink into it, a cream one reads as a sign hung on it. The maroon is kept
+   for the header bar and the type, which also means a fraction of the toner
+   and a crisper result from an office printer.
 
-   One code only, for the review link. Everything else is text, because text
-   reads from across the room and a QR does not. */
+   Margins of 8mm rather than full bleed: a printer cannot reach the paper
+   edge, and a full-bleed ground comes out with white edges that make the cut
+   line impossible to follow. */
 @page { size: A4 landscape; margin: 8mm; }
 
 @font-face{font-family:"Cabin";src:url(data:font/woff2;base64,__CABIN__) format("woff2");font-weight:600;font-display:block}
 @font-face{font-family:"Bitter";src:url(data:font/woff2;base64,__BITTER__) format("woff2");font-weight:700;font-display:block}
 @font-face{font-family:"Geist";src:url(data:font/woff2;base64,__GEIST6__) format("woff2");font-weight:600;font-display:block}
 
-:root{ --maroon:#531C23; --gold:#DDBA7A; --cream:#F0E8DC; }
+:root{ --maroon:#531C23; --gold:#DDBA7A; --paper:#FBF7F0; --tan:#8A6239; }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#fff}
 body{
   font-family:"Geist",system-ui,Arial,sans-serif;
-  /* Without this the maroon prints as nothing in most browsers. */
+  /* Without this the header bar prints as nothing in most browsers. */
   -webkit-print-color-adjust:exact; print-color-adjust:exact;
 }
 
 .sheet{width:281mm;display:flex;flex-direction:column;gap:6mm}
 
 .strip{
-  width:281mm;height:92mm;background:var(--maroon);color:var(--cream);
-  display:grid;grid-template-columns:1fr 74mm 46mm;align-items:center;
-  gap:11mm;padding:12mm 14mm;
-  border-top:2mm solid var(--gold);
+  width:281mm;height:92mm;background:var(--paper);color:var(--maroon);
+  display:flex;flex-direction:column;overflow:hidden;
+  /* Defines the edge of the sign against a dark wall. */
+  border:.5mm solid var(--maroon);
 }
 
-.eyebrow{
+/* The fascia board, reduced to a bar. */
+.bar{
+  background:var(--maroon);color:var(--gold);
   font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
-  font-size:9pt;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--gold);margin:0 0 5mm;
+  font-size:10pt;letter-spacing:.28em;text-transform:uppercase;
+  padding:3.6mm 14mm;flex:0 0 auto;
 }
+
+.body{
+  flex:1 1 auto;display:grid;grid-template-columns:1fr 42mm 42mm;
+  align-items:center;gap:9mm;padding:0 14mm;
+}
+
 .url{
   font-family:"Bitter",Georgia,serif;font-weight:700;
   font-size:44pt;line-height:1;letter-spacing:-.02em;
-  color:var(--cream);margin:0;
+  color:var(--maroon);margin:0;
 }
-/* The joke. Gold so it reads as the pub talking, not as a caption. */
+/* The joke. */
 .quip{
   font-family:"Bitter",Georgia,serif;font-weight:700;
-  font-size:15pt;line-height:1.25;color:var(--gold);margin:6mm 0 0;
+  font-size:15pt;line-height:1.25;color:var(--tan);margin:5mm 0 0;
 }
+.ask{font-size:11.5pt;line-height:1.35;color:var(--maroon);margin:4mm 0 0}
 
-.ask{border-left:.6mm solid rgba(221,186,122,.45);padding-left:8mm}
-.ask p{
-  font-family:"Bitter",Georgia,serif;font-weight:700;
-  font-size:15pt;line-height:1.3;margin:0;color:var(--cream);
-}
-.ask .short{
-  font-family:"Geist",system-ui,Arial,sans-serif;font-weight:600;
-  font-size:11pt;letter-spacing:.02em;color:var(--gold);margin:6mm 0 0;
-}
-
-.tile{
-  background:var(--cream);border-radius:1.5mm;padding:4mm 4mm 3.5mm;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;
-}
-/* Dark on light whatever the strip does, or phones will not lock onto it. */
-.tile svg{width:100%;max-width:36mm;height:auto;display:block}
-.tile .cap{
+.code{display:flex;flex-direction:column;align-items:center;gap:2.5mm}
+/* Maroon on the cream ground measures 12.6:1, which any phone reads. */
+.code svg{width:100%;max-width:38mm;height:auto;display:block}
+.code .cap{
   font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
   font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;
   color:var(--maroon);text-align:center;line-height:1.2;margin:0;
@@ -80,37 +78,37 @@ body{
   font-size:6.5pt;color:#C4BCB0;background:#fff;padding:0 2mm;
 }
 
-@media screen{ body{padding:10mm;background:#E9E6E1} .sheet{background:#fff;padding:8mm} }
+@media screen{ body{padding:10mm;background:#3A3330} .sheet{background:#fff;padding:8mm} }
 </style>
 
 <div class="sheet">
 
   <section class="strip">
-    <div>
-      <p class="eyebrow">Big Ben Pub · Oberrieden Dorf</p>
-      <p class="url">oberrieden.pub</p>
-      <p class="quip">Neue Website. Gleiches Bier.</p>
+    <div class="bar">Big Ben Pub · Oberrieden Dorf</div>
+    <div class="body">
+      <div>
+        <p class="url">oberrieden.pub</p>
+        <p class="quip">Neue Website. Gleiches Bier.</p>
+        <p class="ask">Hat es Ihnen gefallen? Sagen Sie es Google. Wenn nicht, dem Wirt.</p>
+      </div>
+      <div class="code">__QR_SITE__<p class="cap">Website</p></div>
+      <div class="code">__QR_REVIEW__<p class="cap">Bewerten</p></div>
     </div>
-    <div class="ask">
-      <p>Hat es Ihnen gefallen?<br />Sagen Sie es Google.<br />Wenn nicht, sagen Sie es dem Wirt.</p>
-      <p class="short">oberrieden.pub/review</p>
-    </div>
-    <div class="tile">__QR_REVIEW__<p class="cap">Bewerten</p></div>
   </section>
 
   <div class="cut"></div>
 
   <section class="strip">
-    <div>
-      <p class="eyebrow">Big Ben Pub · Oberrieden Dorf</p>
-      <p class="url">oberrieden.pub</p>
-      <p class="quip">New website. Same beer.</p>
+    <div class="bar">Big Ben Pub · Oberrieden Dorf</div>
+    <div class="body">
+      <div>
+        <p class="url">oberrieden.pub</p>
+        <p class="quip">New website. Same beer.</p>
+        <p class="ask">Enjoyed it? Tell Google. If not, tell the landlord.</p>
+      </div>
+      <div class="code">__QR_SITE__<p class="cap">Website</p></div>
+      <div class="code">__QR_REVIEW__<p class="cap">Review us</p></div>
     </div>
-    <div class="ask">
-      <p>Enjoyed it? Tell Google.<br />If not, tell the landlord.</p>
-      <p class="short">oberrieden.pub/review</p>
-    </div>
-    <div class="tile">__QR_REVIEW__<p class="cap">Review us</p></div>
   </section>
 
 </div>
