@@ -78,8 +78,12 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
 .band{background:var(--surface);color:var(--on-surface)}
 .inner{max-width:900px;margin:0 auto;padding-inline:clamp(16px,5vw,40px)}
 
-/* Top bar: Instagram pill left, wordmark centre, language pill right */
-.topbar{background:var(--brown-deep);color:var(--cream)}
+/* Top bar: Instagram pill left, wordmark centre, language pill right.
+   On the signboard maroon, so the header reads as the board above the door:
+   gold lettering on painted red, which is what is actually screwed to the wall. */
+.topbar{background:var(--sign-maroon);color:var(--cream)}
+.topbar .chip{background:#5E2129;border-color:#7A343D}
+.topbar .chip:hover{border-color:var(--sign-gold)}
 .topbar .inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:12px}
 .chip{
   justify-self:start;display:inline-flex;align-items:center;gap:7px;
