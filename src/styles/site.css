@@ -117,7 +117,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
   background:linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));
 }
 .hero .inner{padding-block:clamp(52px,10vw,104px)}
-.eyebrow{font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;font-family:"Cabin",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
+.eyebrow{font-family:"Cabin",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sign-gold);margin:0 0 16px;font-weight:600}
 /* The wordmark follows the pub's own fascia board: humanist caps, widely
    tracked, gold on a dark ground. */
 .wordmark{
@@ -126,7 +126,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
   letter-spacing:.07em;text-transform:uppercase;
   color:var(--sign-gold);margin:0;
 }
-.tagline{margin:16px 0 0;font-size:20px;color:var(--cream-muted);font-style:italic}
+.tagline{margin:16px 0 0;font-size:20px;color:var(--cream);font-style:italic}
 
 .status{
   display:inline-flex;flex-wrap:wrap;align-items:center;gap:9px;
@@ -369,3 +369,61 @@ footer a.social:hover{text-decoration:underline}
 .claim-sub{color:#E3C9AE}
 footer{background:var(--sign-maroon);color:#E3C9AE}
 footer a{color:var(--cream)}
+
+/* Text sitting on a photograph cannot rely on the muted tones: measured against
+   the lightest parts of the shot they fell to 2.6-2.9:1. Over photographs the
+   small text takes full cream, and the phone crop gets a heavier scrim because
+   object-fit zooms into the brightest area of the frame. */
+.hero .eyebrow,.band.has-photo .kicker{color:var(--sign-gold)}
+.band.has-photo .note,.band.has-photo li small,.band.has-photo .caption{color:var(--cream)}
+@media (max-width:700px){
+  .hero::after{background:linear-gradient(rgba(30,22,17,.74),rgba(30,22,17,.90))}
+  .band.has-photo::after{background:linear-gradient(rgba(24,17,13,.76),rgba(24,17,13,.88))}
+}
+
+/* Tap targets. The phone number in Finding us was 22px high and is the single
+   most important thing on the page to be able to hit. */
+.find dd a,footer a{display:inline-block;padding-block:12px}
+.back{display:inline-block;padding-block:14px;color:var(--accent)}
+.chip{padding:11px 14px;white-space:normal}
+.topmark{display:inline-block;padding-block:6px}
+.btn{padding-block:14px}
+footer a.social{text-decoration:underline}
+
+/* Body-sized text. .note carries real travel instructions, not asides. */
+.note{font-size:16px}
+.legal{font-size:16px}
+.find dt{font-size:12px}
+
+/* 200% text zoom pushed the page sideways: the language chip and the times
+   could not wrap. */
+.hours li{flex-wrap:wrap}
+
+/* Two columns at 701-860px were narrower than the same content stacked. */
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+
+/* vw grows with width, so in landscape these were eating a short screen. */
+.hero .inner{padding-block:clamp(40px,8vmin,104px)}
+.scroller .photo-btn img{height:clamp(190px,26vmin,300px)}
+
+/* Skip link */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:20;
+  background:var(--sign-maroon);color:var(--cream);
+  padding:12px 18px;border:2px solid var(--sign-gold);
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;text-decoration:none;
+}
+.skip:focus{left:8px;top:8px}
+
+/* Lightbox: a bigger close target, a viewport unit that respects browser
+   chrome, and a landscape case where the caption was sliding under the toolbar. */
+.lb-close{width:48px;height:48px}
+.lightbox{height:100dvh;max-height:100dvh}
+.lb-figure{min-height:0}
+.lb-figure img{max-height:min(82vh,100%)}
+@media (orientation:landscape) and (max-height:520px){
+  .lb-figure{padding:8px 64px;gap:6px}
+  .lb-nav{width:44px;height:44px}
+}
+/* Stop the page scrolling behind the open dialog. */
+html.lb-open{overflow:hidden}

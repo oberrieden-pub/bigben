@@ -9,29 +9,35 @@ import Photo from "./Photo.astro";
 interface Props {
   items: { src: ImageMetadata; alt: string }[];
   label: string;
+  lang?: "en" | "de";
 }
-const { items, label } = Astro.props;
+const { items, label, lang = "en" } = Astro.props;
+const back = lang === "de" ? `${label}: zurück` : `${label}: back`;
+const fwd = lang === "de" ? `${label}: weiter` : `${label}: forward`;
 ---
 
-<div class="scroller-wrap">
-  <ul class="scroller" tabindex="0" role="region" aria-label={label}>
+<!-- role=region belongs on the scrolling container, not on the <ul>. Putting it
+     on the list stripped the list semantics, so nobody was told how many photos
+     there are or which one they were on. -->
+<div class="scroller-wrap" tabindex="0" role="region" aria-label={label}>
+  <ul class="scroller">
     {
       items.map((it) => (
         <li>
           <Photo
             src={it.src}
             alt={it.alt}
-            widths={[400, 700, 1100]}
-            sizes="(max-width: 520px) 80vw, 340px"
+            widths={[250, 400, 700, 1100]}
+            sizes="(max-width: 520px) 260px, 340px"
           />
         </li>
       ))
     }
   </ul>
-  <button type="button" class="scroll-btn prev" data-scroll="prev" aria-label={`${label}: back`}>
+  <button type="button" class="scroll-btn prev" data-scroll="prev" aria-label={back}>
     &lsaquo;
   </button>
-  <button type="button" class="scroll-btn next" data-scroll="next" aria-label={`${label}: forward`}>
+  <button type="button" class="scroll-btn next" data-scroll="next" aria-label={fwd}>
     &rsaquo;
   </button>
 </div>

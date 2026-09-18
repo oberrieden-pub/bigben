@@ -6,18 +6,18 @@ interface Props { lang: "en" | "de" }
 const { lang } = Astro.props;
 
 const copy = {
-  en: { close: "Close", prev: "Previous photo", next: "Next photo", of: "of" },
-  de: { close: "Schliessen", prev: "Vorheriges Foto", next: "Nächstes Foto", of: "von" },
+  en: { close: "Close", prev: "Previous photo", next: "Next photo", of: "of", name: "Photo viewer" },
+  de: { close: "Schliessen", prev: "Vorheriges Foto", next: "Nächstes Foto", of: "von", name: "Fotoansicht" },
 }[lang];
 ---
 
-<dialog id="lightbox" class="lightbox" aria-label={copy.close}>
+<dialog id="lightbox" class="lightbox" aria-label={copy.name}>
   <button type="button" class="lb-close" data-lb="close" aria-label={copy.close}>&times;</button>
   <button type="button" class="lb-nav lb-prev" data-lb="prev" aria-label={copy.prev}>&lsaquo;</button>
   <button type="button" class="lb-nav lb-next" data-lb="next" aria-label={copy.next}>&rsaquo;</button>
   <figure class="lb-figure">
     <img id="lb-img" alt="" />
-    <figcaption id="lb-cap"></figcaption>
+    <figcaption id="lb-cap" role="status" aria-live="polite"></figcaption>
   </figure>
 </dialog>
 
@@ -28,9 +28,20 @@ const copy = {
     var cap = document.getElementById("lb-cap");
     if (!dlg || !img || !cap || typeof dlg.showModal !== "function") return;
 
-    var buttons = Array.prototype.slice.call(document.querySelectorAll(".photo-btn"));
-    if (!buttons.length) return;
+    var all = Array.prototype.slice.call(document.querySelectorAll(".photo-btn"));
+    if (!all.length) return;
+    var buttons = all;
     var index = 0;
+
+    /* Prev/next stays within the strip that was opened. Running through every
+       photo on the page meant arrowing out of the music strip and into the pub
+       one without any indication. */
+    function groupFor(btn) {
+      var strip = btn.closest(".scroller");
+      return strip
+        ? Array.prototype.slice.call(strip.querySelectorAll(".photo-btn"))
+        : [btn];
+    }
 
     /* Astro already generated several widths; take the biggest rather than
        building another file just for this. */
@@ -48,35 +59,67 @@ const copy = {
       index = (i + buttons.length) % buttons.length;
       var source = buttons[index].querySelector("img");
       if (!source) return;
+      var described = source.getAttribute("data-alt") || source.alt || "";
       img.src = largest(source);
-      img.alt = source.alt || "";
+      img.alt = "";
       cap.textContent =
-        (source.alt ? source.alt + "  " : "") +
+        (described ? described + "  " : "") +
         (index + 1) + " " + copy.of + " " + buttons.length;
     }
 
     buttons.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
-        show(i);
+        buttons = groupFor(btn);
+        show(buttons.indexOf(btn));
+        lock(true);
         dlg.showModal();
       });
     });
 
+    var fig = dlg.querySelector(".lb-figure");
+
+    /* The page is held still while the dialog is open. Releasing that lock on
+       the "close" event alone is not safe: if the event does not arrive the
+       page is left permanently unscrollable, which is far worse than the
+       problem being solved. So every path releases it directly, and the event
+       handlers below are only a backstop for Escape and native dismissal. */
+    function lock(on) {
+      document.documentElement.classList.toggle("lb-open", on);
+    }
+
+    function closeBox() {
+      lock(false);
+      img.removeAttribute("src");
+      img.alt = "";
+      if (dlg.open) dlg.close();
+    }
+
     dlg.addEventListener("click", function (e) {
       var action = e.target.getAttribute && e.target.getAttribute("data-lb");
-      if (action === "close") { dlg.close(); return; }
+      if (action === "close") { closeBox(); return; }
       if (action === "prev") { show(index - 1); return; }
       if (action === "next") { show(index + 1); return; }
-      /* A click on the backdrop lands on the dialog itself, not its contents. */
-      if (e.target === dlg) dlg.close();
+      /* The figure fills the dialog, so a tap on the dark area lands on it
+         rather than on the dialog. Without this there is no way out on a phone
+         except a corner button. */
+      if (e.target === dlg || e.target === fig || e.target === cap) closeBox();
     });
 
     dlg.addEventListener("keydown", function (e) {
       if (e.key === "ArrowLeft") { e.preventDefault(); show(index - 1); }
       if (e.key === "ArrowRight") { e.preventDefault(); show(index + 1); }
+      /* Close Escape ourselves rather than letting the dialog dismiss itself.
+         Native dismissal only tells us through the cancel and close events, and
+         if those do not arrive the page stays locked. */
+      if (e.key === "Escape") { e.preventDefault(); closeBox(); }
     });
 
-    /* Free the memory when it closes; these are large images. */
-    dlg.addEventListener("close", function () { img.removeAttribute("src"); });
+    /* Hold the page still while the dialog is open. Without this a vertical
+       swipe on the photo scrolls the document underneath, and closing leaves
+       you somewhere else entirely. */
+    /* Escape fires "cancel" before the dialog closes itself; "close" is the
+       belt to that pair of braces. */
+    dlg.addEventListener("cancel", function () { closeBox(); });
+    dlg.addEventListener("close", function () { closeBox(); });
   })();
 </script>

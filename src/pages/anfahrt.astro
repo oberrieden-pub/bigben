@@ -31,6 +31,7 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
         <iframe
           title="Karte mit dem Big Ben Pub an der Alten Landstrasse 20 in Oberrieden"
           src={pub.mapEmbed("de")}
+          loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen></iframe>
       </div>
@@ -86,6 +87,7 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
         </div>
         <div>
           <Photo
+            lang="de"
             class="shot tall"
             src={exteriorStreet}
             alt="Das Pub von der Alten Landstrasse aus, mit der roten Fassade."
@@ -117,6 +119,7 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
         </div>
         <div>
           <Photo
+            lang="de"
             class="shot tall"
             src={parkingSign}
             alt="Ein Schild mit der Aufschrift Parkplatz Big Ben Pub, nur für Gäste."

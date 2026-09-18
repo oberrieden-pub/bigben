@@ -75,6 +75,9 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     />
   </head>
   <body>
+    <a class="skip" href="#main">
+      {lang === "en" ? "Skip to content" : "Zum Inhalt springen"}
+    </a>
     <div class="topbar">
       <div class="inner">
         <a class="chip" href={pub.instagram}>
@@ -87,7 +90,9 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
       </div>
     </div>
 
-    <slot />
+    <main id="main">
+      <slot />
+    </main>
 
     <Lightbox lang={lang} />
 
@@ -101,16 +106,33 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
           wrap.querySelectorAll("[data-scroll]").forEach(function (btn) {
             btn.addEventListener("click", function () {
               var dir = btn.getAttribute("data-scroll") === "next" ? 1 : -1;
-              strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: "smooth" });
+              var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              strip.scrollBy({
+                left: dir * strip.clientWidth * 0.8,
+                behavior: calm ? "auto" : "smooth"
+              });
             });
           });
           function sync() {
             var max = strip.scrollWidth - strip.clientWidth - 4;
-            wrap.classList.toggle("at-start", strip.scrollLeft <= 4);
-            wrap.classList.toggle("at-end", strip.scrollLeft >= max);
+            var atStart = strip.scrollLeft <= 4;
+            var atEnd = strip.scrollLeft >= max;
+            wrap.classList.toggle("at-start", atStart);
+            wrap.classList.toggle("at-end", atEnd);
+            /* Faded is not disabled: a hidden button stayed tabbable and still
+               fired, so focus vanished onto something invisible. */
+            var prev = wrap.querySelector('[data-scroll="prev"]');
+            var next = wrap.querySelector('[data-scroll="next"]');
+            if (prev) prev.disabled = atStart;
+            if (next) next.disabled = atEnd;
           }
           strip.addEventListener("scroll", sync, { passive: true });
           window.addEventListener("resize", sync);
+          /* Lazy images change scrollWidth after first paint, which left the
+             forward arrow wrongly disabled on a slow load. */
+          strip.querySelectorAll("img").forEach(function (im) {
+            if (!im.complete) im.addEventListener("load", sync, { once: true });
+          });
           sync();
         });
       })();
