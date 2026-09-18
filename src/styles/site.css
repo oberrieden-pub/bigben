@@ -166,7 +166,7 @@ h2{font-size:clamp(28px,5vw,40px);line-height:1.02;margin-bottom:8px}
 .hours li:first-child{border-top:0}
 .hours li.shut .h{color:var(--on-surface-muted)}
 .hours .d{font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;font-weight:600}
-.hours .leaders{flex:1;min-width:16px;border-bottom:1px dotted var(--rule);margin:0 12px 5px}
+.hours .leaders{flex:1;min-width:16px}
 .hours .h{font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent)}
 .note{font-family:"Geist",system-ui,Arial,sans-serif;font-size:14px;color:var(--on-surface-muted);line-height:1.55;margin:0 0 12px}
 .note:last-child{margin-bottom:0}
@@ -321,4 +321,21 @@ footer a.social:hover{text-decoration:underline}
 .claim-sub{
   font-family:"Geist",system-ui,Arial,sans-serif;font-size:15px;
   color:var(--cream-muted);margin:10px 0 0;
+}
+
+/* A band with a photograph behind it. Same construction as the hero: the colour
+   is the floor, the image sits behind, and an overlay keeps the text readable
+   whatever the photograph is doing. Heavier than the hero's because this band
+   carries two lists rather than one headline. */
+.band.has-photo{position:relative;isolation:isolate;background-color:var(--brown-deep)}
+.band-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 58%;z-index:-2;
+}
+.band.has-photo::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  /* The bar shot is already a dim interior, so a heavy scrim erased it entirely.
+     At this weight the taps read through and cream text still clears 5:1 even
+     over the brightest part of the photograph, the lit tap badges. */
+  background:linear-gradient(rgba(24,17,13,.66),rgba(24,17,13,.80));
 }

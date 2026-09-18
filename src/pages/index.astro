@@ -105,7 +105,7 @@ const alt = { en: "", de: "de.html" };
           </p>
           <p>
             The hours for any particular day are right on our Google page,
-            which we do keep up to date, honestly.
+            which we do keep up to date. Honest!
           </p>
           <p class="note">
             Live Irish music most Sunday afternoons. Check Instagram for the
@@ -116,7 +116,17 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
-  <section class="band dark menu">
+  <section class="band dark menu has-photo">
+    <Image
+      class="band-bg"
+      src={barTaps}
+      alt=""
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={64}
+      loading="lazy"
+    />
     <div class="inner">
       <h2>Bar and kitchen</h2>
       <p class="kicker">Snacks only</p>
@@ -143,14 +153,6 @@ const alt = { en: "", de: "de.html" };
           <p class="note">Subject to availability and change.</p>
         </div>
       </div>
-      <Photo
-        class="shot band-photo"
-        src={barTaps}
-        alt="The bar: taps and the spirits shelf behind."
-        widths={[600, 1000, 1600]}
-        sizes="(max-width: 940px) 92vw, 900px"
-        loading="lazy"
-      />
     </div>
   </section>
 

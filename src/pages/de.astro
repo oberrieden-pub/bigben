@@ -106,7 +106,7 @@ const alt = { en: "", de: "de.html" };
           </p>
           <p>
             Die Zeiten für einen bestimmten Tag stehen immer auf unserer
-            Google-Seite.
+            Google-Seite, die wir tatsächlich nachführen. Ehrlich!
           </p>
           <p class="note">
             Meistens sonntagnachmittags Irish Live-Musik. Aktuelles steht
@@ -117,7 +117,17 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
-  <section class="band dark menu">
+  <section class="band dark menu has-photo">
+    <Image
+      class="band-bg"
+      src={barTaps}
+      alt=""
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={64}
+      loading="lazy"
+    />
     <div class="inner">
       <h2>Bar und Küche</h2>
       <p class="kicker">Nur kleine Gerichte</p>
@@ -144,14 +154,6 @@ const alt = { en: "", de: "de.html" };
           <p class="note">Angebot je nach Verfügbarkeit, Änderungen vorbehalten.</p>
         </div>
       </div>
-      <Photo
-        class="shot band-photo"
-        src={barTaps}
-        alt="Die Bar: Zapfhähne und dahinter das Spirituosenregal."
-        widths={[600, 1000, 1600]}
-        sizes="(max-width: 940px) 92vw, 900px"
-        loading="lazy"
-      />
     </div>
   </section>
 
