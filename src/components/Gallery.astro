@@ -1,26 +1,39 @@
 ---
-import { Image } from "astro:assets";
+/* A horizontally scrolling strip of photographs.
+   Uniform height with natural widths, so portrait and landscape shots sit
+   together without either being cropped to death. Scrolling is native, with
+   snap points; the arrows are a convenience for mouse users and the strip is
+   focusable so it can be scrolled with the keyboard. */
+import Photo from "./Photo.astro";
 
 interface Props {
   items: { src: ImageMetadata; alt: string }[];
+  label: string;
+  hint: string;
 }
-const { items } = Astro.props;
+const { items, label, hint } = Astro.props;
 ---
 
-<ul class="gallery">
-  {
-    items.map((it) => (
-      <li>
-        <Image
-          src={it.src}
-          alt={it.alt}
-          widths={[400, 800, 1200]}
-          sizes="(max-width: 700px) 92vw, (max-width: 1000px) 44vw, 290px"
-          format="avif"
-          quality={72}
-          loading="lazy"
-        />
-      </li>
-    ))
-  }
-</ul>
+<div class="scroller-wrap">
+  <ul class="scroller" tabindex="0" role="region" aria-label={label}>
+    {
+      items.map((it) => (
+        <li>
+          <Photo
+            src={it.src}
+            alt={it.alt}
+            widths={[400, 700, 1100]}
+            sizes="(max-width: 520px) 80vw, 340px"
+          />
+        </li>
+      ))
+    }
+  </ul>
+  <button type="button" class="scroll-btn prev" data-scroll="prev" aria-label={`${label}: back`}>
+    &lsaquo;
+  </button>
+  <button type="button" class="scroll-btn next" data-scroll="next" aria-label={`${label}: forward`}>
+    &rsaquo;
+  </button>
+</div>
+<p class="caption">{hint}</p>

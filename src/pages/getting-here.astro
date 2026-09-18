@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
 import { pub } from "../data/pub";
 import parkingSign from "../assets/photos/parking-sign.jpg";
 import exteriorStreet from "../assets/photos/exterior-street.jpg";
@@ -72,14 +72,12 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
           </p>
         </div>
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={exteriorStreet}
             alt="The pub seen from across Alte Landstrasse, with its red frontage."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>
@@ -96,21 +94,19 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
           <dl>
             <dt>Address</dt>
             <dd>{pub.street}<br />{pub.postcode} {pub.town} {pub.canton}</dd>
-            <dt>Parking</dt><dd>A few spaces, for guests only</dd>
+            <dt>Parking</dt><dd>A few spaces, guests only. The sign is firm about it.</dd>
             <dt>Phone</dt>
             <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
           </dl>
-          <p class="note">Ring us if you cannot find us. We answer the phone.</p>
+          <p class="note">Ring us if you cannot find it. It is the red one.</p>
         </div>
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={parkingSign}
             alt="A sign reading Parkplatz Big Ben Pub, nur für Gäste."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>

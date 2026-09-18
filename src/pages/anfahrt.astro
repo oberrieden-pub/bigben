@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
 import { pub } from "../data/pub";
 import parkingSign from "../assets/photos/parking-sign.jpg";
 import exteriorStreet from "../assets/photos/exterior-street.jpg";
@@ -75,14 +75,12 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
           </p>
         </div>
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={exteriorStreet}
             alt="Der Pub von der Alten Landstrasse aus, mit der roten Fassade."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>
@@ -99,23 +97,21 @@ const alt = { en: "getting-here.html", de: "anfahrt.html" };
           <dl>
             <dt>Adresse</dt>
             <dd>{pub.street}<br />{pub.postcode} {pub.town} {pub.canton}</dd>
-            <dt>Parkieren</dt><dd>Einige Plätze, nur für Gäste</dd>
+            <dt>Parkieren</dt><dd>Einige Plätze, nur für Gäste. Das Schild ist da deutlich.</dd>
             <dt>Telefon</dt>
             <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
           </dl>
           <p class="note">
-            Rufen Sie an, wenn Sie uns nicht finden. Wir gehen ans Telefon.
+            Rufen Sie an, wenn Sie es nicht finden. Es ist das rote Haus.
           </p>
         </div>
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={parkingSign}
             alt="Ein Schild mit der Aufschrift Parkplatz Big Ben Pub, nur für Gäste."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>

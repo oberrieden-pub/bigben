@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Photo from "../components/Photo.astro";
 import Hours from "../components/Hours.astro";
 import StatusPill from "../components/StatusPill.astro";
 import Gallery from "../components/Gallery.astro";
@@ -14,6 +16,16 @@ import signHanging from "../assets/photos/sign-hanging.jpg";
 import signFascia from "../assets/photos/sign-fascia.jpg";
 import exteriorStreet from "../assets/photos/exterior-street.jpg";
 import plaque from "../assets/photos/plaque-frisch-vom-fass.jpg";
+import signBrackets from "../assets/photos/sign-brackets.jpg";
+import dartsCorner from "../assets/photos/darts-corner.jpg";
+import musicBooth from "../assets/photos/music-booth.jpg";
+import musicSession from "../assets/photos/music-session.jpg";
+import musicTrio from "../assets/photos/music-trio.jpg";
+import musicHarp from "../assets/photos/music-harp.jpg";
+import musicFiddle from "../assets/photos/music-fiddle.jpg";
+import musicRoom from "../assets/photos/music-room.jpg";
+import stainedGlass from "../assets/photos/stained-glass.jpg";
+import pintAndBoard from "../assets/photos/pint-and-board.jpg";
 
 const alt = { en: "", de: "de.html" };
 ---
@@ -39,12 +51,12 @@ const alt = { en: "", de: "de.html" };
     <div class="inner">
       <p class="eyebrow">Est. Oberrieden</p>
       <h1 class="wordmark">Big Ben Pub</h1>
-      <p class="tagline">Your neighbourhood pub on the lake.</p>
+      <p class="tagline">A proper British pub, improbably located on a Swiss lake.</p>
       <StatusPill lang="en" />
       <div class="actions">
         <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
         <a class="btn" href="getting-here.html">Directions</a>
-        <a class="btn" href={pub.instagram}>Instagram</a>
+        <a class="btn" href={pub.instagram}><Icon name="instagram" />Instagram</a>
       </div>
     </div>
   </header>
@@ -55,8 +67,9 @@ const alt = { en: "", de: "de.html" };
       <p class="kicker">Football and rugby</p>
       <div class="panel">
         <p class="big">
-          We show all the major football and rugby. If there is a match you want
-          to see, ring us and we will tell you whether it is on.
+          If it&rsquo;s on, we&rsquo;re showing it. Football, rugby, the lot.
+          Ring first and we&rsquo;ll tell you honestly, rather than let you come
+          all the way round the lake on a hunch.
         </p>
         <p>
           This week&rsquo;s matches go up on our Google page and on Instagram,
@@ -64,7 +77,7 @@ const alt = { en: "", de: "de.html" };
         </p>
         <div class="linkrow">
           <a class="btn call" href={pub.googleProfile}>This week on Google</a>
-          <a class="btn" href={pub.instagram}>{pub.instagramHandle}</a>
+          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
         </div>
       </div>
     </div>
@@ -78,11 +91,12 @@ const alt = { en: "", de: "de.html" };
         <div><Hours lang="en" /></div>
         <div>
           <p>
-            We stay open later for live sport and for events, sometimes a good
-            deal later.
+            We stay open later for the football. &ldquo;Later&rdquo; is doing
+            a lot of work in that sentence.
           </p>
           <p>
-            The hours for any particular day are always right on our Google page.
+            The hours for any particular day are right on our Google page,
+            which we do keep up to date, honestly.
           </p>
           <p class="note">
             Live Irish music most Sunday afternoons. Whether it is on this
@@ -101,7 +115,7 @@ const alt = { en: "", de: "de.html" };
         <div>
           <h3>On the bar</h3>
           <ul>
-            <li>Guinness <small>&mdash; poured properly</small></li>
+            <li>Guinness <small>&mdash; poured properly, so you wait</small></li>
             <li>Swiss craft beer</li>
             <li>Wine by the glass</li>
             <li>Single malts</li>
@@ -116,17 +130,15 @@ const alt = { en: "", de: "de.html" };
             <li>Toasties</li>
             <li>Pies</li>
           </ul>
-          <p class="note">Snacks only, no full kitchen.</p>
+          <p class="note">Snacks, not supper. If you came for three courses you have walked into the wrong building.</p>
         </div>
       </div>
-      <Image
+      <Photo
         class="shot band-photo"
         src={barTaps}
         alt="The bar: taps and the spirits shelf behind."
         widths={[600, 1000, 1600]}
         sizes="(max-width: 940px) 92vw, 900px"
-        format="avif"
-        quality={70}
         loading="lazy"
       />
     </div>
@@ -135,29 +147,27 @@ const alt = { en: "", de: "de.html" };
   <section class="band">
     <div class="inner">
       <h2>Darts</h2>
-      <p class="kicker">Two boards, open play</p>
+      <p class="kicker">One board, free to play</p>
       <div class="cols">
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={dartsBoard}
             alt="A dartboard mounted in a wooden cabinet."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>
         <div>
           <p>
-            Two boards, free to play. Ask behind the bar for arrows if you have
-            not brought your own.
+            One board, free to play. Arrows behind the bar if you have turned
+            up unarmed. Scoring disputes are settled by whoever shouts loudest.
           </p>
           <p>
-            A proper British pub in a village of five thousand people. People
-            meet here halfway between Zurich and Zug, watch the match, and stay
-            for a whisky.
+            A proper British pub in a village of five thousand, which is either
+            very ambitious or exactly right. People meet here halfway between
+            Zurich and Zug, intend to stay for one, and stay for three.
           </p>
           <p>
             Live Irish music most Sundays. The whole pub can be hired for
@@ -169,11 +179,47 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
+
+  <section class="band dark">
+    <div class="inner">
+      <h2>Live music</h2>
+      <p class="kicker">Most Sunday afternoons</p>
+      <div class="panel">
+        <p class="big">
+          An Irish session most Sunday afternoons. Fiddle, guitar, accordion,
+          harp, and whoever else turns up with an instrument and the nerve to
+          use it.
+        </p>
+        <p>
+          No ticket and no cover charge. Whether it is on this week goes up on
+          Instagram.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+        </div>
+      </div>
+      <Gallery
+        label="Live music photographs"
+        hint="Scroll for more, or tap a photograph to see it full size."
+        items={[
+            { src: musicBooth, alt: "Two musicians playing guitar and accordion in a booth." },
+            { src: musicTrio, alt: "Three musicians playing together, harp and fiddles." },
+            { src: musicFiddle, alt: "A fiddle player mid-tune." },
+            { src: musicHarp, alt: "A harp player during the Sunday session." },
+            { src: musicSession, alt: "The session in full flow beside the window." },
+            { src: musicRoom, alt: "A full room listening to the Sunday session." },
+          ]}
+      />
+    </div>
+  </section>
+
   <section class="band dark">
     <div class="inner">
       <h2>The pub</h2>
       <p class="kicker">Have a look</p>
       <Gallery
+        label="Photographs of the pub"
+        hint="Scroll for more, or tap a photograph to see it full size."
         items={[
           { src: barWide, alt: "The bar from the end, taps and optics." },
           { src: signHanging, alt: "A hanging Big Ben Pub sign on a bracket." },
@@ -181,6 +227,10 @@ const alt = { en: "", de: "de.html" };
           { src: exteriorStreet, alt: "The pub seen from across Alte Landstrasse." },
           { src: plaque, alt: "A Frisch vom Fass beer quality plaque on the door." },
           { src: dartsBoard, alt: "The dartboard in its cabinet." },
+          { src: stainedGlass, alt: "A stained glass window in the front room." },
+          { src: pintAndBoard, alt: "A pint on the bar beside the chalkboard." },
+          { src: signBrackets, alt: "The two hanging signs from the pavement." },
+          { src: dartsCorner, alt: "The darts corner and the wooden cabinet." },
         ]}
       />
     </div>
@@ -200,63 +250,24 @@ const alt = { en: "", de: "de.html" };
             <dt>S-Bahn</dt>
             <dd>About 15 minutes from Zurich and from Zug</dd>
             <dt>Parking</dt>
-            <dd>A few spaces, for guests only</dd>
+            <dd>A few spaces, guests only. The sign is firm about it.</dd>
             <dt>Phone</dt>
             <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${pub.email}`}>{pub.email}</a></dd>
           </dl>
           <a class="btn call" href="getting-here.html">Map and directions</a>
         </div>
         <div>
           <p class="note">
-            No booking system. For a table on a busy match night, or to hire the
-            pub, ring us. We answer the phone.
+            We do take bookings, for a table on a match night or for the
+            whole pub. Ring us, that is quickest, or send an email if you would
+            rather. No app, no QR code on the table, and a human answers,
+            usually Paul.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band dark legal">
-    <div class="inner">
-      <h2>Operator details</h2>
-      <p class="kicker">Impressum &amp; privacy</p>
-      <div class="cols">
-        <div>
-          <h3>Impressum</h3>
-          <address class="addrblock">
-            {pub.legalName}<br />
-            trading as {pub.name}<br />
-            {pub.street}<br />
-            {pub.postcode} {pub.town}, {pub.country.en}
-          </address>
-          <p>
-            Telephone: {pub.phoneDisplay}<br />
-            Email: <a href={`mailto:${pub.email}`}>{pub.email}</a><br />
-            UID: {pub.uid}
-          </p>
-          <p class="note">
-            Responsible for content: {pub.director}, managing director.
-          </p>
-        </div>
-        <div>
-          <h3>Privacy</h3>
-          <p>
-            This site sets no cookies of its own and uses no analytics. The map
-            on the <a href="getting-here.html">Getting here</a> page is loaded
-            from Google and may set Google&rsquo;s cookies; no other page embeds
-            anything from a third party. The site is hosted on GitHub Pages by
-            GitHub, Inc. in the United States, which records ordinary connection
-            data including your IP address in order to serve and protect the
-            site. Nothing else is collected.
-          </p>
-          <p>
-            If you telephone or write to us, we use what you tell us only to
-            answer you. Mail sent to the address above is forwarded by Cloudflare
-            to a mailbox held with Google. You have the right to ask what we hold
-            and to have it corrected. Write to the address above.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 </Base>

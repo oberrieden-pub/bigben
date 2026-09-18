@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro";
+import { pub } from "../data/pub";
+
+const alt = { en: "legal.html", de: "impressum.html" };
+---
+
+<Base
+  lang="de"
+  title="Impressum und Datenschutz"
+  description="Wer die Website des Big Ben Pub betreibt und welche Daten erhoben werden."
+  path="impressum.html"
+  alt={alt}
+>
+  <header class="subhead">
+    <div class="inner">
+      <a class="back" href="de.html">&larr; Big Ben Pub</a>
+      <h1>Impressum</h1>
+      <p class="tagline">Betreiber und Datenschutz</p>
+    </div>
+  </header>
+
+  <section class="band legal">
+    <div class="inner">
+      <div class="cols">
+        <div>
+          <h3>Impressum</h3>
+          <address class="addrblock">
+            {pub.legalName}<br />
+            handelnd als {pub.name}<br />
+            {pub.street}<br />
+            {pub.postcode} {pub.town}, {pub.country.de}
+          </address>
+          <p>
+            Telefon: {pub.phoneDisplay}<br />
+            E-Mail: <a href={`mailto:${pub.email}`}>{pub.email}</a><br />
+            UID: {pub.uid}
+          </p>
+          <p class="note">
+            Verantwortlich für den Inhalt: {pub.director}, Geschäftsführer.
+          </p>
+        </div>
+        <div>
+          <h3>Datenschutz</h3>
+          <p>
+            Diese Website setzt selbst keine Cookies und verwendet keine
+            Analyse-Werkzeuge. Die Karte auf der Seite
+            <a href="anfahrt.html">Anfahrt</a> wird von Google geladen; dabei
+            können Cookies von Google gesetzt werden. Auf den übrigen Seiten
+            werden keine Inhalte von Drittanbietern eingebunden. Die Schriften
+            werden von Google Fonts geladen, wobei Ihre IP-Adresse an Google
+            übermittelt wird.
+          </p>
+          <p>
+            Die Website wird von GitHub, Inc. in den USA auf GitHub Pages
+            gehostet. Dabei werden zum Betrieb und zum Schutz der Website
+            übliche Verbindungsdaten gespeichert, darunter die IP-Adresse.
+            Weitere Daten werden nicht erhoben.
+          </p>
+          <p>
+            Wenn Sie uns anrufen oder schreiben, verwenden wir Ihre Angaben nur,
+            um Ihre Anfrage zu beantworten. E-Mails an die oben genannte Adresse
+            werden von Cloudflare an ein Postfach bei Google weitergeleitet. Sie
+            haben das Recht auf Auskunft und Berichtigung. Wenden Sie sich dazu
+            an die oben genannte Adresse.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

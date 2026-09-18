@@ -1,0 +1,82 @@
+---
+/* Full screen viewer. Rendered once per page by the layout.
+   Uses a native <dialog>, so Escape closes it and focus is trapped without any
+   of that being hand-written. */
+interface Props { lang: "en" | "de" }
+const { lang } = Astro.props;
+
+const copy = {
+  en: { close: "Close", prev: "Previous photo", next: "Next photo", of: "of" },
+  de: { close: "Schliessen", prev: "Vorheriges Foto", next: "Nächstes Foto", of: "von" },
+}[lang];
+---
+
+<dialog id="lightbox" class="lightbox" aria-label={copy.close}>
+  <button type="button" class="lb-close" data-lb="close" aria-label={copy.close}>&times;</button>
+  <button type="button" class="lb-nav lb-prev" data-lb="prev" aria-label={copy.prev}>&lsaquo;</button>
+  <button type="button" class="lb-nav lb-next" data-lb="next" aria-label={copy.next}>&rsaquo;</button>
+  <figure class="lb-figure">
+    <img id="lb-img" alt="" />
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+</dialog>
+
+<script is:inline define:vars={{ copy }}>
+  (function () {
+    var dlg = document.getElementById("lightbox");
+    var img = document.getElementById("lb-img");
+    var cap = document.getElementById("lb-cap");
+    if (!dlg || !img || !cap || typeof dlg.showModal !== "function") return;
+
+    var buttons = Array.prototype.slice.call(document.querySelectorAll(".photo-btn"));
+    if (!buttons.length) return;
+    var index = 0;
+
+    /* Astro already generated several widths; take the biggest rather than
+       building another file just for this. */
+    function largest(el) {
+      var best = el.currentSrc || el.src;
+      var bestW = 0;
+      (el.getAttribute("srcset") || "").split(",").forEach(function (part) {
+        var m = part.trim().match(/^(\S+)\s+(\d+)w$/);
+        if (m && Number(m[2]) > bestW) { bestW = Number(m[2]); best = m[1]; }
+      });
+      return best;
+    }
+
+    function show(i) {
+      index = (i + buttons.length) % buttons.length;
+      var source = buttons[index].querySelector("img");
+      if (!source) return;
+      img.src = largest(source);
+      img.alt = source.alt || "";
+      cap.textContent =
+        (source.alt ? source.alt + "  " : "") +
+        (index + 1) + " " + copy.of + " " + buttons.length;
+    }
+
+    buttons.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
+        show(i);
+        dlg.showModal();
+      });
+    });
+
+    dlg.addEventListener("click", function (e) {
+      var action = e.target.getAttribute && e.target.getAttribute("data-lb");
+      if (action === "close") { dlg.close(); return; }
+      if (action === "prev") { show(index - 1); return; }
+      if (action === "next") { show(index + 1); return; }
+      /* A click on the backdrop lands on the dialog itself, not its contents. */
+      if (e.target === dlg) dlg.close();
+    });
+
+    dlg.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { e.preventDefault(); show(index - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); show(index + 1); }
+    });
+
+    /* Free the memory when it closes; these are large images. */
+    dlg.addEventListener("close", function () { img.removeAttribute("src"); });
+  })();
+</script>

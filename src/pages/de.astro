@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Photo from "../components/Photo.astro";
 import Hours from "../components/Hours.astro";
 import StatusPill from "../components/StatusPill.astro";
 import Gallery from "../components/Gallery.astro";
@@ -14,6 +16,16 @@ import signHanging from "../assets/photos/sign-hanging.jpg";
 import signFascia from "../assets/photos/sign-fascia.jpg";
 import exteriorStreet from "../assets/photos/exterior-street.jpg";
 import plaque from "../assets/photos/plaque-frisch-vom-fass.jpg";
+import signBrackets from "../assets/photos/sign-brackets.jpg";
+import dartsCorner from "../assets/photos/darts-corner.jpg";
+import musicBooth from "../assets/photos/music-booth.jpg";
+import musicSession from "../assets/photos/music-session.jpg";
+import musicTrio from "../assets/photos/music-trio.jpg";
+import musicHarp from "../assets/photos/music-harp.jpg";
+import musicFiddle from "../assets/photos/music-fiddle.jpg";
+import musicRoom from "../assets/photos/music-room.jpg";
+import stainedGlass from "../assets/photos/stained-glass.jpg";
+import pintAndBoard from "../assets/photos/pint-and-board.jpg";
 
 const alt = { en: "", de: "de.html" };
 ---
@@ -39,12 +51,12 @@ const alt = { en: "", de: "de.html" };
     <div class="inner">
       <p class="eyebrow">Est. Oberrieden</p>
       <h1 class="wordmark">Big Ben Pub</h1>
-      <p class="tagline">Ihr Quartierpub am Zürichsee.</p>
+      <p class="tagline">Ein britischer Pub, etwas unerwartet am Zürichsee.</p>
       <StatusPill lang="de" />
       <div class="actions">
         <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
         <a class="btn" href="anfahrt.html">Anfahrt</a>
-        <a class="btn" href={pub.instagram}>Instagram</a>
+        <a class="btn" href={pub.instagram}><Icon name="instagram" />Instagram</a>
       </div>
     </div>
   </header>
@@ -55,8 +67,9 @@ const alt = { en: "", de: "de.html" };
       <p class="kicker">Fussball und Rugby</p>
       <div class="panel">
         <p class="big">
-          Wir zeigen alle grossen Fussball- und Rugbyspiele. Rufen Sie uns an,
-          wenn Sie ein bestimmtes Spiel sehen möchten.
+          Läuft es, zeigen wir es. Fussball, Rugby, das ganze Programm.
+          Rufen Sie vorher an, dann sagen wir es Ihnen ehrlich, statt dass Sie
+          umsonst um den See fahren.
         </p>
         <p>
           Die Spiele der Woche stehen auf unserer Google-Seite und auf Instagram,
@@ -64,7 +77,7 @@ const alt = { en: "", de: "de.html" };
         </p>
         <div class="linkrow">
           <a class="btn call" href={pub.googleProfile}>Diese Woche auf Google</a>
-          <a class="btn" href={pub.instagram}>{pub.instagramHandle}</a>
+          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
         </div>
       </div>
     </div>
@@ -78,8 +91,8 @@ const alt = { en: "", de: "de.html" };
         <div><Hours lang="de" /></div>
         <div>
           <p>
-            Bei Livesport und Anlässen bleiben wir länger offen, manchmal
-            deutlich länger.
+            Beim Fussball bleiben wir länger offen. &laquo;Länger&raquo;
+            ist dabei sehr dehnbar.
           </p>
           <p>
             Die Zeiten für einen bestimmten Tag stehen immer auf unserer
@@ -102,7 +115,7 @@ const alt = { en: "", de: "de.html" };
         <div>
           <h3>An der Bar</h3>
           <ul>
-            <li>Guinness <small>&mdash; richtig gezapft</small></li>
+            <li>Guinness <small>&mdash; richtig gezapft, also mit Wartezeit</small></li>
             <li>Schweizer Craft Beer</li>
             <li>Wein im Glas</li>
             <li>Single Malts</li>
@@ -117,17 +130,15 @@ const alt = { en: "", de: "de.html" };
             <li>Toasties</li>
             <li>Pies</li>
           </ul>
-          <p class="note">Nur kleine Gerichte, keine warme Küche.</p>
+          <p class="note">Kleinigkeiten, kein Abendessen. Wer drei Gänge sucht, steht im falschen Haus.</p>
         </div>
       </div>
-      <Image
+      <Photo
         class="shot band-photo"
         src={barTaps}
         alt="Die Bar: Zapfhähne und dahinter das Spirituosenregal."
         widths={[600, 1000, 1600]}
         sizes="(max-width: 940px) 92vw, 900px"
-        format="avif"
-        quality={70}
         loading="lazy"
       />
     </div>
@@ -136,29 +147,29 @@ const alt = { en: "", de: "de.html" };
   <section class="band">
     <div class="inner">
       <h2>Darts</h2>
-      <p class="kicker">Zwei Scheiben, freies Spiel</p>
+      <p class="kicker">Eine Scheibe, freies Spiel</p>
       <div class="cols">
         <div>
-          <Image
+          <Photo
             class="shot tall"
             src={dartsBoard}
             alt="Eine Dartscheibe in einem Holzschrank."
             widths={[400, 800, 1200]}
             sizes="(max-width: 700px) 92vw, 430px"
-            format="avif"
-            quality={70}
             loading="lazy"
           />
         </div>
         <div>
           <p>
-            Zwei Scheiben, das Spiel ist gratis. Pfeile gibt es auf Anfrage an
-            der Bar, falls Sie keine eigenen dabeihaben.
+            Eine Scheibe, das Spiel ist gratis. Pfeile gibt es an der Bar,
+            falls Sie unbewaffnet erschienen sind. Punktestreitigkeiten
+            entscheidet, wer am lautesten ruft.
           </p>
           <p>
             Ein richtiger britischer Pub in einem Dorf mit fünftausend
-            Einwohnern. Man trifft sich hier auf halbem Weg zwischen Zürich und
-            Zug, schaut das Spiel und bleibt auf einen Whisky.
+            Einwohnern, was entweder sehr mutig oder genau richtig ist. Man
+            trifft sich auf halbem Weg zwischen Zürich und Zug, will auf ein
+            Bier bleiben und bleibt auf drei.
           </p>
           <p>
             Meistens sonntags Irish Live-Musik. Der ganze Pub kann für private
@@ -170,11 +181,47 @@ const alt = { en: "", de: "de.html" };
     </div>
   </section>
 
+
+  <section class="band dark">
+    <div class="inner">
+      <h2>Live-Musik</h2>
+      <p class="kicker">Meistens sonntagnachmittags</p>
+      <div class="panel">
+        <p class="big">
+          Eine Irish Session an den meisten Sonntagnachmittagen. Geige,
+          Gitarre, Akkordeon, Harfe und wer sonst noch mit einem Instrument und
+          dem nötigen Mut auftaucht.
+        </p>
+        <p>
+          Kein Ticket, kein Eintritt. Ob am kommenden Sonntag gespielt wird,
+          steht auf Instagram.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+        </div>
+      </div>
+      <Gallery
+        label="Fotos der Live-Musik"
+        hint="Weiterscrollen, oder ein Foto antippen, um es gross zu sehen."
+        items={[
+            { src: musicBooth, alt: "Zwei Musiker mit Gitarre und Akkordeon in einer Nische." },
+            { src: musicTrio, alt: "Drei Musikerinnen und Musiker mit Harfe und Geigen." },
+            { src: musicFiddle, alt: "Eine Geigerin mitten im Stück." },
+            { src: musicHarp, alt: "Eine Harfenspielerin während der Sonntagssession." },
+            { src: musicSession, alt: "Die Session in vollem Gang neben dem Fenster." },
+            { src: musicRoom, alt: "Ein voller Raum hört der Sonntagssession zu." },
+          ]}
+      />
+    </div>
+  </section>
+
   <section class="band dark">
     <div class="inner">
       <h2>Der Pub</h2>
       <p class="kicker">Ein paar Eindrücke</p>
       <Gallery
+        label="Fotos vom Pub"
+        hint="Weiterscrollen, oder ein Foto antippen, um es gross zu sehen."
         items={[
           { src: barWide, alt: "Die Bar von der Seite, Zapfhähne und Gläser." },
           { src: signHanging, alt: "Ein Big Ben Pub Schild an einem Ausleger." },
@@ -182,6 +229,10 @@ const alt = { en: "", de: "de.html" };
           { src: exteriorStreet, alt: "Der Pub von der Alten Landstrasse aus gesehen." },
           { src: plaque, alt: "Die Plakette Frisch vom Fass an der Tür." },
           { src: dartsBoard, alt: "Die Dartscheibe im Schrank." },
+          { src: stainedGlass, alt: "Ein Buntglasfenster im vorderen Raum." },
+          { src: pintAndBoard, alt: "Ein Pint an der Bar neben der Tafel." },
+          { src: signBrackets, alt: "Die beiden Ausleger-Schilder vom Trottoir aus." },
+          { src: dartsCorner, alt: "Die Dartecke mit dem Holzschrank." },
         ]}
       />
     </div>
@@ -201,66 +252,24 @@ const alt = { en: "", de: "de.html" };
             <dt>S-Bahn</dt>
             <dd>Rund 15 Minuten von Zürich und von Zug</dd>
             <dt>Parkieren</dt>
-            <dd>Einige Plätze, nur für Gäste</dd>
+            <dd>Einige Plätze, nur für Gäste. Das Schild ist da deutlich.</dd>
             <dt>Telefon</dt>
             <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
+            <dt>E-Mail</dt>
+            <dd><a href={`mailto:${pub.email}`}>{pub.email}</a></dd>
           </dl>
           <a class="btn call" href="anfahrt.html">Karte und Anfahrt</a>
         </div>
         <div>
           <p class="note">
-            Keine Online-Reservation. Für einen Tisch an einem Spielabend oder
-            für eine private Feier rufen Sie uns bitte an. Wir gehen ans Telefon.
+            Reservationen nehmen wir gerne entgegen, f&uuml;r einen Tisch am
+            Spielabend oder f&uuml;r den ganzen Pub. Am schnellsten per Telefon,
+            sonst per E-Mail. Keine App, kein QR-Code auf dem Tisch, und es geht
+            jemand ran, meistens Paul.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band dark legal">
-    <div class="inner">
-      <h2>Impressum</h2>
-      <p class="kicker">Betreiber &amp; Datenschutz</p>
-      <div class="cols">
-        <div>
-          <h3>Impressum</h3>
-          <address class="addrblock">
-            {pub.legalName}<br />
-            handelnd als {pub.name}<br />
-            {pub.street}<br />
-            {pub.postcode} {pub.town}, {pub.country.de}
-          </address>
-          <p>
-            Telefon: {pub.phoneDisplay}<br />
-            E-Mail: <a href={`mailto:${pub.email}`}>{pub.email}</a><br />
-            UID: {pub.uid}
-          </p>
-          <p class="note">
-            Verantwortlich für den Inhalt: {pub.director}, Geschäftsführer.
-          </p>
-        </div>
-        <div>
-          <h3>Datenschutz</h3>
-          <p>
-            Diese Website setzt selbst keine Cookies und verwendet keine
-            Analyse-Werkzeuge. Die Karte auf der Seite
-            <a href="anfahrt.html">Anfahrt</a> wird von Google geladen; dabei
-            können Cookies von Google gesetzt werden. Auf den übrigen Seiten
-            werden keine Inhalte von Drittanbietern eingebunden. Die Website wird
-            von GitHub, Inc. in den USA auf GitHub Pages gehostet. Dabei werden
-            zum Betrieb und zum Schutz der Website übliche Verbindungsdaten
-            gespeichert, darunter die IP-Adresse. Weitere Daten werden nicht
-            erhoben.
-          </p>
-          <p>
-            Wenn Sie uns anrufen oder schreiben, verwenden wir Ihre Angaben nur,
-            um Ihre Anfrage zu beantworten. E-Mails an die oben genannte Adresse
-            werden von Cloudflare an ein Postfach bei Google weitergeleitet. Sie
-            haben das Recht auf Auskunft und Berichtigung. Wenden Sie sich dazu
-            an die oben genannte Adresse.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 </Base>

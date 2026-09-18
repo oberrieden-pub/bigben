@@ -1,6 +1,8 @@
 ---
 import "../styles/site.css";
 import { pub, type Lang } from "../data/pub";
+import Lightbox from "../components/Lightbox.astro";
+import Icon from "../components/Icon.astro";
 
 interface Props {
   lang: Lang;
@@ -20,6 +22,8 @@ const other = lang === "en" ? alt.de : alt.en;
 const otherLabel = lang === "en" ? "Deutsch" : "English";
 const otherLang = lang === "en" ? "de-CH" : "en";
 const home = lang === "en" ? "index.html" : "de.html";
+const legal = lang === "en" ? "legal.html" : "impressum.html";
+const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datenschutz";
 ---
 
 <!doctype html>
@@ -44,13 +48,15 @@ const home = lang === "en" ? "index.html" : "de.html";
     }
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,700&family=Faustina:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,400&family=Geist:wght@400;500;600;700&display=swap"
     />
   </head>
   <body>
     <div class="topbar">
       <div class="inner">
-        <a class="chip" href={pub.instagram}>{pub.instagramHandle}</a>
+        <a class="chip" href={pub.instagram}>
+          <Icon name="instagram" />{pub.instagramHandle}
+        </a>
         <a class="topmark" href={home}>Big Ben<br />Pub</a>
         <a class="chip right" href={other} hreflang={otherLang} lang={otherLang}>
           {otherLabel}
@@ -60,14 +66,42 @@ const home = lang === "en" ? "index.html" : "de.html";
 
     <slot />
 
+    <Lightbox lang={lang} />
+
+    <script is:inline>
+      /* Arrows for the photo strips. Native scrolling does the work; this just
+         nudges it by roughly one screen for people using a mouse. */
+      (function () {
+        document.querySelectorAll(".scroller-wrap").forEach(function (wrap) {
+          var strip = wrap.querySelector(".scroller");
+          if (!strip) return;
+          wrap.querySelectorAll("[data-scroll]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              var dir = btn.getAttribute("data-scroll") === "next" ? 1 : -1;
+              strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: "smooth" });
+            });
+          });
+          function sync() {
+            var max = strip.scrollWidth - strip.clientWidth - 4;
+            wrap.classList.toggle("at-start", strip.scrollLeft <= 4);
+            wrap.classList.toggle("at-end", strip.scrollLeft >= max);
+          }
+          strip.addEventListener("scroll", sync, { passive: true });
+          window.addEventListener("resize", sync);
+          sync();
+        });
+      })();
+    </script>
+
     <footer>
       <div class="inner">
         <span>
           {pub.name} &middot; {pub.street} &middot; {pub.postcode} {pub.town}
           {" "}{pub.canton}
         </span>
-        <a href={pub.facebook}>Facebook</a>
-        <a href={pub.instagram}>Instagram</a>
+        <a href={legal}>{legalLabel}</a>
+        <a class="social" href={pub.facebook}><Icon name="facebook" />Facebook</a>
+        <a class="social" href={pub.instagram}><Icon name="instagram" />Instagram</a>
         <a href={other} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
       </div>
     </footer>

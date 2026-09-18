@@ -1,0 +1,38 @@
+---
+/* A photograph that opens full screen when clicked.
+   It is a real <button> rather than a click handler on the image, so it is
+   reachable by keyboard and announced as something you can activate. The
+   lightbox picks the largest source out of the srcset Astro generated, so no
+   separate full-size file is needed. */
+import { Image } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  class?: string;
+  widths?: number[];
+  sizes?: string;
+  loading?: "eager" | "lazy";
+}
+
+const {
+  src,
+  alt,
+  class: klass = "",
+  widths = [400, 800, 1200],
+  sizes = "(max-width: 700px) 92vw, 430px",
+  loading = "lazy",
+} = Astro.props;
+---
+
+<button type="button" class:list={["photo-btn", klass]} aria-label={`View larger: ${alt}`}>
+  <Image
+    src={src}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    format="avif"
+    quality={72}
+    loading={loading}
+  />
+</button>
