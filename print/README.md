@@ -3,8 +3,8 @@
 Two formats of the same sign:
 
 - `banner.html` - finished, print straight from a browser
-- `banner.pptx` - the same thing editable, one slide per language, the slide
-  sized to the finished sign rather than to a sheet of paper
+- `banner.pptx` - the same thing editable: one A4 landscape slide carrying
+  both strips, so it is one sheet through the printer and one cut
 
 Keep them in step: both are generated, `make-banner.py` for the HTML and
 `make-banner-pptx.py` for the deck, and the wording lives in both scripts.
