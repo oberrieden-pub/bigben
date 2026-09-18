@@ -19,6 +19,9 @@ interface Props {
 const { lang, title, description, path, alt, noindex = true } = Astro.props;
 const site = "https://oberrieden.pub/";
 const other = lang === "en" ? alt.de : alt.en;
+// The front page's path is "" so the canonical URL is the bare domain, but an
+// empty href resolves to the current page, which broke German -> English.
+const otherHref = other === "" ? "index.html" : other;
 const otherLabel = lang === "en" ? "Deutsch" : "English";
 const otherLang = lang === "en" ? "de-CH" : "en";
 const home = lang === "en" ? "index.html" : "de.html";
@@ -58,7 +61,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
           <Icon name="instagram" />{pub.instagramHandle}
         </a>
         <a class="topmark" href={home}>Big Ben<br />Pub</a>
-        <a class="chip right" href={other} hreflang={otherLang} lang={otherLang}>
+        <a class="chip right" href={otherHref} hreflang={otherLang} lang={otherLang}>
           {otherLabel}
         </a>
       </div>
@@ -102,7 +105,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         <a href={legal}>{legalLabel}</a>
         <a class="social" href={pub.facebook}><Icon name="facebook" />Facebook</a>
         <a class="social" href={pub.instagram}><Icon name="instagram" />Instagram</a>
-        <a href={other} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
+        <a href={otherHref} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
       </div>
     </footer>
   </body>
