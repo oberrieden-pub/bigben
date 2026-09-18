@@ -24,7 +24,8 @@
   --tan:#A2774B;
   --tan-deep:#8A6239;
   --tan-light:#C08F5C;
-  --sign-gold:#DDBA7A;  /* sampled from the painted fascia */
+  --sign-gold:#DDBA7A;    /* sampled from the painted fascia */
+  --sign-maroon:#531C23;  /* the board itself */
   --red:#C0392B;
   --line-light:#E5DDD2;
   --line-dark:#3B2D24;
@@ -48,7 +49,7 @@
 
 /* Every dark context re-maps the semantic tokens for its own subtree, so the same
    markup works on either ground. The accent lightens here to clear 4.5:1 on brown. */
-.dark,.hero,.subhead,.topbar,footer{
+.dark,.hero,.subhead,.topbar,footer,.band.sign{
   --surface:var(--brown);
   --surface-card:var(--brown-card);
   --surface-sunk:var(--brown-deep);
@@ -339,3 +340,13 @@ footer a.social:hover{text-decoration:underline}
      over the brightest part of the photograph, the lit tap badges. */
   background:linear-gradient(rgba(24,17,13,.66),rgba(24,17,13,.80));
 }
+
+/* One band in the colour of the pub's own signboard, to break up a run of three
+   dark sections. Cream on it measures 11:1, the sign gold 7.3:1. */
+.band.sign{
+  --surface:var(--sign-maroon);
+  --surface-card:#5E2129;
+  --surface-sunk:#43161D;
+  --rule:#6E2B34;
+}
+.band.sign h2{color:var(--sign-gold)}
