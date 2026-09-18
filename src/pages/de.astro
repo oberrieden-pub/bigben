@@ -49,7 +49,7 @@ const alt = { en: "", de: "de.html" };
       loading="eager"
     />
     <div class="inner">
-      <p class="eyebrow">Est. Oberrieden</p>
+      <p class="eyebrow">Oberrieden Dorf</p>
       <h1 class="wordmark">Big Ben Pub</h1>
       <p class="tagline">Ein britischer Pub, etwas unerwartet am Zürichsee.</p>
       <StatusPill lang="de" />
@@ -163,19 +163,10 @@ const alt = { en: "", de: "de.html" };
         <div>
           <p>
             Eine Scheibe, das Spiel ist gratis. Pfeile gibt es an der Bar,
-            falls Sie unbewaffnet erschienen sind. Punktestreitigkeiten
-            entscheidet, wer am lautesten ruft.
+            falls Sie unbewaffnet erschienen sind.
           </p>
           <p>
-            Ein richtiger britischer Pub in einem Dorf mit fünftausend
-            Einwohnern, was entweder sehr mutig oder genau richtig ist. Man
-            trifft sich auf halbem Weg zwischen Zürich und Zug, will auf ein
-            Bier bleiben und bleibt auf drei.
-          </p>
-          <p>
-            Meistens sonntags Irish Live-Musik. Der ganze Pub kann für private
-            Anlässe gemietet werden. Rufen Sie Paul an unter
-            <a href={pub.phoneHref}>{pub.phoneDisplay}</a>.
+            Punktestreitigkeiten entscheidet der Wirt, gegen ein Bier.
           </p>
         </div>
       </div>
@@ -219,7 +210,25 @@ const alt = { en: "", de: "de.html" };
   <section class="band dark">
     <div class="inner">
       <h2>Der Pub</h2>
-      <p class="kicker">Ein paar Eindrücke</p>
+      <p class="kicker">Und wie man ihn mietet</p>
+      <div class="cols">
+        <div>
+          <p>
+            Ein richtiger britischer Pub in einem Dorf mit fünftausend
+            Einwohnern, was entweder sehr mutig oder genau richtig ist. Man
+            trifft sich auf halbem Weg zwischen Zürich und Zug, will auf ein
+            Bier bleiben und bleibt auf drei.
+          </p>
+        </div>
+        <div>
+          <p>
+            Der ganze Pub kann für private Anlässe gemietet werden, und das
+            kommt regelmässig vor. Rufen Sie Paul an unter
+            <a href={pub.phoneHref}>{pub.phoneDisplay}</a> oder schreiben Sie an
+            <a href={`mailto:${pub.email}`}>{pub.email}</a>.
+          </p>
+        </div>
+      </div>
       <Gallery
         label="Fotos vom Pub"
         hint="Weiterscrollen, oder ein Foto antippen, um es gross zu sehen."

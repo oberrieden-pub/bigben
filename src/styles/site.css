@@ -24,6 +24,7 @@
   --tan:#A2774B;
   --tan-deep:#8A6239;
   --tan-light:#C08F5C;
+  --sign-gold:#DDBA7A;  /* sampled from the painted fascia */
   --red:#C0392B;
   --line-light:#E5DDD2;
   --line-dark:#3B2D24;
@@ -89,8 +90,8 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
 .chip:hover{border-color:var(--tan)}
 .chip.right{justify-self:end}
 .topmark{
-  font-family:"Bitter",Georgia,serif;font-weight:700;font-size:15px;line-height:1.05;
-  letter-spacing:.02em;text-transform:uppercase;text-align:center;color:var(--cream);text-decoration:none;
+  font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;font-size:14px;line-height:1.15;
+  letter-spacing:.14em;text-transform:uppercase;text-align:center;color:var(--sign-gold);text-decoration:none;
 }
 
 /* Hero */
@@ -111,8 +112,15 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
   background:linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));
 }
 .hero .inner{padding-block:clamp(52px,10vw,104px)}
-.eyebrow{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
-.wordmark{font-size:clamp(46px,11vw,92px);line-height:.9;letter-spacing:-.02em;color:var(--cream);margin:0}
+.eyebrow{font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;font-family:"Cabin",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;font-weight:600}
+/* The wordmark follows the pub's own fascia board: humanist caps, widely
+   tracked, gold on a dark ground. */
+.wordmark{
+  font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
+  font-size:clamp(34px,8.2vw,74px);line-height:1.02;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:var(--sign-gold);margin:0;
+}
 .tagline{margin:16px 0 0;font-size:20px;color:var(--cream-muted);font-style:italic}
 
 .status{

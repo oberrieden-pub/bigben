@@ -49,7 +49,7 @@ const alt = { en: "", de: "de.html" };
       loading="eager"
     />
     <div class="inner">
-      <p class="eyebrow">Est. Oberrieden</p>
+      <p class="eyebrow">Oberrieden Dorf</p>
       <h1 class="wordmark">Big Ben Pub</h1>
       <p class="tagline">A proper British pub, improbably located on a Swiss lake.</p>
       <StatusPill lang="en" />
@@ -163,17 +163,11 @@ const alt = { en: "", de: "de.html" };
         <div>
           <p>
             One board, free to play. Arrows behind the bar if you have turned
-            up unarmed. Scoring disputes are settled by whoever shouts loudest.
+            up unarmed.
           </p>
           <p>
-            A proper British pub in a village of five thousand, which is either
-            very ambitious or exactly right. People meet here halfway between
-            Zurich and Zug, intend to stay for one, and stay for three.
-          </p>
-          <p>
-            Live Irish music most Sundays. The whole pub can be hired for
-            private parties. Ring Paul on
-            <a href={pub.phoneHref}>{pub.phoneDisplay}</a>.
+            Scoring disputes are adjudicated by the landlord, on production of
+            a beer.
           </p>
         </div>
       </div>
@@ -217,7 +211,23 @@ const alt = { en: "", de: "de.html" };
   <section class="band dark">
     <div class="inner">
       <h2>The pub</h2>
-      <p class="kicker">Have a look</p>
+      <p class="kicker">And hiring it</p>
+      <div class="cols">
+        <div>
+          <p>
+            A proper British pub in a village of five thousand, which is either
+            very ambitious or exactly right. People meet here halfway between
+            Zurich and Zug, intend to stay for one, and stay for three.
+          </p>
+        </div>
+        <div>
+          <p>
+            The whole place can be hired for private parties, and regularly is.
+            Ring Paul on <a href={pub.phoneHref}>{pub.phoneDisplay}</a> or email
+            <a href={`mailto:${pub.email}`}>{pub.email}</a>.
+          </p>
+        </div>
+      </div>
       <Gallery
         label="Photographs of the pub"
         hint="Scroll for more, or tap a photograph to see it full size."
