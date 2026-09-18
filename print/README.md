@@ -28,10 +28,10 @@ Light ground, maroon type. The sign goes on a dark wall, so a maroon panel
 would sink into it and a cream one reads as a sign hung on it. It also uses a
 fraction of the toner.
 
-## The QR codes
+## The QR code
 
-Two: the site, and the review link. The review one points at
-`https://oberrieden.pub/review`, not straight at Google. That page
+One, for the review. It points at `https://oberrieden.pub/review`, not straight
+at Google. That page
 (`src/pages/review/index.astro`) redirects. Three reasons:
 
 - it is short enough to print as readable text as well
@@ -39,10 +39,9 @@ Two: the site, and the review link. The review one points at
 - if the Google link ever changes, that one file changes and **every printed
   banner keeps working**
 
-Both are 38 mm, maroon on cream, which measures 12.6:1 - well inside what a
-phone camera reads. That size is comfortable at arm's length, which suits a
-spot by the door or on the bar. It is not a code to be scanned from across the
-room; the printed address is there for that.
+It is 50 mm, maroon on cream, which measures 12.6:1 - well inside what a phone
+camera reads. The web address is not a code at all: it is set at 50pt so it can
+be read from across the room, which no QR of this size can be.
 
 ## Before it goes up
 

@@ -59,7 +59,6 @@ for token, value in (
     ("__CABIN__", font("cabin-600-latin.woff2")),
     ("__BITTER__", font("bitter-700-latin.woff2")),
     ("__GEIST6__", font("geist-600-latin.woff2")),
-    ("__QR_SITE__", qr(SITE)),
     ("__QR_REVIEW__", qr(REVIEW)),
 ):
     html = html.replace(token, value)

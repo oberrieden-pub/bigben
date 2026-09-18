@@ -42,33 +42,33 @@ body{
 .bar{
   background:var(--maroon);color:var(--gold);
   font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
-  font-size:10pt;letter-spacing:.28em;text-transform:uppercase;
+  font-size:11.5pt;letter-spacing:.26em;text-transform:uppercase;
   padding:3.6mm 14mm;flex:0 0 auto;
 }
 
 .body{
-  flex:1 1 auto;display:grid;grid-template-columns:1fr 42mm 42mm;
+  flex:1 1 auto;display:grid;grid-template-columns:1fr 58mm;
   align-items:center;gap:9mm;padding:0 14mm;
 }
 
 .url{
   font-family:"Bitter",Georgia,serif;font-weight:700;
-  font-size:44pt;line-height:1;letter-spacing:-.02em;
+  font-size:50pt;line-height:1;letter-spacing:-.02em;
   color:var(--maroon);margin:0;
 }
 /* The joke. */
 .quip{
   font-family:"Bitter",Georgia,serif;font-weight:700;
-  font-size:15pt;line-height:1.25;color:var(--tan);margin:5mm 0 0;
+  font-size:18pt;line-height:1.25;color:var(--tan);margin:5mm 0 0;
 }
-.ask{font-size:11.5pt;line-height:1.35;color:var(--maroon);margin:4mm 0 0}
+.ask{font-size:14pt;line-height:1.35;color:var(--maroon);margin:4mm 0 0}
 
 .code{display:flex;flex-direction:column;align-items:center;gap:2.5mm}
 /* Maroon on the cream ground measures 12.6:1, which any phone reads. */
-.code svg{width:100%;max-width:38mm;height:auto;display:block}
+.code svg{width:100%;max-width:50mm;height:auto;display:block}
 .code .cap{
   font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
-  font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;
+  font-size:10pt;letter-spacing:.12em;text-transform:uppercase;
   color:var(--maroon);text-align:center;line-height:1.2;margin:0;
 }
 
@@ -91,8 +91,7 @@ body{
         <p class="quip">Neue Website. Gleiches Bier.</p>
         <p class="ask">Hat es Ihnen gefallen? Sagen Sie es Google. Wenn nicht, dem Wirt.</p>
       </div>
-      <div class="code">__QR_SITE__<p class="cap">Website</p></div>
-      <div class="code">__QR_REVIEW__<p class="cap">Bewerten</p></div>
+      <div class="code">__QR_REVIEW__<p class="cap">Bewerten Sie uns</p></div>
     </div>
   </section>
 
@@ -106,7 +105,6 @@ body{
         <p class="quip">New website. Same beer.</p>
         <p class="ask">Enjoyed it? Tell Google. If not, tell the landlord.</p>
       </div>
-      <div class="code">__QR_SITE__<p class="cap">Website</p></div>
       <div class="code">__QR_REVIEW__<p class="cap">Review us</p></div>
     </div>
   </section>
