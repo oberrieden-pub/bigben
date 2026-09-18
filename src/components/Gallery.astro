@@ -16,9 +16,11 @@ const back = lang === "de" ? `${label}: zurück` : `${label}: back`;
 const fwd = lang === "de" ? `${label}: weiter` : `${label}: forward`;
 ---
 
-<!-- role=region belongs on the scrolling container, not on the <ul>. Putting it
-     on the list stripped the list semantics, so nobody was told how many photos
-     there are or which one they were on. -->
+{/* role=region belongs on the scrolling container, not on the <ul>. Putting it
+    on the list stripped the list semantics, so nobody was told how many photos
+    there are or which one they were on.
+    Astro braces rather than an HTML comment: this is a note to whoever edits the
+    file, and it has no business being shipped to every visitor. */}
 <div class="scroller-wrap" tabindex="0" role="region" aria-label={label}>
   <ul class="scroller">
     {
