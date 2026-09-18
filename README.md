@@ -32,15 +32,33 @@ the top right of each page and in the footer.
 
 ### Custom domain
 
-1. Add a file named `CNAME` at the root containing just the bare domain, e.g. `example.ch`.
-2. At the DNS host, point the apex at GitHub Pages with four A records, and add `www` as a
-   CNAME to `<account>.github.io`. Take the current A record addresses from GitHub's own
-   documentation at the time you do it rather than from any list copied earlier; they have
-   changed before.
-3. Settings → Pages → Custom domain, then tick **Enforce HTTPS** once the certificate is
-   issued. It can take an hour.
+The domain is **oberrieden.pub**, registered at Cloudflare, which also runs the DNS. The
+`CNAME` file at the repository root holds the bare domain and is what binds Pages to it.
 
-GitHub Pages serves the apex domain directly. Google Sites cannot; see below.
+DNS records in the Cloudflare zone, all of them **DNS only (grey cloud)**:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| AAAA | `@` | `2606:50c0:8000::153` |
+| AAAA | `@` | `2606:50c0:8001::153` |
+| AAAA | `@` | `2606:50c0:8002::153` |
+| AAAA | `@` | `2606:50c0:8003::153` |
+| CNAME | `www` | `thrd-gh.github.io` |
+
+**The grey cloud matters.** A proxied (orange cloud) record stops GitHub issuing its TLS
+certificate, and Cloudflare's Flexible SSL mode would put the site in a redirect loop. If
+the proxy is ever switched on later, GitHub's certificate must already exist and
+Cloudflare's SSL mode must be **Full (strict)**.
+
+Once the records resolve, tick **Enforce HTTPS** in Settings → Pages. The certificate can
+take up to an hour, and DNS up to 24.
+
+GitHub Pages serves the apex domain directly, so no `www` prefix is needed. Google Sites
+cannot do this; see below.
 
 ## Three ways to host this
 
