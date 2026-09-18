@@ -1,8 +1,10 @@
 ---
+import "../styles/fonts.css";
 import "../styles/site.css";
 import { pub, type Lang } from "../data/pub";
 import Lightbox from "../components/Lightbox.astro";
 import Icon from "../components/Icon.astro";
+import SchemaOrg from "../components/SchemaOrg.astro";
 
 interface Props {
   lang: Lang;
@@ -36,6 +38,9 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="preload" href="/fonts/geist-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bitter-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+
     <link rel="canonical" href={site + path} />
 
     {/* Pasted into WhatsApp, Instagram or Facebook these pages rendered as a
@@ -72,10 +77,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         </>
       )
     }
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,400&family=Cabin:wght@500;600;700&family=Geist:wght@400;500;600;700&display=swap"
-    />
+    <SchemaOrg lang={lang} path={path} />
   </head>
   <body>
     <a class="skip" href="#main">

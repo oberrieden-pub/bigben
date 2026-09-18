@@ -33,6 +33,8 @@ generates every image size and format; later builds use its cache.
 | `src/components/Gallery.astro` | Photo grid. |
 | `src/assets/photos/` | Source photographs. Astro derives the responsive sizes. |
 | `src/styles/site.css` | All styling, as design tokens. |
+| `src/styles/fonts.css` | Self-hosted @font-face rules. No third-party font service. |
+| `src/components/SchemaOrg.astro` | BarOrPub structured data, generated from `pub.ts`. |
 | `public/CNAME` | Binds GitHub Pages to `oberrieden.pub`. |
 | `google-sites/` | An earlier alternative, kept for the reasoning. Not in use. |
 
@@ -135,8 +137,11 @@ notes will flag them as unsourced. They are not.
 3. **Replying as the pub.** Cloudflare Email Routing forwards only, so replies leave from
    Paul's own address. Fixing it means Gmail "Send mail as" over Gmail's SMTP, or a real
    mailbox. Not urgent: a pub is contacted by phone.
-4. **Self-host the fonts.** The pages pull Bodoni Moda, Faustina and Geist from
-   `fonts.googleapis.com`, which discloses each visitor's IP address to Google.
+4. ~~Self-host the fonts.~~ **Done.** Bitter, Cabin and Geist are served from
+   `public/fonts/`, subsetted to Basic Latin, Latin-1 Supplement and a little
+   punctuation. Only the six weights the pages actually render are included. If
+   you ever add a character outside that range, or a new weight, regenerate
+   them; otherwise the browser will silently fall back.
 5. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
    are in use on both front pages.
 6. **Replace the Google Maps search links** with the pub's own profile short link.

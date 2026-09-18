@@ -1,0 +1,69 @@
+---
+/* Structured data for search engines.
+
+   Generated from the same src/data/pub.ts the visible hours table and the
+   open/closed line use, so it cannot drift from what the page says. If the
+   hours change in one place, all three follow.
+
+   BarOrPub is the correct type; Restaurant would imply a kitchen the pub does
+   not have, which the page itself says. */
+import { pub, hours, type Lang } from "../data/pub";
+
+interface Props { lang: Lang; path: string }
+const { lang, path } = Astro.props;
+
+const site = "https://oberrieden.pub/";
+const DAYS = [
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+];
+
+const opens = hours
+  .map((slot, day) =>
+    slot
+      ? {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: `https://schema.org/${DAYS[day]}`,
+          opens: `${String(Math.floor(slot[0] / 60)).padStart(2, "0")}:${String(slot[0] % 60).padStart(2, "0")}`,
+          closes: `${String(Math.floor(slot[1] / 60)).padStart(2, "0")}:${String(slot[1] % 60).padStart(2, "0")}`,
+        }
+      : null,
+  )
+  .filter(Boolean);
+
+const description =
+  lang === "en"
+    ? "A pub in Oberrieden above the Zurichsee. Football, rugby and Formula One on request, darts, live Irish music most Sundays, Guinness and single malts. Two minutes from Oberrieden Dorf station on the S24."
+    : "Ein Pub in Oberrieden am Zürichsee. Fussball, Rugby und Formel 1 auf Wunsch, Darts, meistens sonntags Irish Live-Musik, Guinness und Single Malts. Zwei Minuten vom Bahnhof Oberrieden Dorf, S24.";
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "@id": site + "#pub",
+  name: pub.name,
+  legalName: pub.legalName,
+  url: site,
+  description,
+  telephone: "+41433885508",
+  email: pub.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: pub.street,
+    postalCode: pub.postcode,
+    addressLocality: pub.town,
+    addressRegion: pub.canton,
+    addressCountry: "CH",
+  },
+  openingHoursSpecification: opens,
+  servesCuisine: lang === "en" ? "Bar snacks" : "Kleinigkeiten",
+  /* Guinness, Swiss craft beer, wine and single malts; no full kitchen. */
+  servesAlcohol: true,
+  publicAccess: true,
+  isAccessibleForFree: true,
+  currenciesAccepted: "CHF",
+  sameAs: [pub.instagram, pub.facebook],
+  inLanguage: lang === "en" ? "en" : "de-CH",
+  mainEntityOfPage: site + path,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} is:inline />
