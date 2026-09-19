@@ -152,13 +152,27 @@ notes will flag them as unsourced. They are not.
    nothing makes them agree with Google. Whoever edits the Business Profile
    should say so.
 
-   Deliberately not automated. A scheduled Action could pull the hours from
-   the Places API, but it would need billing enabled on Paul's Google account
-   and an API key in repo secrets, and **GitHub disables scheduled workflows
-   after 60 days of repository inactivity** - which this repo is meant to have.
-   The check would quietly stop checking, which is the exact failure this site
-   exists to avoid. One-off exceptions belong on Google regardless: they
-   expire there, and on a web page they would not.
+   Deliberately not automated, and it is worth writing down why, because the
+   obvious objection is that DanDoku already does this.
+
+   `DanDoku/.github/workflows/pages.yml` runs a daily cron that polls the game
+   repositories with `git ls-remote`, compares them against the fingerprint in
+   the deployed `build-info.json`, and redeploys only on a difference. It is a
+   good pattern and it is cheap for one specific reason: the upstream is public,
+   so it holds no token, no key and no secret, and asks for `contents: read`.
+
+   Google's hours are not public. Maps sits behind a consent wall and the
+   Places API wants a key on a billing-enabled project, so the same workflow
+   here would need the two things that pattern exists to avoid. On top of that,
+   **GitHub disables scheduled workflows after 60 days of repository
+   inactivity** - which this repo is meant to have once handed over. Note that
+   DanDoku does not solve this either; its workflow commits nothing, so it stays
+   enabled only because that repo is actively worked on. A drift check here
+   would quietly stop checking, which is the exact failure this site exists to
+   avoid.
+
+   One-off exceptions belong on Google regardless: they expire there, and on a
+   web page they would not.
 
    The Facebook one matters most. Of the places that link to the pub, Facebook
    currently points at a page that reads as though the pub endorses online
