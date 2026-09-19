@@ -57,7 +57,7 @@ const alt = { en: "", de: "de.html" };
       <div class="actions">
         <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
         <a class="btn" href="anfahrt.html">Anfahrt</a>
-        <a class="btn" href={pub.instagram}><Icon name="instagram" />Instagram</a>
+        <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
       </div>
     </div>
   </header>
@@ -205,7 +205,7 @@ const alt = { en: "", de: "de.html" };
           Sie möchten. Details jeweils auf Instagram.
         </p>
         <div class="linkrow">
-          <a class="btn call" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
         </div>
       </div>
       <Gallery
