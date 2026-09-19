@@ -33,13 +33,15 @@ export const pub = {
      opened in a browser. Confirmed 19 September 2026. */
   facebook:
     "https://www.facebook.com/people/Big-Ben-Pub-Oberrieden/61560243984952/",
-  /* The listing itself, not a search for it. Same feature id as googleReview
-     below, which was confirmed to resolve to this pub. A search URL merely
-     tends to find the right place. */
-  googleProfile:
-    "https://www.google.com/maps/place/Big+Ben+Pub/@47.2788735,8.5749821,17z" +
-    "/data=!4m7!3m6!1s0x479aa89b342321f9:0x67127cbd2a207a2b" +
-    "!8m2!3d47.2788735!4d8.5749821",
+  /* The listing itself. cid is the decimal of the second half of the feature
+     id, 0x67127cbd2a207a2b, and is the shortest unambiguous way to open a
+     Google place.
+
+     Deliberately not the /maps/place/..!4m7!3m6!.. form. Those data payloads
+     are counted - !4m7 declares seven following elements - so the URL cannot
+     be edited by hand. Trimming the reviews flag off the end of one left a
+     count of 7 with 5 elements behind it, and Google would not open it. */
+  googleProfile: "https://maps.google.com/?cid=7427135887384803883",
   mapEmbed: (lang: Lang) =>
     `https://www.google.com/maps?q=Big+Ben+Pub%2C+Alte+Landstrasse+20%2C+8942+Oberrieden&z=16&hl=${lang}&output=embed`,
   /* Street View, pinned to the panorama that actually faces the frontage.
