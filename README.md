@@ -11,6 +11,11 @@ request undoes the design. Raise it first.
 
 English and German are separate pages. The switch is in the top right and in the footer.
 
+Working on this? Read **`AGENTS.md`** first. It carries the design decisions
+and the reasons behind them, and the traps that have already caught someone.
+This file is the orientation; that one is what stops you undoing something on
+purpose.
+
 ## Running it
 
 ```bash
