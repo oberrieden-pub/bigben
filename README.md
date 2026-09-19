@@ -146,6 +146,20 @@ notes will flag them as unsourced. They are not.
    | Google Business Profile | Website field -> `oberrieden.pub` | `flowsight.ch/bigben-pub` |
    | ~~Google Business Profile~~ | ~~Saturday hours -> 13:30~~ | **Done**, 19 September 2026. The owner updated it; not independently verified from this repo, because Google puts a consent wall in front of Maps. |
 
+   **If the regular week ever changes**, it is one line in `src/data/pub.ts`
+   and a push. The table, the open/closed line and the structured data all
+   read from that one array, so they cannot disagree with each other - but
+   nothing makes them agree with Google. Whoever edits the Business Profile
+   should say so.
+
+   Deliberately not automated. A scheduled Action could pull the hours from
+   the Places API, but it would need billing enabled on Paul's Google account
+   and an API key in repo secrets, and **GitHub disables scheduled workflows
+   after 60 days of repository inactivity** - which this repo is meant to have.
+   The check would quietly stop checking, which is the exact failure this site
+   exists to avoid. One-off exceptions belong on Google regardless: they
+   expire there, and on a web page they would not.
+
    The Facebook one matters most. Of the places that link to the pub, Facebook
    currently points at a page that reads as though the pub endorses online
    gambling.
