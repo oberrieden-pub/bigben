@@ -371,13 +371,20 @@ footer a.social:hover{text-decoration:underline}
   --surface-sunk:#43161D;
   --rule:#6E2B34;
 }
-.band.sign h2{color:var(--sign-gold)}
-/* Buttons here take cream, the same override the hero uses on its dark
-   ground. The accent tan measures 4.25:1 against the panel's lighter
-   maroon - the panel is #5E2129, not the band's #531C23, which is the
-   trap: measuring against the section gives a passing 4.7 and the button
-   does not sit on the section. Cream is 10:1. */
-.band.sign .btn{color:var(--cream);border-color:rgba(240,232,220,.35)}
+.band.sign h2{color:var(--sign-gold)}
+
+/* Buttons here take cream, the same override the hero uses on its dark
+
+   ground. The accent tan measures 4.25:1 against the panel's lighter
+
+   maroon - the panel is #5E2129, not the band's #531C23, which is the
+
+   trap: measuring against the section gives a passing 4.7 and the button
+
+   does not sit on the section. Cream is 10:1. */
+
+.band.sign .btn{color:var(--cream);border-color:rgba(240,232,220,.35)}
+
 .band.sign .btn:hover{background:rgba(240,232,220,.10)}
 
 /* A second light ground, so two light bands in a row still read as two bands.
@@ -427,6 +434,20 @@ footer a{color:var(--cream)}
 /* Tap targets. The phone number in Finding us was 22px high and is the single
    most important thing on the page to be able to hit. */
 .find dd a,footer a{display:inline-block;padding-block:12px}
+
+/* That padding also pushed the link text 12mm - 12px - below the top of
+
+   its own row, so Phone and Email sat lower than Address and Parking
+
+   beside them. The negative margin hands the padding to the hit area
+
+   without moving the text, so the tap target stays and the column lines
+
+   up. Not applied to the footer, where the links are the only content of
+
+   their row and have nothing to align with. */
+
+.find dd a{padding-block:6px;margin-block:-6px}
 .back{display:inline-block;padding-block:14px;color:var(--accent)}
 .chip{padding:11px 14px;white-space:normal}
 .topmark{display:inline-block;padding-block:6px}
