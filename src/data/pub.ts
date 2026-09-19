@@ -38,6 +38,23 @@ export const pub = {
     "&pano=oul30Y3EKG8znOIA1lhdmw" +
     "&viewpoint=47.2788735,8.5749821" +
     "&heading=287.47&pitch=0&fov=80",
+  /* The review link, not the listing. Appending !9m1!1b1 to a place URL opens
+     the Reviews panel with "Write a review" already in view; a plain listing
+     link lands on Overview and needs three more taps, which is three too many
+     for someone standing in front of a sign.
+
+     The 1s value is the pub's Google feature id, recovered from the map embed
+     on the old flowsight page because the Places API needs a key and Maps puts
+     a consent wall in the way. 3d/4d are the pub's coordinates.
+
+     If Paul ever fetches the short g.page/r/<code>/review link from his
+     Business Profile it is better still, because it opens the write dialog
+     itself. Swapping it in here is the only change needed: printed material
+     points at oberrieden.pub/review, never at Google. */
+  googleReview:
+    "https://www.google.com/maps/place/Big+Ben+Pub/@47.2788735,8.5749821,17z" +
+    "/data=!4m7!3m6!1s0x479aa89b342321f9:0x67127cbd2a207a2b" +
+    "!8m2!3d47.2788735!4d8.5749821!9m1!1b1",
   /* What is on, kept in one place: a Google Calendar the landlord owns.
      The site does not list fixtures of its own and must not start; it only
      points at this. An empty calendar shows an empty week, which is honest.

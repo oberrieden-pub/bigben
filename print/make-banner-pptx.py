@@ -13,6 +13,7 @@ Georgia stands in for Bitter and Trebuchet MS for Cabin.
 
 Run:  python print/make-banner-pptx.py
 """
+import os
 import pathlib
 
 from pptx import Presentation
@@ -20,6 +21,7 @@ from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.enum.dml import MSO_LINE_DASH_STYLE
+from pptx.oxml.ns import qn
 from pptx.util import Mm, Pt
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -131,6 +133,10 @@ def strip(slide, oy, c):
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Mm(PAGE_W), Mm(PAGE_H)
+# The dimensions alone leave PowerPoint reporting "Custom". The sldSz type
+# attribute is what makes the Slide Size dialog say A4, which is what the
+# person printing it needs to see.
+prs._element.find(qn("p:sldSz")).set("type", "a4")
 blank = prs.slide_layouts[6]
 
 slide = prs.slides.add_slide(blank)
@@ -148,12 +154,10 @@ line.line.color.rgb = RGBColor(0xC4, 0xBC, 0xB0)
 line.line.width = Pt(0.75)
 line.line.dash_style = MSO_LINE_DASH_STYLE.DASH
 
-text(slide, SHEET + W - 60, CUT_Y - 5.5, 60, 5, "schneiden / cut",
-     font="Calibri", size=8, colour=RGBColor(0xA9, 0x9F, 0x92),
-     align=PP_ALIGN.RIGHT)
-
 slide.notes_slide.notes_text_frame.text = NOTES
 
-out = ROOT / "print" / "banner.pptx"
+# BANNER_PPTX lets a check run write somewhere else, so the real file is not
+# clobbered while it is open in PowerPoint.
+out = pathlib.Path(os.environ.get("BANNER_PPTX") or ROOT / "print" / "banner.pptx")
 prs.save(out)
 print("wrote {}  ({} KB)".format(out, out.stat().st_size // 1024))
