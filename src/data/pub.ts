@@ -89,7 +89,8 @@ export type Lang = "en" | "de";
 
 /* Opening hours as minutes from midnight, Europe/Zurich, indexed by the
    JavaScript day number so 0 is Sunday. null means closed.
-   Confirmed with the landlord on 13 September 2026. */
+   Confirmed with the landlord on 13 September 2026;
+   Saturday moved to a 13:30 opening on 19 September 2026. */
 export const hours: ([number, number] | null)[] = [
   [12 * 60, 19 * 60 + 30], // Sunday
   null, // Monday
@@ -97,7 +98,7 @@ export const hours: ([number, number] | null)[] = [
   [17 * 60, 22 * 60 + 30], // Wednesday
   [17 * 60, 23 * 60], // Thursday
   [17 * 60, 23 * 60 + 30], // Friday
-  [17 * 60, 23 * 60 + 30], // Saturday
+  [13 * 60 + 30, 23 * 60 + 30], // Saturday
 ];
 
 export const dayNames: Record<Lang, string[]> = {
