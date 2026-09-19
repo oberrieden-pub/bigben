@@ -117,6 +117,28 @@ live music, darts, the sports shown, Guinness, parking and the bus were
 confirmed by him directly and are not in that file. A reviewer reading only the
 notes will flag them as unsourced. They are not.
 
+## What has a clock on it
+
+Checked 19 September 2026.
+
+| Thing | Expires | Who has to act |
+|---|---|---|
+| Domain `oberrieden.pub` | **18 September 2027** | Paul's Cloudflare account: auto-renew on, valid card. About CHF 25/year, and the only recurring cost of the whole site. |
+| TLS certificate | 17 December 2026 | Nobody. 90-day Let's Encrypt, reissued automatically by GitHub Pages. |
+| Pages deployment | Never | The last deployment keeps serving whether or not anyone touches the repo. |
+| Scheduled workflows | n/a | There are none, deliberately - see the hours note above. |
+
+Two ways the certificate can break, both DNS:
+
+- Turning on Cloudflare's proxy (orange cloud) for the apex or `www`. GitHub
+  cannot then complete the renewal challenge. Those records must stay DNS-only.
+- Changing the apex A records away from GitHub's four:
+  185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
+
+Nothing else has an expiry. The site does not depend on any API key, token or
+third-party account: the only credentials anywhere near it are the ones that
+own the domain and the repository.
+
 ## Still open
 
 1. **Going live is held pending the owner's final approval.** Every page carries
