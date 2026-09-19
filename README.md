@@ -123,7 +123,7 @@ Checked 19 September 2026.
 
 | Thing | Expires | Who has to act |
 |---|---|---|
-| Domain `oberrieden.pub` | **18 September 2027** | Paul's Cloudflare account: auto-renew on, valid card. About CHF 25/year, and the only recurring cost of the whole site. |
+| Domain `oberrieden.pub` | **18 September 2027** | Nobody, in the normal case: auto-renew is on in Paul's Cloudflare account, confirmed 19 September 2026. What is left is the card - Cloudflare cannot renew against an expired one. About CHF 25/year, and the only recurring cost of the whole site. |
 | TLS certificate | 17 December 2026 | Nobody. 90-day Let's Encrypt, reissued automatically by GitHub Pages. |
 | Pages deployment | Never | The last deployment keeps serving whether or not anyone touches the repo. |
 | Scheduled workflows | n/a | There are none, deliberately - see the hours note above. |
@@ -135,9 +135,12 @@ Two ways the certificate can break, both DNS:
 - Changing the apex A records away from GitHub's four:
   185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
 
-Nothing else has an expiry. The site does not depend on any API key, token or
-third-party account: the only credentials anywhere near it are the ones that
-own the domain and the repository.
+Nothing else has an expiry, and with auto-renew on, nothing on this list needs
+a diary entry. The site depends on no API key, token or third-party account:
+the only credentials anywhere near it are the ones that own the domain and the
+repository. The single realistic way it goes dark is a card expiring on the
+Cloudflare account a year from now, which is worth knowing precisely because
+nobody will be looking at the site by then.
 
 ## Still open
 
