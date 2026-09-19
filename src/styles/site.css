@@ -69,7 +69,12 @@ body{
   font-family:"Geist",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
   font-size:17.5px;line-height:1.65;
 }
-h1,h2,h3{font-family:"Bitter",Georgia,serif;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1,h2,h3{font-family:"Bitter",Georgia,serif;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+/* Stops a paragraph ending on a single word. The darts sign-up line broke
+   as "...on the" / "scoreboard.", 24% of the column on the second line.
+   pretty rather than balance: balance evens every line and browsers only
+   apply it to short blocks, whereas this only has to fix the last one. */
+p{text-wrap:pretty}
 p{margin:0 0 14px}
 a{color:var(--accent)}
 a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3px}
