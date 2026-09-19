@@ -168,11 +168,12 @@ notes will flag them as unsourced. They are not.
    them; otherwise the browser will silently fall back.
 5. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
    are in use on both front pages.
-6. ~~Replace the Google Maps search links.~~ **Done.** `googleProfile` and
-   `googleReview` both use the pub's own place id now, not a search. A short
-   `g.page/r/<code>/review` link from Paul's Business Profile would still be an
-   improvement on the review one, since it opens the write-a-review dialog
-   rather than the reviews panel; swapping it in is one line in `pub.ts`.
+6. ~~Replace the Google Maps search links.~~ **Done.** `googleProfile` goes to
+   the listing and `googleReview` opens Google's write-a-review dialog
+   directly, both on the pub's own place id rather than a search. The place id
+   is derived from the feature id rather than looked up - see the comment in
+   `pub.ts`. Paul's Business Profile short link is no longer needed, though it
+   would be a drop-in replacement if Google ever changes the format.
 7. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
    `ss` not `ß`, but unchecked by a native speaker.
 

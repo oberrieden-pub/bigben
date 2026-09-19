@@ -52,23 +52,29 @@ export const pub = {
     "&pano=oul30Y3EKG8znOIA1lhdmw" +
     "&viewpoint=47.2788735,8.5749821" +
     "&heading=287.47&pitch=0&fov=80",
-  /* The review link, not the listing. Appending !9m1!1b1 to a place URL opens
-     the Reviews panel with "Write a review" already in view; a plain listing
-     link lands on Overview and needs three more taps, which is three too many
-     for someone standing in front of a sign.
+  /* Opens Google's write-a-review dialog directly: stars ready, nothing to
+     find first. Confirmed working 19 September 2026.
 
-     The 1s value is the pub's Google feature id, recovered from the map embed
-     on the old flowsight page because the Places API needs a key and Maps puts
-     a consent wall in the way. 3d/4d are the pub's coordinates.
+     The placeid is derived, not looked up. Google's Places API needs a key
+     and Maps sits behind a consent wall, but a ChIJ.. place id is only
+     base64url of a small protobuf wrapping the feature id, and the feature
+     id was recoverable from the map embed on the old flowsight page:
 
-     If Paul ever fetches the short g.page/r/<code>/review link from his
-     Business Profile it is better still, because it opens the write dialog
-     itself. Swapping it in here is the only change needed: printed material
-     points at oberrieden.pub/review, never at Google. */
+       0x0a 0x12 0x09 <ftid high, little-endian u64>
+                 0x11 <ftid low,  little-endian u64>
+       ftid = 0x479aa89b342321f9:0x67127cbd2a207a2b
+
+     Earlier versions of this pointed at a Maps search, then at the reviews
+     panel. Both landed the visitor somewhere they still had to hunt for the
+     button. If this ever breaks, Paul can get the official short link from
+     his Business Profile under "Ask for reviews" and it goes straight here.
+
+     Google shows a one-off "How your posts appear" notice over the stars the
+     first time an account uses this. That belongs to the dialog, not to the
+     link, and any tap dismisses it. */
   googleReview:
-    "https://www.google.com/maps/place/Big+Ben+Pub/@47.2788735,8.5749821,17z" +
-    "/data=!4m7!3m6!1s0x479aa89b342321f9:0x67127cbd2a207a2b" +
-    "!8m2!3d47.2788735!4d8.5749821!9m1!1b1",
+    "https://search.google.com/local/writereview" +
+    "?placeid=ChIJ-SEjNJuomkcRK3ogKr18Emc",
   /* What is on, kept in one place: a Google Calendar the landlord owns.
      The site does not list fixtures of its own and must not start; it only
      points at this. An empty calendar shows an empty week, which is honest.
