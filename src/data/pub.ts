@@ -24,8 +24,13 @@ export const pub = {
   instagram: "https://www.instagram.com/bigbenpubzh/",
   instagramHandle: "@bigbenpubzh",
   facebook: "https://www.facebook.com/BigBenPubOberrieden/",
+  /* The listing itself, not a search for it. Same feature id as googleReview
+     below, which was confirmed to resolve to this pub. A search URL merely
+     tends to find the right place. */
   googleProfile:
-    "https://www.google.com/maps/search/?api=1&query=Big+Ben+Pub+Oberrieden",
+    "https://www.google.com/maps/place/Big+Ben+Pub/@47.2788735,8.5749821,17z" +
+    "/data=!4m7!3m6!1s0x479aa89b342321f9:0x67127cbd2a207a2b" +
+    "!8m2!3d47.2788735!4d8.5749821",
   mapEmbed: (lang: Lang) =>
     `https://www.google.com/maps?q=Big+Ben+Pub%2C+Alte+Landstrasse+20%2C+8942+Oberrieden&z=16&hl=${lang}&output=embed`,
   /* Street View, pinned to the panorama that actually faces the frontage.
