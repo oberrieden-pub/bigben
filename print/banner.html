@@ -51,6 +51,10 @@ body{
   align-items:center;gap:9mm;padding:0 14mm;
 }
 
+/* Pinned rather than centred, 9mm above where centring put it - about 10% of
+   the strip - which lands the address level with the top of the code. */
+.body > div:first-child{align-self:start;margin-top:10.5mm}
+
 .url{
   font-family:"Bitter",Georgia,serif;font-weight:700;
   font-size:50pt;line-height:1;letter-spacing:-.02em;
@@ -72,11 +76,7 @@ body{
   color:var(--maroon);text-align:center;line-height:1.2;margin:0;
 }
 
-.cut{height:0;border-top:.3mm dashed #C4BCB0;position:relative}
-.cut::after{
-  content:"schneiden / cut";position:absolute;right:0;top:-3.4mm;
-  font-size:6.5pt;color:#C4BCB0;background:#fff;padding:0 2mm;
-}
+.cut{height:0;border-top:.3mm dashed #C4BCB0}
 
 @media screen{ body{padding:10mm;background:#3A3330} .sheet{background:#fff;padding:8mm} }
 </style>

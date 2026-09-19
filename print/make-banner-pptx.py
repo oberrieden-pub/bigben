@@ -114,13 +114,13 @@ def strip(slide, oy, c):
          font="Trebuchet MS", size=11.5, colour=GOLD, bold=True,
          spacing=3, anchor=MSO_ANCHOR.MIDDLE)
 
-    text(slide, ox + MARGIN, oy + 33, QRX - MARGIN - 6, 20, "oberrieden.pub",
+    text(slide, ox + MARGIN, oy + 24, QRX - MARGIN - 6, 20, "oberrieden.pub",
          font="Georgia", size=50, colour=MAROON, bold=True)
 
-    text(slide, ox + MARGIN, oy + 54.5, QRX - MARGIN - 6, 8, c["quip"],
+    text(slide, ox + MARGIN, oy + 45.5, QRX - MARGIN - 6, 8, c["quip"],
          font="Georgia", size=18, colour=TAN, bold=True)
 
-    text(slide, ox + MARGIN, oy + 64, QRX - MARGIN - 6, 7, c["ask"],
+    text(slide, ox + MARGIN, oy + 55, QRX - MARGIN - 6, 7, c["ask"],
          font="Calibri", size=14, colour=MAROON)
 
     slide.shapes.add_picture(str(QR), Mm(ox + QRX), Mm(oy + 23.5),
@@ -136,7 +136,7 @@ prs.slide_width, prs.slide_height = Mm(PAGE_W), Mm(PAGE_H)
 # The dimensions alone leave PowerPoint reporting "Custom". The sldSz type
 # attribute is what makes the Slide Size dialog say A4, which is what the
 # person printing it needs to see.
-prs._element.find(qn("p:sldSz")).set("type", "a4")
+prs._element.find(qn("p:sldSz")).set("type", "A4")  # the enum is capitalised
 blank = prs.slide_layouts[6]
 
 slide = prs.slides.add_slide(blank)
