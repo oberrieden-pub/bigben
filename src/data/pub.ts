@@ -23,7 +23,16 @@ export const pub = {
   email: "bigben@oberrieden.pub",
   instagram: "https://www.instagram.com/bigbenpubzh/",
   instagramHandle: "@bigbenpubzh",
-  facebook: "https://www.facebook.com/BigBenPubOberrieden/",
+  /* The /people/<slug>/<id>/ form, because the page has no vanity username.
+     The number is the page id and is the part that matters.
+
+     The tidier facebook.com/BigBenPubOberrieden that used to be here is not
+     the pub: Facebook answers it with "This content isn't available at the
+     moment". Do not shorten this link back to that. Note also that curl gets
+     HTTP 400 from both, so a status code proves nothing here - it has to be
+     opened in a browser. Confirmed 19 September 2026. */
+  facebook:
+    "https://www.facebook.com/people/Big-Ben-Pub-Oberrieden/61560243984952/",
   /* The listing itself, not a search for it. Same feature id as googleReview
      below, which was confirmed to resolve to this pub. A search URL merely
      tends to find the right place. */
