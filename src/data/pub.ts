@@ -142,26 +142,20 @@ export function fmt(mins: number): string {
 /* Walks Monday to Sunday and merges consecutive days that share the same hours,
    so "Tuesday – Wednesday" appears without anyone maintaining that grouping. */
 export function weekRows(lang: Lang) {
+  /* One row per day, Monday first.
+
+     Consecutive identical days used to be merged into "Tuesday - Wednesday",
+     which was tidier and worse: the reader had to work out whether their day
+     fell inside a range, and a change to a single day silently restructured
+     the whole table. Seven rows always look the same and answer the question
+     by being read straight down. */
   const order = [1, 2, 3, 4, 5, 6, 0];
-  const rows: { label: string; value: string; closed: boolean }[] = [];
-  let i = 0;
-  while (i < order.length) {
-    const slot = hours[order[i]];
-    let j = i;
-    while (
-      j + 1 < order.length &&
-      JSON.stringify(hours[order[j + 1]]) === JSON.stringify(slot)
-    ) {
-      j++;
-    }
-    const first = dayNames[lang][order[i]];
-    const last = dayNames[lang][order[j]];
-    rows.push({
-      label: i === j ? first : `${first} – ${last}`,
+  return order.map((day) => {
+    const slot = hours[day];
+    return {
+      label: dayNames[lang][day],
       value: slot ? `${fmt(slot[0])} – ${fmt(slot[1])}` : closedWord[lang],
       closed: !slot,
-    });
-    i = j + 1;
-  }
-  return rows;
+    };
+  });
 }
