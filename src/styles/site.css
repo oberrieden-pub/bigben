@@ -69,11 +69,16 @@ body{
   font-family:"Geist",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
   font-size:17.5px;line-height:1.65;
 }
-h1,h2,h3{font-family:"Bitter",Georgia,serif;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
-/* Stops a paragraph ending on a single word. The darts sign-up line broke
-   as "...on the" / "scoreboard.", 24% of the column on the second line.
-   pretty rather than balance: balance evens every line and browsers only
-   apply it to short blocks, whereas this only has to fix the last one. */
+h1,h2,h3{font-family:"Bitter",Georgia,serif;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+
+/* Stops a paragraph ending on a single word. The darts sign-up line broke
+
+   as "...on the" / "scoreboard.", 24% of the column on the second line.
+
+   pretty rather than balance: balance evens every line and browsers only
+
+   apply it to short blocks, whereas this only has to fix the last one. */
+
 p{text-wrap:pretty}
 p{margin:0 0 14px}
 a{color:var(--accent)}
@@ -366,7 +371,14 @@ footer a.social:hover{text-decoration:underline}
   --surface-sunk:#43161D;
   --rule:#6E2B34;
 }
-.band.sign h2{color:var(--sign-gold)}
+.band.sign h2{color:var(--sign-gold)}
+/* Buttons here take cream, the same override the hero uses on its dark
+   ground. The accent tan measures 4.25:1 against the panel's lighter
+   maroon - the panel is #5E2129, not the band's #531C23, which is the
+   trap: measuring against the section gives a passing 4.7 and the button
+   does not sit on the section. Cream is 10:1. */
+.band.sign .btn{color:var(--cream);border-color:rgba(240,232,220,.35)}
+.band.sign .btn:hover{background:rgba(240,232,220,.10)}
 
 /* A second light ground, so two light bands in a row still read as two bands.
    Most of the page sits on these: the pub is about a room full of people, and a
