@@ -29,7 +29,10 @@ body{
   -webkit-print-color-adjust:exact; print-color-adjust:exact;
 }
 
-.sheet{width:281mm;display:flex;flex-direction:column;gap:6mm}
+/* Three children - strip, cut line, strip - so the gap is applied twice.
+   At 6mm that made 196.3mm inside a 194mm print area and Chrome emitted a
+   second, blank page. */
+.sheet{width:281mm;display:flex;flex-direction:column;gap:4mm}
 
 .strip{
   width:281mm;height:92mm;background:var(--paper);color:var(--maroon);

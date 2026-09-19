@@ -2,12 +2,22 @@
 
 Two formats of the same sign:
 
-- `banner.html` - finished, print straight from a browser
+- `banner.pdf` - hand this to a print shop, or print it yourself
+- `banner.html` - the source of the PDF; prints fine straight from a browser
 - `banner.pptx` - the same thing editable: one A4 landscape slide carrying
   both strips, so it is one sheet through the printer and one cut
 
-Keep them in step: both are generated, `make-banner.py` for the HTML and
-`make-banner-pptx.py` for the deck, and the wording lives in both scripts.
+Keep them in step. All three are generated:
+
+    python print/make-banner.py        # banner.html
+    python print/make-banner-pdf.py    # banner.pdf, from banner.html
+    python print/make-banner-pptx.py   # banner.pptx
+
+The wording lives in `banner.template.html` and `make-banner-pptx.py`, so a
+copy change means editing both. The PDF comes from headless Chrome rather than
+LibreOffice: LibreOffice cannot run on this machine, and it would substitute
+fonts anyway. Printing the HTML keeps the pub's own faces and draws the QR as
+vector paths rather than a bitmap.
 
 The deck uses Georgia and Trebuchet MS rather than the site's own Bitter and
 Cabin. Those are web fonts and are not installed on a normal machine, so naming
