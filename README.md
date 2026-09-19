@@ -144,11 +144,17 @@ notes will flag them as unsourced. They are not.
    | Facebook | Description | "English Pub on the edge of Zurich" - the site deliberately no longer calls itself British or English |
    | Instagram | Bio link -> `oberrieden.pub` | not checked; assume it needs the same |
    | Google Business Profile | Website field -> `oberrieden.pub` | `flowsight.ch/bigben-pub` |
-   | Google Business Profile | Saturday hours -> 13:30 | 17:00. **This one is wrong now**, not just at go-live, and the site tells visitors the Google page is the authority on hours. |
+   | ~~Google Business Profile~~ | ~~Saturday hours -> 13:30~~ | **Done**, 19 September 2026. The owner updated it; not independently verified from this repo, because Google puts a consent wall in front of Maps. |
 
-   The Facebook one matters most. Of the three places that link to the pub, two
-   currently point at a page that reads as though the pub endorses online
+   The Facebook one matters most. Of the places that link to the pub, Facebook
+   currently points at a page that reads as though the pub endorses online
    gambling.
+
+   Note on verifying any of this: Google Maps and Google Search both sit behind
+   a consent wall for a fresh browser, and Facebook answers curl with HTTP 400
+   whether a page exists or not. None of these can be checked from a script.
+   They have to be opened in a signed-in browser by someone who holds the
+   logins.
 2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
    target of the Google Business Profile website field. Two live pages for one pub is
    worse than either alone.
