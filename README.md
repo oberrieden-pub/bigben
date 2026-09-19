@@ -131,6 +131,24 @@ notes will flag them as unsourced. They are not.
    Doing only the first leaves the site findable but unlinked from the pub's
    most valuable asset. Doing only the second sends people to a page search
    engines are told to ignore. Wait for approval, then do all three.
+
+   **Handover list: the accounts nobody on this side can log in to.** These are
+   not code changes and cannot be done from this repo. They need whoever holds
+   the pub's Facebook, Instagram and Google logins, and they should all happen
+   in the same sitting as the three steps above.
+
+   | Where | What | Currently |
+   |---|---|---|
+   | Facebook | Website field -> `oberrieden.pub` | `big-ben-oberrieden.ch` - the abandoned site, which serves an injected online-casino advertorial inside its About section. Facebook is actively sending people to it. |
+   | Facebook | Contact email -> `bigben@oberrieden.pub` | a personal address |
+   | Facebook | Description | "English Pub on the edge of Zurich" - the site deliberately no longer calls itself British or English |
+   | Instagram | Bio link -> `oberrieden.pub` | not checked; assume it needs the same |
+   | Google Business Profile | Website field -> `oberrieden.pub` | `flowsight.ch/bigben-pub` |
+   | Google Business Profile | Saturday hours -> 13:30 | 17:00. **This one is wrong now**, not just at go-live, and the site tells visitors the Google page is the authority on hours. |
+
+   The Facebook one matters most. Of the three places that link to the pub, two
+   currently point at a page that reads as though the pub endorses online
+   gambling.
 2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
    target of the Google Business Profile website field. Two live pages for one pub is
    worse than either alone.
@@ -144,7 +162,11 @@ notes will flag them as unsourced. They are not.
    them; otherwise the browser will silently fall back.
 5. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
    are in use on both front pages.
-6. **Replace the Google Maps search links** with the pub's own profile short link.
+6. ~~Replace the Google Maps search links.~~ **Done.** `googleProfile` and
+   `googleReview` both use the pub's own place id now, not a search. A short
+   `g.page/r/<code>/review` link from Paul's Business Profile would still be an
+   improvement on the review one, since it opens the write-a-review dialog
+   rather than the reviews panel; swapping it in is one line in `pub.ts`.
 7. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
    `ss` not `ß`, but unchecked by a native speaker.
 
