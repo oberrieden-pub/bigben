@@ -204,6 +204,26 @@ nobody will be looking at the site by then.
    One-off exceptions belong on Google regardless: they expire there, and on a
    web page they would not.
 
+   **Meta access, done 20 September 2026.** The pub's Facebook and Instagram
+   sit in a Meta business portfolio owned by the landlord, and a second person
+   has been added under Personen with **Vollstaendige Kontrolle** (Full
+   control). That removes the previous arrangement, which was sharing the
+   landlord's password - the same dependency the domain and the repository are
+   deliberately free of.
+
+   Three things that cost an hour and will cost the next person the same:
+
+   - The invitation email frequently never arrives. Accept it instead by
+     opening business.facebook.com signed in as the invited person; the
+     pending invite appears there. Expect a password reset loop on the way.
+   - The invited email must be **exactly** the one on that person's Facebook
+     account. Any other address is accepted, shows Ausstehend forever, and
+     never links.
+   - Business Suite has no language setting of its own: it follows the
+     Facebook account's. The `?locale=en_GB` trick no longer works on the
+     `/latest/` routes, so either change the owner's Facebook language or work
+     in German.
+
    The Facebook one matters most. Of the places that link to the pub, Facebook
    currently points at a page that reads as though the pub endorses online
    gambling.
