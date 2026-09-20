@@ -73,6 +73,27 @@ German drifting from its own conventions. One pass found named entities
 beside `Live-Musik`, and a deliberate English "only a few metres" that had lost
 its `nur`.
 
+## The Google reviews describe two different pubs
+
+The company was registered in February 2024. Reviews older than that are about
+the **previous** operation, and Google does not distinguish them: as of
+September 2026 the listing's own keyword chips advertise a **pulled pork
+sandwich** (8 mentions) and a **hot dog** (2), neither of which the pub has
+served since the change of landlord. Nothing from the previous menu survives.
+
+So do not mine the Google reviews, the keyword chips or the Menu tab for what
+the pub sells. The menu in `src/pages/index.astro` is what the current landlord
+confirmed, and it is short on purpose. If a future pass "notices" that Google
+says there is a pulled pork sandwich, that is this trap, not a gap.
+
+The same applies to "friendly owner" and "friendly landlord" in those chips.
+They may well be about somebody else.
+
+It also explains why the printed banner asks for reviews. The chips are
+weighted toward recent ones, so new reviews are the only thing that moves the
+listing's description of the pub toward the pub that exists. That is a content
+problem, not a ratings one - the 4.7 was never the issue.
+
 ## Traps that have already caught someone
 
 **Astro eats a space at a line wrap.** When a line in a `.astro` file wraps
