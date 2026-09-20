@@ -170,118 +170,18 @@ currency, and more credible than a self-declared band.
 
 ## Still open
 
-1. **Going live is held pending the owner's final approval.** Every page carries
-   `noindex, nofollow`, so Google lists nothing. This is deliberate, not an
-   oversight, and it is one decision with three parts that belong together:
+1. ~~**Going live.**~~ **Done 20 September 2026, with the owner's approval.**
+   The `noindex` default in `src/layouts/Base.astro` is off, so all six content
+   pages are indexable; `/review` keeps its own, being only a redirect. The
+   Google Business Profile website field points here, and its Menu tab at
+   `oberrieden.pub#menu`. `public/robots.txt` allows everything and names the
+   sitemap, and `scripts/sitemap.mjs` writes `dist/sitemap.xml` at build time
+   from whatever the build produced, skipping anything noindexed - a
+   hand-written list would go stale the first time someone added a page.
 
-   1. Remove the `noindex` meta in `src/layouts/Base.astro`.
-   2. Point the Google Business Profile website field at `oberrieden.pub`
-      (it currently points at flowsight.ch/bigben-pub).
-   3. Submit the domain to Google Search Console.
-
-   Doing only the first leaves the site findable but unlinked from the pub's
-   most valuable asset. Doing only the second sends people to a page search
-   engines are told to ignore. Wait for approval, then do all three.
-
-   **Handover list: the accounts nobody on this side can log in to.** These are
-   not code changes and cannot be done from this repo. They need whoever holds
-   the pub's Facebook, Instagram and Google logins, and they should all happen
-   in the same sitting as the three steps above.
-
-   | Where | What | Currently |
-   |---|---|---|
-   | ~~Facebook~~ | ~~Website field~~ | **Done** 20 September 2026. Was `big-ben-oberrieden.ch`, the abandoned site carrying an injected online-casino advertorial. Nothing on Facebook or Instagram points there now. |
-   | ~~Facebook~~ | ~~Instagram link~~ | **Done** 20 September 2026, before the handle hold expired. |
-   | ~~Facebook~~ | ~~Username~~ | **Done** 20 September 2026: the page had none, now `facebook.com/oberrieden.pub`. The old `/people/...` URL still works, and is what the site links to. |
-   | ~~Facebook~~ | ~~Contact email~~ | **Done** 20 September 2026. Was a personal address. |
-   | Facebook | Description | "English Pub on the edge of Zurich" - the site deliberately no longer calls itself British or English |
-   | ~~Instagram~~ | ~~Bio link~~ | **Done** 20 September 2026. Was the Facebook profile; that link is deleted, so `oberrieden.pub` is now the only one. Only editable in the phone app - the browser greys the field and says so. |
-   | ~~Instagram~~ | ~~Bio wording~~ | **Done** 20 September 2026. Was "English Pub on the edge of Zurich". |
-   | ~~Instagram~~ | ~~Handle~~ | **Done** 20 September 2026: `@bigbenpubzh` -> `@oberrieden.pub`. Old handle released to anyone after 14 days and cannot be reclaimed early. |
-   | Google Business Profile | Website field -> `oberrieden.pub` | `flowsight.ch/bigben-pub` |
-   | ~~Google Business Profile~~ | ~~Saturday hours -> 13:30~~ | **Done**, 19 September 2026. The owner updated it; not independently verified from this repo, because Google puts a consent wall in front of Maps. |
-
-   **If the regular week ever changes**, it is one line in `src/data/pub.ts`
-   and a push. The table, the open/closed line and the structured data all
-   read from that one array, so they cannot disagree with each other - but
-   nothing makes them agree with Google. Whoever edits the Business Profile
-   should say so.
-
-   Deliberately not automated, and it is worth writing down why, because the
-   obvious objection is that DanDoku already does this.
-
-   `DanDoku/.github/workflows/pages.yml` runs a daily cron that polls the game
-   repositories with `git ls-remote`, compares them against the fingerprint in
-   the deployed `build-info.json`, and redeploys only on a difference. It is a
-   good pattern and it is cheap for one specific reason: the upstream is public,
-   so it holds no token, no key and no secret, and asks for `contents: read`.
-
-   Google's hours are not public. Maps sits behind a consent wall and the
-   Places API wants a key on a billing-enabled project, so the same workflow
-   here would need the two things that pattern exists to avoid. On top of that,
-   **GitHub disables scheduled workflows after 60 days of repository
-   inactivity** - which this repo is meant to have once handed over. Note that
-   DanDoku does not solve this either; its workflow commits nothing, so it stays
-   enabled only because that repo is actively worked on. A drift check here
-   would quietly stop checking, which is the exact failure this site exists to
-   avoid.
-
-   One-off exceptions belong on Google regardless: they expire there, and on a
-   web page they would not.
-
-   **Meta access, done 20 September 2026.** The pub's Facebook and Instagram
-   sit in a Meta business portfolio owned by the landlord, and a second person
-   has been added under Personen with **Vollstaendige Kontrolle** (Full
-   control). That removes the previous arrangement, which was sharing the
-   landlord's password - the same dependency the domain and the repository are
-   deliberately free of.
-
-   **Account recovery uses the landlord's own private address**, the one on
-   his phone. Not written here, and not `bigben@oberrieden.pub`, which was
-   the first instinct and is wrong: that address is published on this site,
-   in the Impressum and in the structured data. A recovery address anyone can
-   read is half a credential given away, and it is the half an attacker
-   cannot otherwise guess.
-
-   The trade accepted with it: recovery is tied to a personal mailbox rather
-   than something redirectable, so if that address is ever lost or the
-   landlord steps back, **the recovery route has to be changed in Meta before
-   that happens**, not after. Put it on the list whenever anything else about
-   his contact details changes.
-
-   The phone field is deliberately empty. The pub's number is a landline and
-   cannot take an SMS code, and a personal mobile would tie recovery to a
-   handset as well as a mailbox.
-
-   Who does what, so the access list is not a mystery to the next person:
-   the landlord owns the portfolio, Jackie Newell runs the media side - which
-   means Instagram, and therefore everything the site defers to it for - and
-   the technical side is separate. All three currently hold Uneingeschraenkter
-   Zugriff (full control) over Alles, which is fine for three people who know
-   each other but does mean any of them can remove the others.
-
-   Three things that cost an hour and will cost the next person the same:
-
-   - The invitation email frequently never arrives. Accept it instead by
-     opening business.facebook.com signed in as the invited person; the
-     pending invite appears there. Expect a password reset loop on the way.
-   - The invited email must be **exactly** the one on that person's Facebook
-     account. Any other address is accepted, shows Ausstehend forever, and
-     never links.
-   - Business Suite has no language setting of its own: it follows the
-     Facebook account's. The `?locale=en_GB` trick no longer works on the
-     `/latest/` routes, so either change the owner's Facebook language or work
-     in German.
-
-   The Facebook one matters most. Of the places that link to the pub, Facebook
-   currently points at a page that reads as though the pub endorses online
-   gambling.
-
-   Note on verifying any of this: Google Maps and Google Search both sit behind
-   a consent wall for a fresh browser, and Facebook answers curl with HTTP 400
-   whether a page exists or not. None of these can be checked from a script.
-   They have to be opened in a signed-in browser by someone who holds the
-   logins.
+   Still to do: submit the domain to Google Search Console and Bing Webmaster
+   Tools. The `noindex` prop survives on the layout so a future draft page can
+   opt itself out.
 2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
    target of the Google Business Profile website field. Two live pages for one pub is
    worse than either alone.
