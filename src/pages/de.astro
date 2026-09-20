@@ -1,321 +1,321 @@
----
-import { Image } from "astro:assets";
-import Base from "../layouts/Base.astro";
-import Icon from "../components/Icon.astro";
-import Photo from "../components/Photo.astro";
-import Hours from "../components/Hours.astro";
-import StatusPill from "../components/StatusPill.astro";
-import Gallery from "../components/Gallery.astro";
-import { pub } from "../data/pub";
-
-import exteriorFront from "../assets/photos/exterior-front.jpg";
-import barTaps from "../assets/photos/bar-taps.jpg";
-import barWide from "../assets/photos/bar-wide.jpg";
-import dartsBoard from "../assets/photos/darts-board.jpg";
-import signHanging from "../assets/photos/sign-hanging.jpg";
-import signFascia from "../assets/photos/sign-fascia.jpg";
-import exteriorStreet from "../assets/photos/exterior-street.jpg";
-import plaque from "../assets/photos/plaque-frisch-vom-fass.jpg";
-import signBrackets from "../assets/photos/sign-brackets.jpg";
-import dartsCorner from "../assets/photos/darts-corner.jpg";
-import parkingSign from "../assets/photos/parking-sign.jpg";
-import musicBooth from "../assets/photos/music-booth.jpg";
-import musicSession from "../assets/photos/music-session.jpg";
-import musicTrio from "../assets/photos/music-trio.jpg";
-import musicHarp from "../assets/photos/music-harp.jpg";
-import musicFiddle from "../assets/photos/music-fiddle.jpg";
-import musicRoom from "../assets/photos/music-room.jpg";
-import stainedGlass from "../assets/photos/stained-glass.jpg";
-import pintAndBoard from "../assets/photos/pint-and-board.jpg";
-
-const alt = { en: "", de: "de.html" };
----
-
-<Base
-  lang="de"
-  title="Big Ben Pub Oberrieden — ein echtes Pub über dem Zürichsee"
-  description="Pub in Oberrieden über dem Zürichsee. Fussball, Rugby und F1 auf Wunsch, Darts, meistens sonntags Irish Live-Musik, Guinness. Zwei Minuten vom Bahnhof."
-  path="de.html"
-  alt={alt}
->
-  <header class="hero">
-    <Image
-      class="hero-bg"
-      src={exteriorFront}
-      alt=""
-      widths={[800, 1400, 2000]}
-      sizes="100vw"
-      format="avif"
-      quality={68}
-      loading="eager"
-    />
-    <div class="inner">
-      <p class="eyebrow">Oberrieden Dorf</p>
-      <h1 class="wordmark">Big Ben Pub</h1>
-      <p class="tagline">Ein echtes Pub, exakt über dem Zürichsee gelegen</p>
-      <StatusPill lang="de" />
-      <div class="actions">
-        <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
-        <a class="btn" href="anfahrt.html">Anfahrt</a>
-        <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
-      </div>
-    </div>
-  </header>
-
-
-  <section class="band claim">
-    <div class="inner">
-      <p class="claim-line">Wahrscheinlich das beste Guinness in Zürich</p>
-      <p class="claim-sub">Nicht nur im Dorf. Fragen Sie nach, wir warten.</p>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="inner">
-      <h2>Live-Sport</h2>
-      <p class="kicker">Fussball, Rugby, F1</p>
-      <div class="panel">
-        <p class="big">
-          Fussball, Rugby, F1 und was sonst noch sehenswert ist. Sagen
-          Sie uns, was Sie sehen möchten. Wenn es geht, zeigen wir es.
-        </p>
-        <p>
-          Rufen Sie vorher an, statt auf gut Glück vorbeizukommen. Details
-          jeweils auf unserem Instagram.
-        </p>
-        <div class="linkrow">
-          <a class="btn call" href={pub.googleProfile}>Diese Woche auf Google</a>
-          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band sunk">
-    <div class="inner">
-      <h2>Öffnungszeiten</h2>
-      <p class="kicker">Reguläre Woche</p>
-      <div class="cols">
-        <div><Hours lang="de" /></div>
-        <div>
-          <p>Beim Fussball bleiben wir spät offen.</p>
-          <p>&laquo;Spät&raquo; leistet in diesem Satz einiges.</p>
-          <p>
-            Die Zeiten für einen bestimmten Tag stehen immer auf unserer{" "}
-            <a href={pub.googleProfile}>Google-Seite</a>, die wir tatsächlich
-            nachführen.<br />Ehrlich!
-          </p>
-          <p class="highlight">
-            <strong>Meistens sonntagnachmittags Irish Live-Musik.</strong>{" "}
-            Details jeweils auf <a href={pub.instagram}>Instagram</a>.
-          </p>
-          <p class="highlight">
-            <strong>Karaoke. Man muss dabei sein. Also seien Sie dabei.</strong>{" "}
-            Auf <a href={pub.instagram}>Instagram</a>, also keine Ausreden.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="menu" class="band dark menu has-photo">
-    <Image
-      class="band-bg"
-      src={barTaps}
-      alt=""
-      widths={[800, 1400, 2000]}
-      sizes="100vw"
-      format="avif"
-      quality={64}
-      loading="lazy"
-    />
-    <div class="inner">
-      <h2>Bar und Snacks</h2>
-      <p class="kicker">Kleinigkeiten für die Seele</p>
-      <div class="cols">
-        <div>
-          <h3>An der Bar</h3>
-          <ul>
-            <li>Guinness, <small>richtig gezapft, etwas Geduld bitte</small></li>
-            <li>Schweizer Craft Beers</li>
-            <li>Offene Weine</li>
-            <li>Single Malts</li>
-            <li>Alkoholfreies, <small>selbstverständlich</small></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Kleine Karte</h3>
-          <ul>
-            <li>Wings</li>
-            <li>Pommes</li>
-            <li>Nachos</li>
-            <li>Toasties</li>
-            <li>Pies</li>
-          </ul>
-          <blockquote class="pull">
-            Ein Bier in der einen Hand, eine Kleinigkeit in der anderen. Mehr
-            braucht ein guter Abend nicht.
-          </blockquote>
-          <p class="fineprint">Angebot je nach Verfügbarkeit, Änderungen vorbehalten.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="inner">
-      <h2>Darts</h2>
-      <p class="kicker">Doppel Zwanzig. Und dann mehr</p>
-      <div class="cols">
-        <div>
-          <Photo
-            lang="de"
-            class="shot tall"
-            src={dartsBoard}
-            alt="Eine Dartscheibe in einem Holzschrank."
-            widths={[400, 800, 1200]}
-            sizes="(max-width: 700px) 92vw, 430px"
-            loading="lazy"
-          />
-        </div>
-        <div>
-          <p>
-            Ihr Name gehört auf die Tafel.
-          </p>
-          <p>
-            Eine Dartscheibe, und das Spiel ist gratis. Pfeile gibt es an der
-            Bar, falls Sie unbewaffnet erschienen sind.
-          </p>
-          <p>
-            Punktestreitigkeiten entscheidet der Wirt.<br />Ein Entscheid
-            kostet ein Bier.<br />Ein richtiger auch.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="band dark sign">
-    <div class="inner">
-      <h2>Live-Musik</h2>
-      <p class="kicker">Meistens sonntagnachmittags</p>
-      <div class="panel">
-        <p class="big">
-          Eine Irish Session an den meisten Sonntagnachmittagen. Geige,
-          Gitarre, Akkordeon, Harfe und wer sonst noch mit einem Instrument und
-          dem nötigen Mut auftaucht.
-        </p>
-        <p>
-          Kein Billett, kein Eintritt. Mitspielen oder zuhören, ganz wie
-          Sie möchten. Details jeweils auf Instagram.
-        </p>
-        <div class="linkrow">
-          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
-        </div>
-      </div>
-      <Gallery
-        lang="de"
-        label="Fotos der Live-Musik"
-        items={[
-            { src: musicBooth, alt: "Zwei Musiker mit Gitarre und Akkordeon in einer Nische." },
-            { src: musicTrio, alt: "Drei Musikerinnen und Musiker mit Harfe und Geigen." },
-            { src: musicFiddle, alt: "Eine Geigerin mitten im Stück." },
-            { src: musicHarp, alt: "Eine Harfenspielerin während der Sonntagssession." },
-            { src: musicSession, alt: "Die Session in vollem Gang neben dem Fenster." },
-            { src: musicRoom, alt: "Ein voller Raum hört der Sonntagssession zu." },
-          ]}
-      />
-    </div>
-  </section>
-
-  <section class="band sunk">
-    <div class="inner">
-      <h2>Das Pub</h2>
-      <p class="kicker">Auf halbem Weg zwischen Zürich und Zug</p>
-      <p class="lead">
-        Ein echtes Pub in einem Dorf mit fünftausend Einwohnern, was genau
-        richtig ist. Treffen Sie sich hier. Sie kommen auf ein Bier und bleiben
-        vielleicht auf mehr.
-      </p>
-      <p class="note">
-        Hunde sind willkommen, und für laue Abende haben wir Plätze draussen.
-      </p>
-      <Gallery
-        lang="de"
-        label="Fotos vom Pub"
-        items={[
-          { src: barWide, alt: "Die Bar von der Seite, Zapfhähne und Gläser." },
-          { src: signHanging, alt: "Ein Big Ben Pub Schild an einem Ausleger." },
-          { src: signFascia, alt: "Das Big Ben Pub Schild über dem Eingang." },
-          { src: exteriorStreet, alt: "Das Pub von der Alten Landstrasse aus gesehen." },
-          { src: plaque, alt: "Die Plakette Frisch vom Fass an der Tür." },
-          { src: dartsBoard, alt: "Die Dartscheibe im Schrank." },
-          { src: stainedGlass, alt: "Ein Buntglasfenster im vorderen Raum." },
-          { src: pintAndBoard, alt: "Ein Pint an der Bar neben der Tafel." },
-          { src: signBrackets, alt: "Die beiden Ausleger-Schilder vom Trottoir aus." },
-          { src: dartsCorner, alt: "Die Dartecke mit dem Holzschrank." },
-          { src: parkingSign, alt: "Das Schild Parkplatz Big Ben Pub, nur für Gäste." },
-        ]}
-      />
-    </div>
-  </section>
-
-
-  <section class="band">
-    <div class="inner">
-      <h2>Reservationen</h2>
-      <p class="kicker">Am schnellsten per Telefon</p>
-      <div class="panel">
-        <p class="big">
-          Reservationen nehmen wir gerne entgegen. Für einen Tisch am
-          Spielabend rufen Sie an, sonst schreiben Sie uns. So oder so halten
-          wir Ihnen einen Platz frei und sorgen dafür, dass Sie etwas zu
-          trinken bekommen.
-        </p>
-        <div class="linkrow">
-          <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
-          <a class="btn" href={`mailto:${pub.email}`}>{pub.email}</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band sunk find">
-    <div class="inner">
-      <h2>So finden Sie uns</h2>
-      <p class="kicker">Oberrieden Dorf</p>
-      <div class="cols">
-        <div>
-          <dl>
-            <dt>Adresse</dt>
-            <dd>{pub.street}<br />{pub.postcode} {pub.town} {pub.canton}</dd>
-            <dt>Bahn</dt>
-            <dd>S24 bis Oberrieden Dorf: rund 20 Minuten ab Zürich, 15 ab Zug. Zwei Minuten zu Fuss.</dd>
-            <dt>Bus</dt>
-            <dd>Direktbus, Linie 145, ab Horgen oder Thalwil. Die Haltestelle ist nur wenige Meter entfernt.</dd>
-            <dt>Parkieren</dt>
-            <dd>Einige Plätze, nur für Gäste. Direkt am Pub.</dd>
-            <dt>Telefon</dt>
-            <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
-            <dt>E-Mail</dt>
-            <dd><a href={`mailto:${pub.email}`}>{pub.email}</a></dd>
-          </dl>
-          <a class="btn call" href="anfahrt.html">Karte und Anfahrt</a>
-        </div>
-        <div>
-          <Photo
-            lang="de"
-            class="shot tall"
-            src={exteriorStreet}
-            alt="Das Pub von der Alten Landstrasse aus, mit der roten Fassade."
-            widths={[400, 800, 1200]}
-            sizes="(max-width: 700px) 92vw, 430px"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-</Base>
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import Photo from "../components/Photo.astro";
+import Hours from "../components/Hours.astro";
+import StatusPill from "../components/StatusPill.astro";
+import Gallery from "../components/Gallery.astro";
+import { pub } from "../data/pub";
+
+import exteriorFront from "../assets/photos/exterior-front.jpg";
+import barTaps from "../assets/photos/bar-taps.jpg";
+import barWide from "../assets/photos/bar-wide.jpg";
+import dartsBoard from "../assets/photos/darts-board.jpg";
+import signHanging from "../assets/photos/sign-hanging.jpg";
+import signFascia from "../assets/photos/sign-fascia.jpg";
+import exteriorStreet from "../assets/photos/exterior-street.jpg";
+import plaque from "../assets/photos/plaque-frisch-vom-fass.jpg";
+import signBrackets from "../assets/photos/sign-brackets.jpg";
+import dartsCorner from "../assets/photos/darts-corner.jpg";
+import parkingSign from "../assets/photos/parking-sign.jpg";
+import musicBooth from "../assets/photos/music-booth.jpg";
+import musicSession from "../assets/photos/music-session.jpg";
+import musicTrio from "../assets/photos/music-trio.jpg";
+import musicHarp from "../assets/photos/music-harp.jpg";
+import musicFiddle from "../assets/photos/music-fiddle.jpg";
+import musicRoom from "../assets/photos/music-room.jpg";
+import stainedGlass from "../assets/photos/stained-glass.jpg";
+import pintAndBoard from "../assets/photos/pint-and-board.jpg";
+
+const alt = { en: "", de: "de.html" };
+---
+
+<Base
+  lang="de"
+  title="Big Ben Pub Oberrieden — ein echtes Pub über dem Zürichsee"
+  description="Pub in Oberrieden über dem Zürichsee. Fussball, Rugby und F1 auf Wunsch, Darts, meistens sonntags Irish Live-Musik, Guinness. Zwei Minuten vom Bahnhof."
+  path="de.html"
+  alt={alt}
+>
+  <header class="hero">
+    <Image
+      class="hero-bg"
+      src={exteriorFront}
+      alt=""
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={68}
+      loading="eager"
+    />
+    <div class="inner">
+      <p class="eyebrow">Oberrieden Dorf</p>
+      <h1 class="wordmark">Big Ben Pub</h1>
+      <p class="tagline">Ein echtes Pub, exakt über dem Zürichsee gelegen</p>
+      <StatusPill lang="de" />
+      <div class="actions">
+        <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
+        <a class="btn" href="anfahrt.html">Anfahrt</a>
+        <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+      </div>
+    </div>
+  </header>
+
+
+  <section class="band claim">
+    <div class="inner">
+      <p class="claim-line">Wahrscheinlich das beste Guinness in Zürich</p>
+      <p class="claim-sub">Nicht nur im Dorf. Fragen Sie nach, wir warten.</p>
+    </div>
+  </section>
+
+  <section id="sport" class="band">
+    <div class="inner">
+      <h2>Live-Sport</h2>
+      <p class="kicker">Fussball, Rugby, F1</p>
+      <div class="panel">
+        <p class="big">
+          Fussball, Rugby, F1 und was sonst noch sehenswert ist. Sagen
+          Sie uns, was Sie sehen möchten. Wenn es geht, zeigen wir es.
+        </p>
+        <p>
+          Rufen Sie vorher an, statt auf gut Glück vorbeizukommen. Details
+          jeweils auf unserem Instagram.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.googleProfile}>Diese Woche auf Google</a>
+          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hours" class="band sunk">
+    <div class="inner">
+      <h2>Öffnungszeiten</h2>
+      <p class="kicker">Reguläre Woche</p>
+      <div class="cols">
+        <div><Hours lang="de" /></div>
+        <div>
+          <p>Beim Fussball bleiben wir spät offen.</p>
+          <p>&laquo;Spät&raquo; leistet in diesem Satz einiges.</p>
+          <p>
+            Die Zeiten für einen bestimmten Tag stehen immer auf unserer{" "}
+            <a href={pub.googleProfile}>Google-Seite</a>, die wir tatsächlich
+            nachführen.<br />Ehrlich!
+          </p>
+          <p class="highlight">
+            <strong>Meistens sonntagnachmittags Irish Live-Musik.</strong>{" "}
+            Details jeweils auf <a href={pub.instagram}>Instagram</a>.
+          </p>
+          <p class="highlight">
+            <strong>Karaoke. Man muss dabei sein. Also seien Sie dabei.</strong>{" "}
+            Auf <a href={pub.instagram}>Instagram</a>, also keine Ausreden.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="band dark menu has-photo">
+    <Image
+      class="band-bg"
+      src={barTaps}
+      alt=""
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={64}
+      loading="lazy"
+    />
+    <div class="inner">
+      <h2>Bar und Snacks</h2>
+      <p class="kicker">Kleinigkeiten für die Seele</p>
+      <div class="cols">
+        <div>
+          <h3>An der Bar</h3>
+          <ul>
+            <li>Guinness, <small>richtig gezapft, etwas Geduld bitte</small></li>
+            <li>Schweizer Craft Beers</li>
+            <li>Offene Weine</li>
+            <li>Single Malts</li>
+            <li>Alkoholfreies, <small>selbstverständlich</small></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Kleine Karte</h3>
+          <ul>
+            <li>Wings</li>
+            <li>Pommes</li>
+            <li>Nachos</li>
+            <li>Toasties</li>
+            <li>Pies</li>
+          </ul>
+          <blockquote class="pull">
+            Ein Bier in der einen Hand, eine Kleinigkeit in der anderen. Mehr
+            braucht ein guter Abend nicht.
+          </blockquote>
+          <p class="fineprint">Angebot je nach Verfügbarkeit, Änderungen vorbehalten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="darts" class="band">
+    <div class="inner">
+      <h2>Darts</h2>
+      <p class="kicker">Doppel Zwanzig. Und dann mehr</p>
+      <div class="cols">
+        <div>
+          <Photo
+            lang="de"
+            class="shot tall"
+            src={dartsBoard}
+            alt="Eine Dartscheibe in einem Holzschrank."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p>
+            Ihr Name gehört auf die Tafel.
+          </p>
+          <p>
+            Eine Dartscheibe, und das Spiel ist gratis. Pfeile gibt es an der
+            Bar, falls Sie unbewaffnet erschienen sind.
+          </p>
+          <p>
+            Punktestreitigkeiten entscheidet der Wirt.<br />Ein Entscheid
+            kostet ein Bier.<br />Ein richtiger auch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="music" class="band dark sign">
+    <div class="inner">
+      <h2>Live-Musik</h2>
+      <p class="kicker">Meistens sonntagnachmittags</p>
+      <div class="panel">
+        <p class="big">
+          Eine Irish Session an den meisten Sonntagnachmittagen. Geige,
+          Gitarre, Akkordeon, Harfe und wer sonst noch mit einem Instrument und
+          dem nötigen Mut auftaucht.
+        </p>
+        <p>
+          Kein Billett, kein Eintritt. Mitspielen oder zuhören, ganz wie
+          Sie möchten. Details jeweils auf Instagram.
+        </p>
+        <div class="linkrow">
+          <a class="btn" href={pub.instagram}><Icon name="instagram" />{pub.instagramHandle}</a>
+        </div>
+      </div>
+      <Gallery
+        lang="de"
+        label="Fotos der Live-Musik"
+        items={[
+            { src: musicBooth, alt: "Zwei Musiker mit Gitarre und Akkordeon in einer Nische." },
+            { src: musicTrio, alt: "Drei Musikerinnen und Musiker mit Harfe und Geigen." },
+            { src: musicFiddle, alt: "Eine Geigerin mitten im Stück." },
+            { src: musicHarp, alt: "Eine Harfenspielerin während der Sonntagssession." },
+            { src: musicSession, alt: "Die Session in vollem Gang neben dem Fenster." },
+            { src: musicRoom, alt: "Ein voller Raum hört der Sonntagssession zu." },
+          ]}
+      />
+    </div>
+  </section>
+
+  <section id="pub" class="band sunk">
+    <div class="inner">
+      <h2>Das Pub</h2>
+      <p class="kicker">Auf halbem Weg zwischen Zürich und Zug</p>
+      <p class="lead">
+        Ein echtes Pub in einem Dorf mit fünftausend Einwohnern, was genau
+        richtig ist. Treffen Sie sich hier. Sie kommen auf ein Bier und bleiben
+        vielleicht auf mehr.
+      </p>
+      <p class="note">
+        Hunde sind willkommen, und für laue Abende haben wir Plätze draussen.
+      </p>
+      <Gallery
+        lang="de"
+        label="Fotos vom Pub"
+        items={[
+          { src: barWide, alt: "Die Bar von der Seite, Zapfhähne und Gläser." },
+          { src: signHanging, alt: "Ein Big Ben Pub Schild an einem Ausleger." },
+          { src: signFascia, alt: "Das Big Ben Pub Schild über dem Eingang." },
+          { src: exteriorStreet, alt: "Das Pub von der Alten Landstrasse aus gesehen." },
+          { src: plaque, alt: "Die Plakette Frisch vom Fass an der Tür." },
+          { src: dartsBoard, alt: "Die Dartscheibe im Schrank." },
+          { src: stainedGlass, alt: "Ein Buntglasfenster im vorderen Raum." },
+          { src: pintAndBoard, alt: "Ein Pint an der Bar neben der Tafel." },
+          { src: signBrackets, alt: "Die beiden Ausleger-Schilder vom Trottoir aus." },
+          { src: dartsCorner, alt: "Die Dartecke mit dem Holzschrank." },
+          { src: parkingSign, alt: "Das Schild Parkplatz Big Ben Pub, nur für Gäste." },
+        ]}
+      />
+    </div>
+  </section>
+
+
+  <section id="bookings" class="band">
+    <div class="inner">
+      <h2>Reservationen</h2>
+      <p class="kicker">Am schnellsten per Telefon</p>
+      <div class="panel">
+        <p class="big">
+          Reservationen nehmen wir gerne entgegen. Für einen Tisch am
+          Spielabend rufen Sie an, sonst schreiben Sie uns. So oder so halten
+          wir Ihnen einen Platz frei und sorgen dafür, dass Sie etwas zu
+          trinken bekommen.
+        </p>
+        <div class="linkrow">
+          <a class="btn call" href={pub.phoneHref}>{pub.phoneDisplay}</a>
+          <a class="btn" href={`mailto:${pub.email}`}>{pub.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="find" class="band sunk find">
+    <div class="inner">
+      <h2>So finden Sie uns</h2>
+      <p class="kicker">Oberrieden Dorf</p>
+      <div class="cols">
+        <div>
+          <dl>
+            <dt>Adresse</dt>
+            <dd>{pub.street}<br />{pub.postcode} {pub.town} {pub.canton}</dd>
+            <dt>Bahn</dt>
+            <dd>S24 bis Oberrieden Dorf: rund 20 Minuten ab Zürich, 15 ab Zug. Zwei Minuten zu Fuss.</dd>
+            <dt>Bus</dt>
+            <dd>Direktbus, Linie 145, ab Horgen oder Thalwil. Die Haltestelle ist nur wenige Meter entfernt.</dd>
+            <dt>Parkieren</dt>
+            <dd>Einige Plätze, nur für Gäste. Direkt am Pub.</dd>
+            <dt>Telefon</dt>
+            <dd><a href={pub.phoneHref}>{pub.phoneDisplay}</a></dd>
+            <dt>E-Mail</dt>
+            <dd><a href={`mailto:${pub.email}`}>{pub.email}</a></dd>
+          </dl>
+          <a class="btn call" href="anfahrt.html">Karte und Anfahrt</a>
+        </div>
+        <div>
+          <Photo
+            lang="de"
+            class="shot tall"
+            src={exteriorStreet}
+            alt="Das Pub von der Alten Landstrasse aus, mit der roten Fassade."
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 700px) 92vw, 430px"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>
