@@ -21,8 +21,11 @@ export const pub = {
   phoneDisplay: "+41 43 388 55 08",
   phoneHref: "tel:+41433885508",
   email: "bigben@oberrieden.pub",
-  instagram: "https://www.instagram.com/bigbenpubzh/",
-  instagramHandle: "@bigbenpubzh",
+  /* Handle changed from @bigbenpubzh on 20 September 2026 to match the
+     domain. Followers and posts carried over; the old handle is held by
+     Instagram for 14 days and then released to anyone. */
+  instagram: "https://www.instagram.com/oberrieden.pub/",
+  instagramHandle: "@oberrieden.pub",
   /* The /people/<slug>/<id>/ form, because the page has no vanity username.
      The number is the page id and is the part that matters.
 
