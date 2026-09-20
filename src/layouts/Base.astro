@@ -14,11 +14,11 @@ interface Props {
   path: string;
   /** Paths of the English and German versions of this page. */
   alt: { en: string; de: string };
-  /** Draft pages stay out of search results. */
+  /** Opt a page out of search results. Off by default since go-live. */
   noindex?: boolean;
 }
 
-const { lang, title, description, path, alt, noindex = true } = Astro.props;
+const { lang, title, description, path, alt, noindex = false } = Astro.props;
 const site = "https://oberrieden.pub/";
 const other = lang === "en" ? alt.de : alt.en;
 // The front page's path is "" so the canonical URL is the bare domain, but an
@@ -68,11 +68,10 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     {
       noindex && (
         <>
-          {/* HELD DELIBERATELY. The site is kept out of search results until the
-              owner gives final approval. Going live is one change with three
-              parts, in this order: remove this tag, point the Google Business
-              Profile website field here, then submit to Search Console. Do not
-              flip this on its own, and do not flip it without that approval. */}
+          {/* The site went live on 20 September 2026 with the owner's approval:
+              this default is now off, the Google Business Profile website field
+              points here, and the domain goes to Search Console. The prop
+              survives so a future draft page can still opt itself out. */}
           <meta name="robots" content="noindex, nofollow" />
         </>
       )
