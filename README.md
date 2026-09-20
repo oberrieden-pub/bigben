@@ -211,6 +211,24 @@ nobody will be looking at the site by then.
    landlord's password - the same dependency the domain and the repository are
    deliberately free of.
 
+   **Account recovery runs through `bigben@oberrieden.pub`**, not through
+   anyone's personal mailbox. That address is Cloudflare Email Routing and
+   forwards to the landlord's own inbox, so codes arrive where he already
+   looks and he does not have to remember anything to receive one.
+
+   The reason for the indirection: if the forwarding target is ever lost, it
+   is one line in Cloudflare to point it somewhere else. Set Meta at a
+   personal Gmail instead and there is nothing to re-point - the account goes
+   with the person.
+
+   The one snag, and why it is written here: on a recovery screen Meta shows
+   the address masked, and the landlord is not expected to recognise
+   `b......@o......pub` as his. If he is ever doing this himself rather than
+   with help, he needs to be told the address is `bigben@oberrieden.pub`. The
+   phone field is deliberately empty - the pub's number is a landline and
+   cannot take an SMS code, and a personal mobile would reintroduce exactly
+   the dependency this avoids.
+
    Who does what, so the access list is not a mystery to the next person:
    the landlord owns the portfolio, Jackie Newell runs the media side - which
    means Instagram, and therefore everything the site defers to it for - and
