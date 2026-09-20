@@ -172,7 +172,7 @@ nobody will be looking at the site by then.
    | Facebook | Website field -> `oberrieden.pub` | `big-ben-oberrieden.ch` - the abandoned site, which serves an injected online-casino advertorial inside its About section. Facebook is actively sending people to it. |
    | Facebook | Contact email -> `bigben@oberrieden.pub` | `ptischler5@gmail.com`, a personal address |
    | Facebook | Description | "English Pub on the edge of Zurich" - the site deliberately no longer calls itself British or English |
-   | Instagram | Bio link -> `oberrieden.pub` | Points at the Facebook profile. **Only editable in the phone app** - the browser greys the field and says so. |
+   | ~~Instagram~~ | ~~Bio link~~ | **Done** 20 September 2026. Was the Facebook profile; that link is deleted, so `oberrieden.pub` is now the only one. Only editable in the phone app - the browser greys the field and says so. |
    | ~~Instagram~~ | ~~Bio wording~~ | **Done** 20 September 2026. Was "English Pub on the edge of Zurich". |
    | ~~Instagram~~ | ~~Handle~~ | **Done** 20 September 2026: `@bigbenpubzh` -> `@oberrieden.pub`. Old handle released to anyone after 14 days and cannot be reclaimed early. |
    | Google Business Profile | Website field -> `oberrieden.pub` | `flowsight.ch/bigben-pub` |
