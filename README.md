@@ -211,6 +211,13 @@ nobody will be looking at the site by then.
    landlord's password - the same dependency the domain and the repository are
    deliberately free of.
 
+   Who does what, so the access list is not a mystery to the next person:
+   the landlord owns the portfolio, Jackie Newell runs the media side - which
+   means Instagram, and therefore everything the site defers to it for - and
+   the technical side is separate. All three currently hold Uneingeschraenkter
+   Zugriff (full control) over Alles, which is fine for three people who know
+   each other but does mean any of them can remove the others.
+
    Three things that cost an hour and will cost the next person the same:
 
    - The invitation email frequently never arrives. Accept it instead by
