@@ -179,9 +179,10 @@ currency, and more credible than a self-declared band.
    from whatever the build produced, skipping anything noindexed - a
    hand-written list would go stale the first time someone added a page.
 
-   Still to do: submit the domain to Google Search Console and Bing Webmaster
-   Tools. The `noindex` prop survives on the layout so a future draft page can
-   opt itself out.
+   Search Console and Bing Webmaster Tools both done the same day. The
+   `noindex` prop survives on the layout so a future draft page can opt itself
+   out. Verified live from outside: no robots meta on any content page,
+   `robots.txt` and `sitemap.xml` both served.
 2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
    target of the Google Business Profile website field. Two live pages for one pub is
    worse than either alone.
