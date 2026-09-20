@@ -211,23 +211,22 @@ nobody will be looking at the site by then.
    landlord's password - the same dependency the domain and the repository are
    deliberately free of.
 
-   **Account recovery runs through `bigben@oberrieden.pub`**, not through
-   anyone's personal mailbox. That address is Cloudflare Email Routing and
-   forwards to the landlord's own inbox, so codes arrive where he already
-   looks and he does not have to remember anything to receive one.
+   **Account recovery uses the landlord's own private address**, the one on
+   his phone. Not written here, and not `bigben@oberrieden.pub`, which was
+   the first instinct and is wrong: that address is published on this site,
+   in the Impressum and in the structured data. A recovery address anyone can
+   read is half a credential given away, and it is the half an attacker
+   cannot otherwise guess.
 
-   The reason for the indirection: if the forwarding target is ever lost, it
-   is one line in Cloudflare to point it somewhere else. Set Meta at a
-   personal Gmail instead and there is nothing to re-point - the account goes
-   with the person.
+   The trade accepted with it: recovery is tied to a personal mailbox rather
+   than something redirectable, so if that address is ever lost or the
+   landlord steps back, **the recovery route has to be changed in Meta before
+   that happens**, not after. Put it on the list whenever anything else about
+   his contact details changes.
 
-   The one snag, and why it is written here: on a recovery screen Meta shows
-   the address masked, and the landlord is not expected to recognise
-   `b......@o......pub` as his. If he is ever doing this himself rather than
-   with help, he needs to be told the address is `bigben@oberrieden.pub`. The
-   phone field is deliberately empty - the pub's number is a landline and
-   cannot take an SMS code, and a personal mobile would reintroduce exactly
-   the dependency this avoids.
+   The phone field is deliberately empty. The pub's number is a landline and
+   cannot take an SMS code, and a personal mobile would tie recovery to a
+   handset as well as a mailbox.
 
    Who does what, so the access list is not a mystery to the next person:
    the landlord owns the portfolio, Jackie Newell runs the media side - which
