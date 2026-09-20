@@ -147,6 +147,27 @@ repository. The single realistic way it goes dark is a card expiring on the
 Cloudflare account a year from now, which is worth knowing precisely because
 nobody will be looking at the site by then.
 
+## The assumption this site rests on
+
+The site carries no fixtures, no music dates and no karaoke dates, and says
+"check Instagram" seven times a page instead. That is deliberate and explained
+above - but it only works if someone is posting.
+
+Checked 20 September 2026: the **most recent Facebook post was 7 April**, five
+and a half months earlier, and Instagram has 36 posts in total. Post dates on
+Instagram are behind a login and were not checked.
+
+That is not a fault in the accounts, it is a question for whoever runs the
+media side. If the honest answer is "occasionally", the site's copy should
+change rather than the channel: "ask at the bar" is true at any cadence, where
+"check Instagram" quietly stops being useful. Worth asking before go-live
+rather than after.
+
+Price range on the Facebook page is deliberately left empty. It can only
+render as a pound sign, which in Switzerland reads as prices in sterling, and
+Google already reports CHF 20-30 per person from eight customers - correct
+currency, and more credible than a self-declared band.
+
 ## Still open
 
 1. **Going live is held pending the owner's final approval.** Every page carries
