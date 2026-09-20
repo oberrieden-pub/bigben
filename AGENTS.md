@@ -39,7 +39,7 @@ places and had to be changed in all of them.
 `hours` is an array of minutes-from-midnight indexed by JavaScript day number,
 read at build time by three components:
 
-- `Hours.astro` — the visible table, which merges consecutive identical days
+- `Hours.astro` — the visible table, one row per day, Monday first
 - `StatusPill.astro` — the open/closed line, computed in the browser from the
   same array so it is right in any timezone
 - `SchemaOrg.astro` — the structured data
