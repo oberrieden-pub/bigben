@@ -94,6 +94,20 @@ weighted toward recent ones, so new reviews are the only thing that moves the
 listing's description of the pub toward the pub that exists. That is a content
 problem, not a ratings one - the 4.7 was never the issue.
 
+## Every section has an anchor
+
+`#sport` `#hours` `#menu` `#darts` `#music` `#pub` `#bookings` `#find` - the
+same ids on both language pages, so a link works whichever it points at. The
+ids are English words on the German page too: they are addresses, not copy.
+
+They exist so the outside channels can deep-link a section. The Google
+listing's Menu tab points at `oberrieden.pub#menu` rather than the top of the
+page. `.band[id]` carries a small `scroll-margin-top` so a heading lands
+slightly below the viewport edge rather than flush against it.
+
+Deliberately no visible navigation. The topbar is the Instagram chip, the
+wordmark and the language switch, and that is all it is for.
+
 ## Traps that have already caught someone
 
 **Astro eats a space at a line wrap.** When a line in a `.astro` file wraps
