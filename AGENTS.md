@@ -180,13 +180,26 @@ anywhere else, the privacy page has to change in the same commit.
 
 ## Things that are held deliberately
 
-- **`noindex, nofollow` on every page.** Not an oversight. Going live is one
-  decision with three parts — remove the tag, point the Business Profile at
-  `oberrieden.pub`, submit to Search Console — and doing one without the others
-  is worse than doing none. Wait for the owner.
+- **The site is live.** It went live on 20 September 2026 and `noindex` is now
+  off by default in `Base.astro`. Only `/review` keeps it, because it exists
+  solely to redirect to Google. Do not reintroduce a site-wide `noindex`.
+- **No booking form. The landlord wants people to phone.** This is his decision,
+  taken on 21 September 2026, not a gap in the build. Every comparable pub site
+  has some form of online booking and ours deliberately does not — so if a
+  future pass benchmarks the competition, notices the omission and offers to
+  "fix" it, this is the answer. A form would also mean a third-party endpoint on
+  the front page, which contradicts the privacy statement in `legal.astro`.
+- **No mailing list either**, for the same reason the site carries no events:
+  somebody has to write it, and nobody will.
 - **Accounts must not depend on any individual.** The domain, the repository
   and the Google profile belong to the landlord. That is the brief's central
-  requirement, not an accident.
+  requirement, not an accident. As of 21 September 2026 each of Google Business
+  Profile, Cloudflare, GitHub and Meta has the landlord as owner **and** a
+  second administrator, so no single password locks anyone out.
+
+  One caveat worth carrying into any handover: `bigben@oberrieden.pub` forwards
+  to the landlord's own Gmail. Fine while he runs the pub, but it follows the
+  person rather than the business — repoint it if the pub ever changes hands.
 
 ## `print/` is generated
 
