@@ -208,3 +208,27 @@ currency, and more credible than a self-declared band.
 ## Running cost
 
 About CHF 25 a year, all of it the domain. Hosting, DNS, TLS and email forwarding are free.
+
+## IndexNow
+
+`public/<key>.txt` and `scripts/indexnow.mjs`. The key is public by design:
+the search engine fetches that file to check whoever submitted controls the
+site. Do not rename or remove it - the key in the file must stay identical to
+the file's own name, and the script refuses to run if they drift apart.
+
+    npm run indexnow              # dry run, lists what would be sent
+    node scripts/indexnow.mjs --send
+
+URLs come from the sitemap the build just wrote, so anything noindexed is
+never submitted.
+
+**Google does not take part in IndexNow.** Bing does, and through Bing so do
+DuckDuckGo and Ecosia; Yandex, Seznam and Naver also do. Google gets the
+sitemap and Search Console, and nothing here changes that. Worth being clear
+about, because the search problem that matters most - the abandoned
+big-ben-oberrieden.ch outranking the pub's own site - is a Google problem and
+IndexNow does not touch it.
+
+Deliberately not wired into `postbuild`: every deploy would ping whether or
+not anything changed, which is how a key gets ignored for spamming. Run it
+when something has actually changed.
