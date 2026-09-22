@@ -6,18 +6,21 @@ import Photo from "../components/Photo.astro";
 import Hours from "../components/Hours.astro";
 import StatusPill from "../components/StatusPill.astro";
 import Gallery from "../components/Gallery.astro";
+import Carousel from "../components/Carousel.astro";
 import { pub } from "../data/pub";
 
 import exteriorFront from "../assets/photos/exterior-front.jpg";
 import barTaps from "../assets/photos/bar-taps.jpg";
 import barWide from "../assets/photos/bar-wide.jpg";
 import dartsBoard from "../assets/photos/darts-board.jpg";
+import dartsArrows from "../assets/photos/darts-arrows.jpg";
+import dartsScoreboard from "../assets/photos/darts-scoreboard.jpg";
+import dartsThrow from "../assets/photos/darts-throw.jpg";
 import signHanging from "../assets/photos/sign-hanging.jpg";
 import signFascia from "../assets/photos/sign-fascia.jpg";
 import exteriorStreet from "../assets/photos/exterior-street.jpg";
 import plaque from "../assets/photos/plaque-frisch-vom-fass.jpg";
 import signBrackets from "../assets/photos/sign-brackets.jpg";
-import dartsCorner from "../assets/photos/darts-corner.jpg";
 import parkingSign from "../assets/photos/parking-sign.jpg";
 import musicBooth from "../assets/photos/music-booth.jpg";
 import musicSession from "../assets/photos/music-session.jpg";
@@ -168,14 +171,15 @@ const alt = { en: "", de: "de.html" };
       <p class="kicker">Doppel Zwanzig. Und dann mehr</p>
       <div class="cols">
         <div>
-          <Photo
+          <Carousel
             lang="de"
-            class="shot tall"
-            src={dartsBoard}
-            alt="Eine Dartscheibe in einem Holzschrank."
-            widths={[400, 800, 1200]}
-            sizes="(max-width: 700px) 92vw, 430px"
-            loading="lazy"
+            label="Dartsfotos"
+            items={[
+              { src: dartsBoard, alt: "Das Wettkampfboard im Holzschrank." },
+              { src: dartsThrow, alt: "Ein Spieler beim Wurf, von hinten gesehen." },
+              { src: dartsScoreboard, alt: "Die Tabelle neben dem Board, mit eingetragenen Namen." },
+              { src: dartsArrows, alt: "Drei Pfeile stecken im Board." },
+            ]}
           />
         </div>
         <div>
@@ -250,11 +254,9 @@ const alt = { en: "", de: "de.html" };
           { src: signFascia, alt: "Das Big Ben Pub Schild über dem Eingang." },
           { src: exteriorStreet, alt: "Das Pub von der Alten Landstrasse aus gesehen." },
           { src: plaque, alt: "Die Plakette Frisch vom Fass an der Tür." },
-          { src: dartsBoard, alt: "Die Dartscheibe im Schrank." },
           { src: stainedGlass, alt: "Ein Buntglasfenster im vorderen Raum." },
           { src: pintAndBoard, alt: "Ein Pint an der Bar neben der Tafel." },
           { src: signBrackets, alt: "Die beiden Ausleger-Schilder vom Trottoir aus." },
-          { src: dartsCorner, alt: "Die Dartecke mit dem Holzschrank." },
           { src: parkingSign, alt: "Das Schild Parkplatz Big Ben Pub, nur für Gäste." },
         ]}
       />
