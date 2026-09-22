@@ -1,0 +1,97 @@
+---
+/* The section menu in the topbar.
+ *
+ * Built on <details> rather than a button plus JavaScript, so it opens, closes
+ * and takes the keyboard with no script at all. The script in Base.astro only
+ * adds the conveniences - closing after a jump, on Escape, and on a click
+ * outside - and the menu still works with all of it switched off.
+ *
+ * The language toggle is repeated at the foot of the panel. It is also in the
+ * topbar and the footer, but from the middle of a long page both of those are
+ * a scroll away, and the menu is the thing already open in your hand.
+ */
+import type { Lang } from "../data/pub";
+
+interface Props {
+  lang: Lang;
+  /** Prefix for the section links: "" on the front page itself, otherwise the
+   *  front page path, so the menu also works from the other pages. A full
+   *  path on the front page would reload it rather than jump within it. */
+  home: string;
+  /** Both languages of this same page, for the toggle. */
+  enHref: string;
+  deHref: string;
+}
+const { lang, home, enHref, deHref } = Astro.props;
+
+/* The ids are English on both language pages: they are addresses, not copy.
+   The labels follow each page's own headings. */
+const sections: [string, string][] =
+  lang === "en"
+    ? [
+        ["sport", "Live sport"],
+        ["hours", "Opening hours"],
+        ["menu", "Bar and snacks"],
+        ["darts", "Darts"],
+        ["music", "Live music"],
+        ["pub", "The pub"],
+        ["bookings", "Bookings"],
+        ["find", "Finding us"],
+      ]
+    : [
+        ["sport", "Live-Sport"],
+        ["hours", "Öffnungszeiten"],
+        ["menu", "Bar und Snacks"],
+        ["darts", "Darts"],
+        ["music", "Live-Musik"],
+        ["pub", "Das Pub"],
+        ["bookings", "Reservationen"],
+        ["find", "So finden Sie uns"],
+      ];
+
+const label = lang === "en" ? "Sections" : "Abschnitte";
+const langLabel = lang === "en" ? "Language" : "Sprache";
+---
+
+<details class="navmenu">
+  <summary>
+    {/* The bars are decoration; the label is what gets announced. */}
+    <span class="bars" aria-hidden="true"></span>
+    <span class="vh">{label}</span>
+  </summary>
+
+  <div class="navpanel">
+    <nav aria-label={label}>
+      <ul>
+        {
+          sections.map(([id, name]) => (
+            <li>
+              <a href={`${home}#${id}`}>{name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="navlang" role="group" aria-label={langLabel}>
+      <a
+        href={enHref}
+        data-langswitch
+        hreflang="en"
+        lang="en"
+        aria-current={lang === "en" ? "true" : undefined}
+      >
+        EN
+      </a>
+      <a
+        href={deHref}
+        data-langswitch
+        hreflang="de-CH"
+        lang="de-CH"
+        aria-current={lang === "de" ? "true" : undefined}
+      >
+        DE
+      </a>
+    </div>
+  </div>
+</details>

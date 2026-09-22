@@ -1,0 +1,99 @@
+---
+/* One photograph at a time, advancing on its own.
+ *
+ * The markup is the same scroll-snap track as Gallery.astro, so with no
+ * JavaScript at all it is still a swipeable, keyboard scrollable strip of
+ * pictures - it simply stops advancing by itself. The script then restacks it
+ * into a crossfade, which is why the fade styles all hang off .is-fade: the
+ * class only exists once the script has run and can take responsibility for
+ * changing slides.
+ *
+ * Reusable: drop in as many as you like on a page. The script in Base.astro
+ * walks every [data-carousel] and gives each its own timer and state, and the
+ * frame shape and sizes hint are props rather than being baked into the CSS.
+ *
+ * Auto-advancing content carries obligations, all handled in Base.astro's
+ * script: it stops on hover and on keyboard focus, there is a real pause
+ * button (WCAG 2.2.2 requires one for anything that moves for more than five
+ * seconds), it never starts for a reader who asked for reduced motion, and it
+ * idles while scrolled off screen.
+ */
+import Photo from "./Photo.astro";
+
+interface Props {
+  items: { src: ImageMetadata; alt: string }[];
+  label: string;
+  lang?: "en" | "de";
+  /** Milliseconds per photograph. */
+  interval?: number;
+  /** How one picture becomes the next. "fade" crosses them over in place;
+   *  "slide" travels sideways. Fading reads far calmer at this size. */
+  effect?: "fade" | "slide";
+  /** How long that takes, in ms. */
+  glide?: number;
+  /** Shape of the frame every slide is cropped to, e.g. "1/1", "4/3", "16/9".
+   *  One frame for all of them so the box never changes height mid-run. */
+  ratio?: string;
+  /** Rendered width hint, matching wherever this instance sits. */
+  sizes?: string;
+}
+const {
+  items,
+  label,
+  lang = "en",
+  interval = 7500,
+  effect = "fade",
+  glide = 1300,
+  ratio = "1/1",
+  sizes = "(max-width: 860px) 92vw, 430px",
+} = Astro.props;
+
+const de = lang === "de";
+const pauseLabel = de ? "Bildwechsel anhalten" : "Pause the slideshow";
+const playLabel = de ? "Bildwechsel fortsetzen" : "Resume the slideshow";
+const prevLabel = de ? `${label}: zurück` : `${label}: back`;
+const nextLabel = de ? `${label}: weiter` : `${label}: forward`;
+---
+
+<div
+  class="carousel"
+  data-carousel
+  data-interval={String(interval)}
+  data-glide={String(glide)}
+  data-effect={effect}
+  data-pause={pauseLabel}
+  data-play={playLabel}
+  style={`--slide-ratio:${ratio};--glide:${glide}ms`}
+>
+  {/* A labelled, focusable region rather than a live region. An auto-advancing
+      live region would announce a new photograph every five seconds, which is
+      worse than saying nothing; the pictures are decorative here and each
+      carries its own alt text when opened. */}
+  <ul class="ctrack" role="region" aria-label={label} tabindex="0">
+    {
+      items.map((it) => (
+        <li>
+          <Photo
+            class="cslide"
+            src={it.src}
+            alt={it.alt}
+            lang={lang}
+            widths={[400, 800, 1200]}
+            sizes={sizes}
+            loading="lazy"
+          />
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="cbar">
+    <button type="button" class="cbtn" data-c="prev" aria-label={prevLabel}>&lsaquo;</button>
+    <div class="cdots" data-dots></div>
+    <button type="button" class="cbtn" data-c="next" aria-label={nextLabel}>&rsaquo;</button>
+    <button type="button" class="cbtn cplay" data-c="toggle" aria-pressed="false">
+      <span class="vh" data-toggle-label>{pauseLabel}</span>
+      <span class="cicon" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
