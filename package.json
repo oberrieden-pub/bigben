@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "postbuild": "node scripts/check-html.mjs && node scripts/sitemap.mjs",
-    "check": "node scripts/check-html.mjs"
+    "check": "node scripts/check-html.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "astro": "^7.3.3",
