@@ -105,8 +105,95 @@ listing's Menu tab points at `oberrieden.pub#menu` rather than the top of the
 page. `.band[id]` carries a small `scroll-margin-top` so a heading lands
 slightly below the viewport edge rather than flush against it.
 
-Deliberately no visible navigation. The topbar is the Instagram chip, the
-wordmark and the language switch, and that is all it is for.
+The topbar carries a **section menu**, added on 23 September 2026 once the
+page had grown to eight sections and the only way back to the top was to
+scroll. It is deliberately the only navigation on the site: a hamburger in the
+topbar, no inline jump links in the body, which the client has turned down
+twice.
+
+It is a `<details>` disclosure, not a button plus JavaScript, so it opens,
+closes and takes the keyboard with none. The script in `Base.astro` only adds
+the conveniences - close after a jump, on Escape, on a click outside - and the
+menu still works with every line of it removed.
+
+**Switching language keeps your place.** If you are in a section and switch,
+you land in the same section on the other language page. This works only
+because the ids are identical on both pages, which is the reason they are
+English words on the German page.
+
+The section is read from **scroll position, not `location.hash`** - you have
+usually scrolled to a section rather than clicked to it, and the hash would
+still point at wherever you last clicked, or at nothing.
+
+It is read against the section's own **`scroll-margin-top`**, not against the
+topbar height. This is the off-by-one that shipped first: a jumped-to section
+comes to rest at its scroll-margin (83px), which is *below* a line drawn at
+the topbar's height, so the section you had just jumped to did not count as
+current and the switch sent you to the one before it. Reading the margin off
+the element keeps the test in step with the CSS if the token ever changes. All four switches
+(topbar chip, footer link, and both halves of the menu toggle) carry
+`data-langswitch`; the script in `Base.astro` rewrites the href on click. With
+the script gone the links still work, they just land at the top.
+
+**Two traps in it.**
+
+`--topbar-h` in `site.css` must match the real height of the sticky topbar,
+because `.band[id]` adds it to `scroll-margin-top` so a jumped-to heading
+clears the bar instead of hiding under it. It is measured, not guessed: 68.19px
+at both 375px and desktop, so the token is 69px. Change the topbar's padding or
+the wordmark's size and this has to be re-measured.
+
+The links are **bare `#id` on the front pages and `index.html#id` everywhere
+else**, computed as `navBase` in `Base.astro`. A full path on the front page
+itself reloads the whole page instead of jumping within it, which is how it was
+first built and why it is worth leaving alone.
+
+## Two photo components, for different jobs
+
+`Gallery.astro` is a strip you scroll: uniform height, natural widths, many
+pictures. `Carousel.astro` shows **one at a time and advances itself**, and is
+reusable - drop in as many as you like. The script in `Base.astro` walks every
+`[data-carousel]` and gives each its own timer and state.
+
+    <Carousel label="Live music" items={photos}
+              ratio="4/3" interval={7000} glide={1300} lang="de" />
+
+`ratio` (default `1/1`) sets a `--slide-ratio` custom property the CSS reads.
+Every slide in one carousel shares that frame on purpose: mixed shapes make
+the box change height as it runs, which shoves the page around under the
+reader. `interval` (default 7500ms) drives the timer **and** the progress
+fill from one value, so the bar always matches the real delay.
+
+`effect` is **`fade` by default**: the pictures cross over in place. A sideways
+`slide` is available and was the first version, but travel at this size reads
+as a jolt however long you make it - fading is calmer. `glide` (default 1300ms)
+is how long either takes.
+
+The fade styles all hang off an `.is-fade` class that **only the script adds**.
+That is deliberate: with no JavaScript the track has to stay a scrollable
+strip, because nothing would be left to change the slide. Never move those
+styles onto `.carousel` itself.
+
+The markup is a scroll-snap track, not a bespoke slider, so with the script
+removed it is still a swipeable strip of pictures - it just stops advancing.
+
+**Auto-advancing content has duties, and they are already wired.** There is a
+real pause button, because WCAG 2.2.2 requires one for anything moving for
+more than five seconds. It never starts under `prefers-reduced-motion`, stops
+on hover and on keyboard focus, and idles while scrolled off screen. If you
+reuse this, do not strip those out.
+
+**A hidden tab throttles `requestAnimationFrame` but not `setInterval`.** The
+sliding version moved the track on a rAF tween, so on a hidden tab the dots
+marched on while the picture stayed put. There is a `visibilitychange` guard
+for it. Anything you add that animates on a timer needs the same.
+
+**The trap that cost the most here:** Astro writes `width`/`height`
+attributes on every `<img>`, and `aspect-ratio` only sizes an element whose
+height is `auto`. Omit `height:auto` and the attribute wins, every slide
+renders at full natural height, and the section measured 2671px instead of
+659. Every photo rule in `site.css` pairs `width:100%` with `height:auto` for
+this reason.
 
 ## Traps that have already caught someone
 

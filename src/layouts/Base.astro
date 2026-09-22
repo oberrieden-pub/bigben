@@ -4,6 +4,7 @@ import "../styles/site.css";
 import { pub, type Lang } from "../data/pub";
 import Lightbox from "../components/Lightbox.astro";
 import Icon from "../components/Icon.astro";
+import SectionNav from "../components/SectionNav.astro";
 import SchemaOrg from "../components/SchemaOrg.astro";
 
 interface Props {
@@ -27,6 +28,12 @@ const otherHref = other === "" ? "index.html" : other;
 const otherLabel = lang === "en" ? "Deutsch" : "English";
 const otherLang = lang === "en" ? "de-CH" : "en";
 const home = lang === "en" ? "index.html" : "de.html";
+// On the front page itself the menu must use bare "#id" anchors: a full
+// "index.html#id" href reloads the page instead of jumping within it.
+const navBase = path === "" || path === home ? "" : home;
+// Both languages of this same page, for the toggle at the foot of the menu.
+const enHref = alt.en === "" ? "index.html" : alt.en;
+const deHref = alt.de === "" ? "index.html" : alt.de;
 const legal = lang === "en" ? "legal.html" : "impressum.html";
 const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datenschutz";
 ---
@@ -84,11 +91,14 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     </a>
     <div class="topbar">
       <div class="inner">
-        <a class="chip" href={pub.instagram}>
-          <Icon name="instagram" />{pub.instagramHandle}
-        </a>
+        <div class="left">
+          <SectionNav lang={lang} home={navBase} enHref={enHref} deHref={deHref} />
+          <a class="chip" href={pub.instagram}>
+            <Icon name="instagram" />{pub.instagramHandle}
+          </a>
+        </div>
         <a class="topmark" href={home}>Big Ben<br />Pub</a>
-        <a class="chip right" href={otherHref} hreflang={otherLang} lang={otherLang}>
+        <a class="chip right" data-langswitch href={otherHref} hreflang={otherLang} lang={otherLang}>
           {otherLabel}
         </a>
       </div>
@@ -99,6 +109,211 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
     </main>
 
     <Lightbox lang={lang} />
+
+    <script is:inline>
+      /* Auto-advancing carousels.
+
+         The track is a scroll-snap strip, so everything below is enhancement:
+         with this script removed the pictures are still swipeable. What it
+         adds is the advancing, and the duties that come with it - WCAG 2.2.2
+         wants anything that moves for more than five seconds to be pausable.
+
+         It stops on hover, on keyboard focus, while off screen, and when the
+         reader has asked for reduced motion. */
+      document.querySelectorAll("[data-carousel]").forEach(function (root) {
+        var track = root.querySelector(".ctrack");
+        var slides = Array.prototype.slice.call(track.children);
+        var dotWrap = root.querySelector("[data-dots]");
+        var toggle = root.querySelector('[data-c="toggle"]');
+        var toggleText = root.querySelector("[data-toggle-label]");
+        if (slides.length < 2) { root.querySelector(".cbar").hidden = true; return; }
+
+        var wait = parseInt(root.dataset.interval, 10) || 7500;
+        /* Only now, with the script running, is it safe to restack the track
+           as a crossfade - see the note in Carousel.astro. */
+        var fade = root.dataset.effect !== "slide";
+        if (fade) {
+          root.classList.add("is-fade");
+          slides[0].classList.add("is-on");
+        }
+        var still = matchMedia("(prefers-reduced-motion: reduce)");
+        var index = 0, timer = null, stopped = still.matches, onScreen = true;
+
+        root.style.setProperty("--dur", wait + "ms");
+        var dots = slides.map(function (_, i) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "cseg";
+          b.setAttribute("aria-label", String(i + 1));
+          b.innerHTML = '<span class="cfill"></span>';
+          b.addEventListener("click", function () { go(i); hold(); });
+          dotWrap.appendChild(b);
+          return b;
+        });
+
+        function paint() {
+          dots.forEach(function (d, i) {
+            d.setAttribute("aria-current", i === index ? "true" : "false");
+          });
+        }
+        /* Native behavior:"smooth" picks its own duration and will not be told
+           otherwise, and it is brisk enough here to feel like a snap. This is
+           the same move under our own clock, eased in and out. */
+        var glide = parseInt(root.dataset.glide, 10) || 900;
+        var gliding = null;
+        function glideTo(target) {
+          if (gliding) { cancelAnimationFrame(gliding); gliding = null; }
+          if (still.matches) { track.scrollLeft = target; return; }
+          var from = track.scrollLeft;
+          var delta = target - from;
+          var t0 = performance.now();
+          (function step(now) {
+            var k = Math.min(1, (now - t0) / glide);
+            var eased = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+            track.scrollLeft = from + delta * eased;
+            gliding = k < 1 ? requestAnimationFrame(step) : null;
+          })(t0);
+        }
+        function go(i) {
+          index = (i + slides.length) % slides.length;
+          if (fade) {
+            slides.forEach(function (s, n) { s.classList.toggle("is-on", n === index); });
+          } else {
+            glideTo(slides[index].offsetLeft - slides[0].offsetLeft);
+          }
+          paint();
+        }
+        function tick() { go(index + 1); }
+        function run() {
+          stop();
+          if (stopped || !onScreen || still.matches) return;
+          timer = setInterval(tick, wait);
+          root.classList.remove("is-paused");
+        }
+        function stop() {
+          if (timer) { clearInterval(timer); timer = null; }
+          root.classList.add("is-paused");
+        }
+        /* A deliberate interaction pauses briefly, then picks up again. */
+        function hold() { stop(); if (!stopped) setTimeout(run, wait * 1.5); }
+
+        root.querySelector('[data-c="prev"]').addEventListener("click", function () { go(index - 1); hold(); });
+        root.querySelector('[data-c="next"]').addEventListener("click", function () { go(index + 1); hold(); });
+        toggle.addEventListener("click", function () {
+          stopped = !stopped;
+          toggle.setAttribute("aria-pressed", stopped ? "true" : "false");
+          toggleText.textContent = stopped ? root.dataset.play : root.dataset.pause;
+          if (stopped) stop(); else run();
+        });
+
+        root.addEventListener("pointerenter", stop);
+        root.addEventListener("pointerleave", function () { if (!stopped) run(); });
+        root.addEventListener("focusin", stop);
+        root.addEventListener("focusout", function () {
+          if (!root.contains(document.activeElement) && !stopped) run();
+        });
+        /* Keep the dots honest if someone swipes the track themselves. */
+        var scrollWait;
+        if (!fade) track.addEventListener("scroll", function () {
+          clearTimeout(scrollWait);
+          scrollWait = setTimeout(function () {
+            var near = 0, best = Infinity;
+            slides.forEach(function (s, i) {
+              var d = Math.abs(s.offsetLeft - slides[0].offsetLeft - track.scrollLeft);
+              if (d < best) { best = d; near = i; }
+            });
+            index = near; paint();
+          }, 120);
+        });
+
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (es) {
+            onScreen = es[0].isIntersecting;
+            if (onScreen) run(); else stop();
+          }, { threshold: 0.3 }).observe(root);
+        }
+        /* A hidden tab throttles requestAnimationFrame, so the glide cannot
+           run - but setInterval still fires. Without this the dots march on
+           while the picture stays put, and they disagree until you come back.
+           Nothing should be advancing where nobody can see it anyway. */
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) stop(); else if (!stopped) run();
+        });
+        if (still.addEventListener) still.addEventListener("change", run);
+
+        if (stopped) {
+          toggle.setAttribute("aria-pressed", "true");
+          toggleText.textContent = root.dataset.play;
+        }
+        paint();
+        if (!document.hidden) run();
+      });
+    </script>
+
+    <script is:inline>
+      /* Switching language should keep your place. The section ids are the
+         same on both language pages - they are addresses, not copy - so the
+         only question is which section you are in.
+
+         It is read from scroll position rather than location.hash, because you
+         have usually scrolled to a section rather than clicked to it, and the
+         hash would still be pointing at wherever you last clicked. Rewriting
+         the href on click means the link still works with this script gone,
+         it just lands at the top. */
+      (function () {
+        var links = document.querySelectorAll("[data-langswitch]");
+        if (!links.length) return;
+        var bands = Array.prototype.slice.call(
+          document.querySelectorAll(".band[id]")
+        );
+        function currentSection() {
+          if (!bands.length) return "";
+          /* The line to test against is where a jumped-to section comes to
+             rest: its own scroll-margin-top, which already allows for the
+             sticky bar. Reading it from the element rather than recomputing it
+             means this cannot drift out of step with the CSS.
+
+             Measuring against bar + a guess put the line ABOVE that resting
+             position, so a section you had just jumped to did not count as
+             current and you got the one before it. */
+          var line =
+            (parseFloat(getComputedStyle(bands[0]).scrollMarginTop) || 0) + 10;
+          for (var i = 0; i < bands.length; i++) {
+            var r = bands[i].getBoundingClientRect();
+            if (r.bottom > line) {
+              /* Still above the first section - the hero - so no section. */
+              return r.top > line ? "" : bands[i].id;
+            }
+          }
+          /* Scrolled past the last section, into the footer. */
+          return bands[bands.length - 1].id;
+        }
+        Array.prototype.forEach.call(links, function (a) {
+          a.addEventListener("click", function () {
+            var base = (a.getAttribute("href") || "").split("#")[0];
+            var id = currentSection();
+            a.setAttribute("href", id ? base + "#" + id : base);
+          });
+        });
+      })();
+    </script>
+
+    <script is:inline>
+      /* The section menu is a <details>, so it already opens and closes on its
+         own. This only adds what a disclosure does not do by itself: close
+         after you jump, on Escape, and when you click away. */
+      (function () {
+        var m = document.querySelector(".navmenu");
+        if (!m) return;
+        function shut() { m.removeAttribute("open"); }
+        m.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", shut); });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && m.hasAttribute("open")) { shut(); m.querySelector("summary").focus(); }
+        });
+        document.addEventListener("click", function (e) {
+          if (m.hasAttribute("open") && !m.contains(e.target)) shut();
+        });
+      })();
+    </script>
 
     <script is:inline>
       /* Arrows for the photo strips. Native scrolling does the work; this just
@@ -151,7 +366,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         <a href={legal}>{legalLabel}</a>
         <a class="social" href={pub.facebook}><Icon name="facebook" />Facebook</a>
         <a class="social" href={pub.instagram}><Icon name="instagram" />Instagram</a>
-        <a href={otherHref} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
+        <a data-langswitch href={otherHref} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
       </div>
     </footer>
   </body>
