@@ -182,7 +182,12 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
           }
           paint();
         }
-        function tick() { go(index + 1); }
+        function tick() {
+          /* The viewer is open over the top of us. Advancing behind it means
+             closing onto a different picture than the one you opened. */
+          if (document.documentElement.classList.contains("lb-open")) return;
+          go(index + 1);
+        }
         function run() {
           stop();
           if (stopped || !onScreen || still.matches) return;
