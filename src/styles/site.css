@@ -238,7 +238,10 @@ h2{font-size:clamp(28px,5vw,40px);line-height:1.02;margin-bottom:8px}
 
 
 /* Sub-page header */
-.subhead{background:var(--brown);color:var(--cream)}
+/* Maroon, like the topbar directly above it and the footer below. It was
+   left on --brown when those two were changed, so the page stacked two
+   different darks against each other. */
+.subhead{background:var(--sign-maroon);color:var(--cream)}
 .subhead .inner{padding-block:clamp(30px,6vw,52px)}
 .back{font-family:"Geist",system-ui,Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--tan);text-decoration:none}
 .back:hover{text-decoration:underline}
