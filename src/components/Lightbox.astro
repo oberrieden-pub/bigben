@@ -37,7 +37,10 @@ const copy = {
        photo on the page meant arrowing out of the music strip and into the pub
        one without any indication. */
     function groupFor(btn) {
-      var strip = btn.closest(".scroller");
+      /* .scroller is Gallery, .ctrack is Carousel. Miss the second and every
+         carousel photograph opens as a group of one - the viewer reads "1 of
+         1" and the arrows do nothing, which is how this was found. */
+      var strip = btn.closest(".scroller, .ctrack");
       return strip
         ? Array.prototype.slice.call(strip.querySelectorAll(".photo-btn"))
         : [btn];
