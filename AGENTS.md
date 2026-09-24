@@ -162,7 +162,7 @@ reusable - drop in as many as you like. The script in `Base.astro` walks every
 `ratio` (default `1/1`) sets a `--slide-ratio` custom property the CSS reads.
 Every slide in one carousel shares that frame on purpose: mixed shapes make
 the box change height as it runs, which shoves the page around under the
-reader. `interval` (default 7500ms) drives the timer **and** the progress
+reader. `interval` (default 5000ms) drives the timer **and** the progress
 fill from one value, so the bar always matches the real delay.
 
 `effect` is **`fade` by default**: the pictures cross over in place. A sideways

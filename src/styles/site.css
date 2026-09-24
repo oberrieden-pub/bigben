@@ -718,7 +718,7 @@ html.lb-open{overflow:hidden}
   background:var(--accent);transform:translateY(-50%) scaleX(0);
   transform-origin:left center;
 }
-.cseg[aria-current="true"] .cfill{animation:cfill var(--dur,7500ms) linear forwards}
+.cseg[aria-current="true"] .cfill{animation:cfill var(--dur,5000ms) linear forwards}
 .carousel.is-paused .cseg[aria-current="true"] .cfill{animation-play-state:paused}
 .cseg:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-radius:3px}
 @keyframes cfill{
