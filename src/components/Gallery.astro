@@ -10,8 +10,9 @@ interface Props {
   items: { src: ImageMetadata; alt: string }[];
   label: string;
   lang?: "en" | "de";
+  class?: string;
 }
-const { items, label, lang = "en" } = Astro.props;
+const { items, label, lang = "en", class: klass = "" } = Astro.props;
 const back = lang === "de" ? `${label}: zurück` : `${label}: back`;
 const fwd = lang === "de" ? `${label}: weiter` : `${label}: forward`;
 ---
@@ -21,7 +22,7 @@ const fwd = lang === "de" ? `${label}: weiter` : `${label}: forward`;
     there are or which one they were on.
     Astro braces rather than an HTML comment: this is a note to whoever edits the
     file, and it has no business being shipped to every visitor. */}
-<div class="scroller-wrap" tabindex="0" role="region" aria-label={label}>
+<div class:list={["scroller-wrap", klass]} tabindex="0" role="region" aria-label={label}>
   <ul class="scroller">
     {
       items.map((it) => (

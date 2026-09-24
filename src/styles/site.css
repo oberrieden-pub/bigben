@@ -641,6 +641,22 @@ html.lb-open{overflow:hidden}
   .navlang a{padding:5px 10px}
 }
 
+/* Phone / wider pairs -------------------------------------------------- */
+/* The music and pub sections carry their pictures twice: a scrolling strip
+   for wider screens and a carousel for phones, where a strip needs a
+   horizontal swipe to discover but a carousel shows itself.
+
+   Both are in the HTML and CSS picks one. The hidden half costs nothing in
+   bandwidth: its images are loading="lazy" inside display:none, so they are
+   never fetched, and display:none also keeps it out of the accessibility
+   tree so nothing is announced twice. The carousel's own IntersectionObserver
+   sees it as off screen and never starts its timer. */
+.phone-only{display:none}
+@media (max-width:700px){
+  .phone-only{display:block}
+  .wide-only{display:none}
+}
+
 /* Auto-advancing carousel ---------------------------------------------- */
 /* The track is the same scroll-snap idea as .scroller, but one photograph
    wide, so without JavaScript it stays a swipeable strip. */

@@ -36,6 +36,7 @@ interface Props {
   ratio?: string;
   /** Rendered width hint, matching wherever this instance sits. */
   sizes?: string;
+  class?: string;
 }
 const {
   items,
@@ -46,6 +47,7 @@ const {
   glide = 1300,
   ratio = "1/1",
   sizes = "(max-width: 860px) 92vw, 430px",
+  class: klass = "",
 } = Astro.props;
 
 const de = lang === "de";
@@ -56,7 +58,7 @@ const nextLabel = de ? `${label}: weiter` : `${label}: forward`;
 ---
 
 <div
-  class="carousel"
+  class:list={["carousel", klass]}
   data-carousel
   data-interval={String(interval)}
   data-glide={String(glide)}
