@@ -16,7 +16,6 @@ const copy = {
   <button type="button" class="lb-nav lb-prev" data-lb="prev" aria-label={copy.prev}>&lsaquo;</button>
   <button type="button" class="lb-nav lb-next" data-lb="next" aria-label={copy.next}>&rsaquo;</button>
   <figure class="lb-figure">
-    <img id="lb-img" alt="" />
     <figcaption id="lb-cap" role="status" aria-live="polite"></figcaption>
   </figure>
 </dialog>
@@ -24,9 +23,17 @@ const copy = {
 <script is:inline define:vars={{ copy }}>
   (function () {
     var dlg = document.getElementById("lightbox");
-    var img = document.getElementById("lb-img");
     var cap = document.getElementById("lb-cap");
-    if (!dlg || !img || !cap || typeof dlg.showModal !== "function") return;
+    if (!dlg || !cap || typeof dlg.showModal !== "function") return;
+
+    /* Created here rather than written into the page. In the markup it was an
+       <img> with no picture and an empty alt on every page, which is exactly
+       what Bing Webmaster Tools reports as an image missing its ALT. Nothing
+       can open the viewer without this script anyway. */
+    var img = document.createElement("img");
+    img.id = "lb-img";
+    img.alt = "";
+    cap.parentNode.insertBefore(img, cap);
 
     var all = Array.prototype.slice.call(document.querySelectorAll(".photo-btn"));
     if (!all.length) return;
@@ -62,7 +69,7 @@ const copy = {
       index = (i + buttons.length) % buttons.length;
       var source = buttons[index].querySelector("img");
       if (!source) return;
-      var described = source.getAttribute("data-alt") || source.alt || "";
+      var described = source.alt || "";
       img.src = largest(source);
       img.alt = "";
       cap.textContent =

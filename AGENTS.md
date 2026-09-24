@@ -290,6 +290,17 @@ derivatives. Rules learned the hard way:
 Contrast has been measured, not eyeballed, and several values sit close to the
 threshold on purpose. If you change a colour, measure it again.
 
+- **Every photograph carries its description in its own `alt`.** It used to
+  be empty, with the words only on the surrounding button's `aria-label`,
+  which read fine to a screen reader but told search engines that every
+  photograph of the pub was decoration. Bing Webmaster Tools reported it as
+  images missing ALT - Astro minifies `alt=""` to a bare `alt`, which its
+  checker reads as no attribute at all. The button keeps its `aria-label`;
+  an `aria-label` replaces the content as the accessible name, so nothing is
+  announced twice. Do not empty the alt again to "avoid duplication".
+  The hero and the bar-taps background are real photographs of the pub and
+  are described too. The lightbox builds its `<img>` in script for the same
+  reason: in the markup it was an empty image on every page.
 - Struck-through or hidden text is not announced by screen readers. If
   something carries meaning visually, it needs it in the markup too.
 - The lightbox releases its scroll lock on **every** path, including an
