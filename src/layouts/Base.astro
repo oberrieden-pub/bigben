@@ -190,7 +190,11 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         }
         function run() {
           stop();
-          if (stopped || !onScreen || still.matches) return;
+          /* offsetParent is null when the element is display:none, which is
+             how the phone-only carousels sit on a wide screen. Relying on the
+             observer alone would leave a timer ticking against a carousel
+             nobody can see until the first callback arrives. */
+          if (stopped || !onScreen || still.matches || !root.offsetParent) return;
           timer = setInterval(tick, wait);
           root.classList.remove("is-paused");
         }

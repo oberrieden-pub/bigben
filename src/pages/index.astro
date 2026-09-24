@@ -219,6 +219,20 @@ const alt = { en: "", de: "de.html" };
         </div>
       </div>
       <Gallery
+        class="wide-only"
+        label="Live music photographs"
+        items={[
+            { src: musicBooth, alt: "Two musicians playing guitar and accordion in a booth." },
+            { src: musicTrio, alt: "Three musicians playing together, harp and fiddles." },
+            { src: musicFiddle, alt: "A fiddle player mid-tune." },
+            { src: musicHarp, alt: "A harp player during the Sunday session." },
+            { src: musicSession, alt: "The session in full flow beside the window." },
+            { src: musicRoom, alt: "A full room listening to the Sunday session." },
+          ]}
+      />
+      <Carousel
+        class="phone-only"
+        sizes="92vw"
         label="Live music photographs"
         items={[
             { src: musicBooth, alt: "Two musicians playing guitar and accordion in a booth." },
@@ -244,6 +258,23 @@ const alt = { en: "", de: "de.html" };
         Dogs are welcome, and we have outside seating for the warm evenings.
       </p>
       <Gallery
+        class="wide-only"
+        label="Photographs of the pub"
+        items={[
+          { src: barWide, alt: "The bar from the end, taps and optics." },
+          { src: signHanging, alt: "A hanging Big Ben Pub sign on a bracket." },
+          { src: signFascia, alt: "The Big Ben Pub fascia board above the door." },
+          { src: exteriorStreet, alt: "The pub seen from across Alte Landstrasse." },
+          { src: plaque, alt: "A Frisch vom Fass beer quality plaque on the door." },
+          { src: stainedGlass, alt: "A stained glass window in the front room." },
+          { src: pintAndBoard, alt: "A pint on the bar beside the chalkboard." },
+          { src: signBrackets, alt: "The two hanging signs from the pavement." },
+          { src: parkingSign, alt: "The sign reading Parkplatz Big Ben Pub, nur für Gäste." },
+        ]}
+      />
+      <Carousel
+        class="phone-only"
+        sizes="92vw"
         label="Photographs of the pub"
         items={[
           { src: barWide, alt: "The bar from the end, taps and optics." },
