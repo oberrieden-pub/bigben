@@ -29,11 +29,14 @@ const {
 const label = lang === "de" ? `Grösser ansehen: ${alt}` : `View larger: ${alt}`;
 ---
 
+{/* The description is on the image, where search engines read it; an empty
+    alt told them every photograph of the pub was decoration. The button's
+    aria-label still names the button, and an aria-label replaces the
+    content as the accessible name, so nothing is announced twice. */}
 <button type="button" class:list={["photo-btn", klass]} aria-label={label}>
   <Image
     src={src}
-    alt=""
-    data-alt={alt}
+    alt={alt}
     widths={widths}
     sizes={sizes}
     format="avif"
