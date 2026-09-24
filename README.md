@@ -209,6 +209,19 @@ currency, and more credible than a self-declared band.
 
 About CHF 25 a year, all of it the domain. Hosting, DNS, TLS and email forwarding are free.
 
+## What is on the page
+
+Eight sections, each with an anchor: `#sport` `#hours` `#menu` `#darts`
+`#music` `#pub` `#bookings` `#find`. The ids are English on the German page
+too - they are addresses, not copy, and the language switch relies on them
+being identical to keep your place.
+
+The topbar is sticky and carries a **section menu** (`SectionNav.astro`),
+which is the only navigation on the site. The darts section uses
+`Carousel.astro`, one photograph at a time, advancing itself; the music and
+pub sections use `Gallery.astro`, a strip you scroll. `AGENTS.md` explains
+when to reach for which, and what not to strip out of the carousel.
+
 ## IndexNow
 
 `public/<key>.txt` and `scripts/indexnow.mjs`. The key is public by design:

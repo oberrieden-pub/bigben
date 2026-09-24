@@ -111,7 +111,8 @@ scroll. It is deliberately the only navigation on the site: a hamburger in the
 topbar, no inline jump links in the body, which the client has turned down
 twice.
 
-It is a `<details>` disclosure, not a button plus JavaScript, so it opens,
+It lives in `SectionNav.astro`. It is a `<details>` disclosure, not a button
+plus JavaScript, so it opens,
 closes and takes the keyboard with none. The script in `Base.astro` only adds
 the conveniences - close after a jump, on Escape, on a click outside - and the
 menu still works with every line of it removed.
@@ -197,6 +198,33 @@ this reason.
 
 ## Traps that have already caught someone
 
+**`index.astro` and `de.astro` use `
+`, not CRLF.** A doubled carriage
+return before every newline, present since the first commit. The build does
+not care, but any edit that matches on multi-line text will silently fail to
+find its anchor - it has cost two sessions already. Read the file as bytes and
+detect the separator before matching, or edit single lines only. `site.css`,
+`Base.astro` and the Markdown files are ordinary CRLF; do not assume either
+way, check.
+
+**The lightbox groups photographs by their track.** `groupFor()` looks for the
+nearest `.scroller` (Gallery) **or** `.ctrack` (Carousel) to decide what the
+arrows step through. A photo component with a new wrapper class falls through
+to a group of one: the viewer reads "1 of 1" and the arrows do nothing, which
+looks like a broken lightbox rather than a missing selector.
+
+**Grid items do not shrink below their content.** `min-width:auto` is the
+default, so a column holding a wide scroller demands that width and starves
+its neighbour - the darts board photo was squeezed to 54px this way. Hence
+`.cols>*{min-width:0}`. If a two-column section ever collapses oddly, look
+here first.
+
+**`footer` is declared twice in `site.css`**, and the later rule wins. That is
+how `.subhead` kept a brown ground for weeks after the topbar and footer moved
+to the signboard maroon: the fix was bolted on late in the file rather than
+applied at the declaration, so the third element was missed. Fix colours where
+they are declared.
+
 **Astro eats a space at a line wrap.** When a line in a `.astro` file wraps
 immediately before or after an inline tag, the newline collapses and the space
 goes with it: `und ab Thalwil` ships as `und abThalwil`. The source looks
@@ -224,6 +252,21 @@ transfer, by contrast, carries Pages and the domain across with no outage.
 
 **`build.format: "file"`** emits `de.html` rather than `de/index.html`. GitHub
 Pages resolves extensionless URLs, so `/review` reaches `review.html`.
+
+## The design tokens worth knowing
+
+`--r-sm` (4px) and `--r-md` (6px) are the corner radii: controls and cards.
+They were 8 and 12 until 23 September 2026. **`--r-pill` no longer exists** -
+the chips and the status pill are square-cornered like everything else, and a
+token by that name holding a small value would have misled whoever read it
+next. Do not reintroduce it; use `--r-sm`.
+
+`--ctl-h` (44px) is one height for every control in the topbar, so the menu
+button and the two chips line up and are equally easy to hit. The chips get
+that height from the tap-target padding block further down the file.
+
+`--topbar-h` (69px) must match the real topbar height - see the section menu
+above. It is measured, not guessed.
 
 ## Photographs
 
