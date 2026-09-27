@@ -1,0 +1,139 @@
+---
+/* The hero photograph shows the pub as it is right now.
+ *
+ * Which picture depends on two things: whether the pub is open, from the same
+ * hours the status line uses, and the light in Oberrieden, from sunrise and
+ * sunset worked out for the date. So the photo and the "Open / Closed" line
+ * can never disagree, and the seasons move the evening shot on their own.
+ *
+ *   closed, daylight   the frontage, shut           day-closed
+ *   open,   daylight   door open, lamps off         day-open
+ *   open,   dusk       moonrise over the lake       dusk-open
+ *   open,   dark       door open, lamps lit         evening-open
+ *   closed, dark       lights out                   night-closed
+ *
+ * "Dusk" runs from 45 minutes before sunset to 30 after. Dusk while closed
+ * shows the closed photo, so the picture never suggests the pub is open when
+ * it is not.
+ *
+ * night-closed has no photograph of its own yet - nothing so far shows the
+ * outside after closing - so it borrows day-closed. When one arrives, add it
+ * to `slots` and change its line in site.css.
+ *
+ * All the photographs are in the page but only one is ever fetched. The script
+ * below runs as the parser reaches it, before any of the images, and sets
+ * data-hero on <html>; CSS then hides every image but the chosen one, and
+ * loading="lazy" images that are display:none are never requested. Without
+ * the script - and for search engines and link previews - the daylight
+ * frontage shows, as before.
+ *
+ * ?hero=<slot> forces a photograph, for checking them without waiting for
+ * sunset.
+ */
+import { Image } from "astro:assets";
+import { hours, type Lang } from "../data/pub";
+import front from "../assets/photos/exterior-front.jpg";
+import openDay from "../assets/photos/exterior-open-day.jpg";
+import moonrise from "../assets/photos/lake-moonrise.jpg";
+import door from "../assets/photos/exterior-door.jpg";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+/* Oberrieden, for the sun. */
+const LAT = 47.2789;
+const LNG = 8.575;
+
+const alt = {
+  en: {
+    front: "The front of the Big Ben Pub on Alte Landstrasse, Oberrieden.",
+    openDay: "The front door of the Big Ben Pub standing open in the afternoon.",
+    moonrise: "The moon rising over the Zürichsee, seen from the pub.",
+    door: "The front door of the Big Ben Pub standing open at dusk, lamps lit.",
+  },
+  de: {
+    front: "Die Front des Big Ben Pub an der Alten Landstrasse in Oberrieden.",
+    openDay: "Die offene Eingangstür des Big Ben Pub am Nachmittag.",
+    moonrise: "Der Mond geht über dem Zürichsee auf, vom Pub aus gesehen.",
+    door: "Die offene Eingangstür des Big Ben Pub in der Abenddämmerung.",
+  },
+}[lang];
+
+const slots = [
+  { slot: "day-closed", src: front, alt: alt.front },
+  { slot: "day-open", src: openDay, alt: alt.openDay },
+  { slot: "dusk-open", src: moonrise, alt: alt.moonrise },
+  { slot: "evening-open", src: door, alt: alt.door },
+];
+---
+
+<script is:inline define:vars={{ hours, LAT, LNG }}>
+  (function () {
+    var SLOTS = ["day-closed", "day-open", "dusk-open", "evening-open", "night-closed"];
+
+    /* Minutes since midnight in Zurich, and the weekday, for any instant. */
+    function zurich(date) {
+      var p = {};
+      new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Zurich", weekday: "short",
+        hour: "2-digit", minute: "2-digit", hour12: false,
+      }).formatToParts(date).forEach(function (x) { p[x.type] = x.value; });
+      var d = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[p.weekday];
+      return { d: d, t: (parseInt(p.hour, 10) % 24) * 60 + parseInt(p.minute, 10) };
+    }
+
+    /* Sunrise and sunset, after SunCalc. Within a few minutes of the
+       published Zurich times across the year, which is all this needs. */
+    function sun(date) {
+      var rad = Math.PI / 180, dayMs = 864e5, J1970 = 2440588, J2000 = 2451545;
+      var d = date.valueOf() / dayMs - 0.5 + J1970 - J2000;
+      var lw = -LNG * rad, phi = LAT * rad;
+      var n = Math.round(d - 0.0009 - lw / (2 * Math.PI));
+      var ds = 0.0009 + lw / (2 * Math.PI) + n;
+      var M = rad * (357.5291 + 0.98560028 * ds);
+      var C = rad * (1.9148 * Math.sin(M) + 0.02 * Math.sin(2 * M) + 0.0003 * Math.sin(3 * M));
+      var L = M + C + rad * 102.9372 + Math.PI;
+      var dec = Math.asin(Math.sin(rad * 23.4397) * Math.sin(L));
+      var Jnoon = J2000 + ds + 0.0053 * Math.sin(M) - 0.0069 * Math.sin(2 * L);
+      var w = Math.acos((Math.sin(-0.833 * rad) - Math.sin(phi) * Math.sin(dec)) /
+                        (Math.cos(phi) * Math.cos(dec)));
+      var Jset = J2000 + 0.0009 + (w + lw) / (2 * Math.PI) + n +
+                 0.0053 * Math.sin(M) - 0.0069 * Math.sin(2 * L);
+      var t = function (j) { return new Date((j + 0.5 - J1970) * dayMs); };
+      return { rise: zurich(t(Jnoon - (Jset - Jnoon))).t, set: zurich(t(Jset)).t };
+    }
+
+    function pick() {
+      var forced = /[?&]hero=([a-z-]+)/.exec(location.search);
+      if (forced && SLOTS.indexOf(forced[1]) >= 0) return forced[1];
+
+      var now = new Date(), z = zurich(now), s = sun(now);
+      /* The same test as the status line, on the same hours. */
+      var today = hours[z.d];
+      var open = !!today && z.t >= today[0] && z.t < today[1];
+
+      if (!open) return z.t >= s.rise && z.t < s.set ? "day-closed" : "night-closed";
+      if (z.t < s.set - 45) return "day-open";
+      if (z.t < s.set + 30) return "dusk-open";
+      return "evening-open";
+    }
+
+    try { document.documentElement.setAttribute("data-hero", pick()); } catch (e) {}
+  })();
+</script>
+
+{
+  slots.map((s) => (
+    <Image
+      class="hero-bg"
+      data-slot={s.slot}
+      src={s.src}
+      alt={s.alt}
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={68}
+      loading="lazy"
+    />
+  ))
+}

@@ -139,6 +139,19 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
   object-fit:cover;object-position:center 62%;
   z-index:-2;
 }
+/* Time-of-day hero: HeroPhotos puts every photograph in the page and sets
+   data-hero on <html> before any of them load. Only the chosen one is
+   displayed, and a lazy image that is display:none is never fetched, so the
+   others cost nothing. Without the script, the daylight frontage shows. */
+.hero-bg{display:none}
+.hero-bg[data-slot="day-closed"]{display:block}
+html[data-hero] .hero-bg[data-slot="day-closed"]{display:none}
+html[data-hero="day-closed"] .hero-bg[data-slot="day-closed"],
+/* No night photograph yet: closed after dark borrows the daylight frontage. */
+html[data-hero="night-closed"] .hero-bg[data-slot="day-closed"],
+html[data-hero="day-open"] .hero-bg[data-slot="day-open"],
+html[data-hero="dusk-open"] .hero-bg[data-slot="dusk-open"],
+html[data-hero="evening-open"] .hero-bg[data-slot="evening-open"]{display:block}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));

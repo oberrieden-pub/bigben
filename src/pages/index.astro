@@ -9,7 +9,7 @@ import Gallery from "../components/Gallery.astro";
 import Carousel from "../components/Carousel.astro";
 import { pub } from "../data/pub";
 
-import exteriorFront from "../assets/photos/exterior-front.jpg";
+import HeroPhotos from "../components/HeroPhotos.astro";
 import barTaps from "../assets/photos/bar-taps.jpg";
 import barWide from "../assets/photos/bar-wide.jpg";
 import dartsBoard from "../assets/photos/darts-board.jpg";
@@ -42,16 +42,7 @@ const alt = { en: "", de: "de.html" };
   alt={alt}
 >
   <header class="hero">
-    <Image
-      class="hero-bg"
-      src={exteriorFront}
-      alt="The front of the Big Ben Pub on Alte Landstrasse, Oberrieden."
-      widths={[800, 1400, 2000]}
-      sizes="100vw"
-      format="avif"
-      quality={68}
-      loading="eager"
-    />
+    <HeroPhotos lang="en" />
     <div class="inner">
       <p class="eyebrow">Oberrieden Dorf</p>
       <h1 class="wordmark">Big Ben Pub</h1>
