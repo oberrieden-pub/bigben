@@ -149,6 +149,40 @@ else**, computed as `navBase` in `Base.astro`. A full path on the front page
 itself reloads the whole page instead of jumping within it, which is how it was
 first built and why it is worth leaving alone.
 
+## The hero changes with the time of day
+
+`HeroPhotos.astro` picks the hero photograph from two things: whether the pub
+is open - the **same hours and the same test as the status line**, so the
+photo and "Open / Closed" can never disagree - and the light in Oberrieden,
+from sunrise and sunset calculated for the date.
+
+| Pub | Light | Slot | Photograph |
+|---|---|---|---|
+| closed | daylight | `day-closed` | `exterior-front` |
+| open | daylight | `day-open` | `exterior-open-day` |
+| open | dusk | `dusk-open` | `lake-moonrise` |
+| open | dark | `evening-open` | `exterior-door` |
+| closed | dark | `night-closed` | none yet - borrows `exterior-front` |
+
+Dusk is 45 minutes before sunset to 30 after. Dusk while closed shows the
+closed photograph, so the picture never implies the pub is open.
+
+**All the photographs are in the page, but only one is ever downloaded.** A
+script sets `data-hero` on `<html>` as the parser reaches it, before any image,
+and CSS in `site.css` hides the rest. That only works because every hero image
+is `loading="lazy"`: a lazy image that is `display:none` is never fetched, an
+eager one is. Do not make them eager for speed - the page would download all
+four. Without the script, and for search engines, `day-closed` shows.
+
+`?hero=<slot>` forces a photograph, to check one without waiting for sunset.
+
+**The crops are deliberate.** Every exterior is cut below the fascia sign, so
+the painted "BIG BEN PUB" can never sit behind the wordmark, and above the
+tables, which on any afternoon carry ashtrays and glasses. Check every window
+pane for reflections before using a new exterior: two candidates were lost to
+the photographer's reflection. To add the night photograph, add it to `slots`
+in the component and change the `night-closed` line in `site.css`.
+
 ## Two photo components, for different jobs
 
 `Gallery.astro` is a strip you scroll: uniform height, natural widths, many
