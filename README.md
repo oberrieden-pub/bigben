@@ -41,7 +41,6 @@ generates every image size and format; later builds use its cache.
 | `src/styles/fonts.css` | Self-hosted @font-face rules. No third-party font service. |
 | `src/components/SchemaOrg.astro` | BarOrPub structured data, generated from `pub.ts`. |
 | `public/CNAME` | Binds GitHub Pages to `oberrieden.pub`. |
-| `google-sites/` | An earlier alternative, kept for the reasoning. Not in use. |
 
 **Opening hours are defined once**, in `src/data/pub.ts`, as minutes from midnight indexed
 by day. The table, the day grouping (`Tuesday – Wednesday` appears by itself when two days
@@ -72,8 +71,7 @@ committed build output.
 
 ### Custom domain
 
-`oberrieden.pub`, registered at Cloudflare in the landlord's own account, which also runs
-the DNS. Records, all **DNS only (grey cloud)**:
+`oberrieden.pub`, registered at Cloudflare, which also runs the DNS. Records, all **DNS only (grey cloud)**:
 
 | Type | Name | Value |
 | --- | --- | --- |
@@ -93,81 +91,6 @@ it is misleading. Repoint it at `oberrieden-pub.github.io` when convenient.
 commit to this repository itself (`Delete CNAME`, `Create CNAME`), so the next push is
 rejected as non-fast-forward. Rebase onto it rather than forcing.
 
-### Where this repository lives
-
-`github.com/oberrieden-pub/bigben`, in an organisation owned by Paul's account, so the
-site does not depend on any one person's personal account. It was moved here from
-`THRD-GH/bigben-pub`; GitHub redirects the old URL. A duplicate copy of the history also
-sits at `ptischler5-beep/bigben`, which is now redundant and should be deleted by its
-owner so there is one obvious source.
-
-## The business, for the record
-
-| | |
-|---|---|
-| Operator | The luck of the Irish GmbH, trading as Big Ben Pub |
-| UID | CHE-157.131.031 (SHAB, new entry 26.02.2024) |
-| Managing director | Paul Michael Tischler, sole signatory |
-| Address | Alte Landstrasse 20, 8942 Oberrieden ZH |
-| Phone | 043 388 55 08 (landline, to be redirected to Paul's mobile) |
-| Email | bigben@oberrieden.pub, forwards via Cloudflare to Paul's mailbox |
-| Instagram | @bigbenpubzh — the other handle is to be closed |
-| Facebook | Big Ben Pub Oberrieden |
-| Hours | Confirmed with the landlord 13 September 2026 |
-| Music | Live Irish music most Sundays, not every Sunday |
-
-**Everything on the site is ground truth, verified by the owner.** The written
-notes in the case folder cover hours, phone, socials and the snack list only;
-live music, darts, the sports shown, Guinness, parking and the bus were
-confirmed by him directly and are not in that file. A reviewer reading only the
-notes will flag them as unsourced. They are not.
-
-## What has a clock on it
-
-Checked 19 September 2026.
-
-| Thing | Expires | Who has to act |
-|---|---|---|
-| Domain `oberrieden.pub` | **18 September 2027** | Nobody, in the normal case: auto-renew is on in Paul's Cloudflare account, confirmed 19 September 2026. What is left is the card - Cloudflare cannot renew against an expired one. About CHF 25/year, and the only recurring cost of the whole site. |
-| TLS certificate | 17 December 2026 | Nobody. 90-day Let's Encrypt, reissued automatically by GitHub Pages. |
-| Pages deployment | Never | The last deployment keeps serving whether or not anyone touches the repo. |
-| Scheduled workflows | n/a | There are none, deliberately - see the hours note above. |
-
-Two ways the certificate can break, both DNS:
-
-- Turning on Cloudflare's proxy (orange cloud) for the apex or `www`. GitHub
-  cannot then complete the renewal challenge. Those records must stay DNS-only.
-- Changing the apex A records away from GitHub's four:
-  185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
-
-Nothing else has an expiry, and with auto-renew on, nothing on this list needs
-a diary entry. The site depends on no API key, token or third-party account:
-the only credentials anywhere near it are the ones that own the domain and the
-repository. The single realistic way it goes dark is a card expiring on the
-Cloudflare account a year from now, which is worth knowing precisely because
-nobody will be looking at the site by then.
-
-## The assumption this site rests on
-
-The site carries no fixtures, no music dates and no karaoke dates, and says
-"check Instagram" seven times a page instead. That is deliberate and explained
-above - but it only works if someone is posting.
-
-Checked 20 September 2026: the **most recent Facebook post was 7 April**, five
-and a half months earlier, and Instagram has 36 posts in total. Post dates on
-Instagram are behind a login and were not checked.
-
-That is not a fault in the accounts, it is a question for whoever runs the
-media side. If the honest answer is "occasionally", the site's copy should
-change rather than the channel: "ask at the bar" is true at any cadence, where
-"check Instagram" quietly stops being useful. Worth asking before go-live
-rather than after.
-
-Price range on the Facebook page is deliberately left empty. It can only
-render as a pound sign, which in Switzerland reads as prices in sterling, and
-Google already reports CHF 20-30 per person from eight customers - correct
-currency, and more credible than a self-declared band.
-
 ## Still open
 
 1. ~~**Going live.**~~ **Done 20 September 2026, with the owner's approval.**
@@ -183,26 +106,20 @@ currency, and more credible than a self-declared band.
    `noindex` prop survives on the layout so a future draft page can opt itself
    out. Verified live from outside: no robots meta on any content page,
    `robots.txt` and `sitemap.xml` both served.
-2. **Decide what happens to flowsight.ch/bigben-pub**, currently the official page and the
-   target of the Google Business Profile website field. Two live pages for one pub is
-   worse than either alone.
-3. **Replying as the pub.** Cloudflare Email Routing forwards only, so replies leave from
-   Paul's own address. Fixing it means Gmail "Send mail as" over Gmail's SMTP, or a real
-   mailbox. Not urgent: a pub is contacted by phone.
-4. ~~Self-host the fonts.~~ **Done.** Bitter, Cabin and Geist are served from
+2. ~~Self-host the fonts.~~ **Done.** Bitter, Cabin and Geist are served from
    `public/fonts/`, subsetted to Basic Latin, Latin-1 Supplement and a little
    punctuation. Only the six weights the pages actually render are included. If
    you ever add a character outside that range, or a new weight, regenerate
    them; otherwise the browser will silently fall back.
-5. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
+3. ~~Consent for the live-music photographs.~~ **Confirmed by the owner.** They
    are in use on both front pages.
-6. ~~Replace the Google Maps search links.~~ **Done.** `googleProfile` goes to
+4. ~~Replace the Google Maps search links.~~ **Done.** `googleProfile` goes to
    the listing and `googleReview` opens Google's write-a-review dialog
    directly, both on the pub's own place id rather than a search. The place id
    is derived from the feature id rather than looked up - see the comment in
    `pub.ts`. Paul's Business Profile short link is no longer needed, though it
    would be a drop-in replacement if Google ever changes the format.
-7. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
+5. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
    `ss` not `ß`, but unchecked by a native speaker.
 
 ## Running cost

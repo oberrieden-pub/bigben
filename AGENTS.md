@@ -14,8 +14,7 @@ obvious change is the wrong one.
 Google Business Profile posts vanish after seven days, Instagram stories after
 twenty-four hours. A web page deletes nothing. A landlord who stops updating a
 page leaves one that is visibly, permanently wrong — which is how the previous
-site died, and the abandoned domain is still up serving an injected online
-casino advertorial inside its About section.
+site died.
 
 So the site carries **no fixture list and no event listings**. Only standing
 statements and links out. A fixtures calendar button was built once and removed
@@ -366,16 +365,6 @@ anywhere else, the privacy page has to change in the same commit.
   the front page, which contradicts the privacy statement in `legal.astro`.
 - **No mailing list either**, for the same reason the site carries no events:
   somebody has to write it, and nobody will.
-- **Accounts must not depend on any individual.** The domain, the repository
-  and the Google profile belong to the landlord. That is the brief's central
-  requirement, not an accident. As of 21 September 2026 each of Google Business
-  Profile, Cloudflare, GitHub and Meta has the landlord as owner **and** a
-  second administrator, so no single password locks anyone out.
-
-  One caveat worth carrying into any handover: `bigben@oberrieden.pub` forwards
-  to the landlord's own Gmail. Fine while he runs the pub, but it follows the
-  person rather than the business — repoint it if the pub ever changes hands.
-
 ## `print/` is generated
 
 `banner.html`, `banner.pdf` and `banner.pptx` are all build outputs. Edit the
