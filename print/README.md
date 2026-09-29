@@ -51,19 +51,24 @@ Light ground, maroon type. The sign goes on a dark wall, so a maroon panel
 would sink into it and a cream one reads as a sign hung on it. It also uses a
 fraction of the toner.
 
-## The QR code
+## The QR codes
 
-One, for the review. It points at `https://oberrieden.pub/review`, not straight
-at Google. That page
-(`src/pages/review/index.astro`) redirects. Three reasons:
+Two, side by side: **Review us** points at `https://oberrieden.pub/review`,
+and **Follow us** at `https://oberrieden.pub/instagram`. Neither goes straight
+to Google or Instagram. Those pages (`src/pages/review/index.astro`,
+`src/pages/instagram/index.astro`) redirect. Three reasons:
 
 - it is short enough to print as readable text as well
 - a shorter URL is a less dense code, so it scans from further away
-- if the Google link ever changes, that one file changes and **every printed
+- if the Google link or the Instagram handle ever changes, that one file
+  changes and **every printed
   banner keeps working**
 
-It is 50 mm, maroon on cream, which measures 12.6:1 - well inside what a phone
-camera reads. The web address is not a code at all: it is set at 50pt so it can
+Each is 42 mm, maroon on cream, which measures 12.6:1 - well inside what a
+phone camera reads. They were one code at 50 mm until the Instagram code was
+added. Two at 50 mm leave the text too narrow for the German lines. The deck
+script regenerates both PNGs on every run, so they cannot drift from the
+addresses. The web address is not a code at all: it is set at 50pt so it can
 be read from across the room, which no QR of this size can be.
 
 ## Before it goes up
