@@ -119,8 +119,8 @@ rejected as non-fast-forward. Rebase onto it rather than forcing.
    is derived from the feature id rather than looked up - see the comment in
    `pub.ts`. Paul's Business Profile short link is no longer needed, though it
    would be a drop-in replacement if Google ever changes the format.
-5. **Have a native speaker read the German pages aloud once.** Swiss spelling throughout,
-   `ss` not `ß`, but unchecked by a native speaker.
+5. ~~Have a native speaker read the German pages aloud once.~~ **Done 29 September
+   2026.** Swiss spelling throughout, `ss` not `ß`.
 
 ## Running cost
 
