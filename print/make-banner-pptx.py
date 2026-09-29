@@ -16,6 +16,7 @@ Run:  python print/make-banner-pptx.py
 import os
 import pathlib
 
+import segno
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
@@ -25,7 +26,13 @@ from pptx.oxml.ns import qn
 from pptx.util import Mm, Pt
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-QR = ROOT / "print" / "qr-review.png"
+# Two codes, each through the pub's own short redirect so a changed Google
+# link or Instagram handle needs no reprint. The PNGs are regenerated on every
+# run, so they cannot drift from these addresses.
+CODES = [
+    ("https://oberrieden.pub/review", ROOT / "print" / "qr-review.png"),
+    ("https://oberrieden.pub/instagram", ROOT / "print" / "qr-instagram.png"),
+]
 
 MAROON = RGBColor(0x53, 0x1C, 0x23)
 GOLD = RGBColor(0xDD, 0xBA, 0x7A)
@@ -37,27 +44,29 @@ SHEET = 8                   # a printer cannot reach the paper edge
 W, H = 281, 92              # the finished sign, in mm
 BAR = 12                    # fascia board
 MARGIN = 14
-QRSIZE = 50
-QRX = W - MARGIN - QRSIZE
+QRSIZE = 42                 # two codes; at 50 only one fits beside the text
+QRGAP = 6
+QRX = W - MARGIN - QRSIZE * 2 - QRGAP   # left edge of the first code
 # 8 + 92 = 100, cut at 105, second strip 110 to 202, 8mm left at the foot.
 STRIP_Y = (SHEET, 110)
 CUT_Y = 105
 
 CONTENT = [
     dict(quip="Neue Website. Immer noch das gleiche gute Bier.",
-         ask="Hat es Ihnen gefallen? Sagen Sie es Google. Wenn nicht, dem Wirt.",
-         cap="BEWERTEN SIE UNS"),
+         ask="Hat es Ihnen gefallen? Sagen Sie es Google.\vWenn nicht, dem Wirt.",
+         caps=("BEWERTEN SIE UNS", "FOLGEN SIE UNS")),
     dict(quip="New website. Still the same great beer.",
-         ask="Enjoyed it? Tell Google. If not, tell the landlord.",
-         cap="REVIEW US"),
+         ask="Enjoyed it? Tell Google.\vIf not, tell the landlord.",
+         caps=("REVIEW US", "FOLLOW US")),
 ]
 
 NOTES = (
     "One A4 landscape sheet, two strips, one cut. Finished size 281 x 92 mm each. Print at 100% scale with background graphics "
     "switched on, or the maroon bar will not appear.\n\n"
-    "The QR code points at oberrieden.pub/review, which redirects to the pub's "
-    "Google listing. If that Google link ever changes, the redirect is what "
-    "changes - this code stays valid, so printed copies keep working.\n\n"
+    "The left code points at oberrieden.pub/review, which redirects to the "
+    "pub's Google listing; the right one at oberrieden.pub/instagram. If "
+    "either link ever changes, the redirect is what changes - the codes stay "
+    "valid, so printed copies keep working.\n\n"
     "Do not put this up until the website is live and approved."
 )
 
@@ -74,14 +83,19 @@ def text(slide, x, y, w, h, body, *, font, size, colour,
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     p = tf.paragraphs[0]
     p.alignment = align
-    run = p.add_run()
-    run.text = body
-    f = run.font
-    f.name, f.size, f.bold = font, Pt(size), bold
-    f.color.rgb = colour
-    if spacing is not None:
-        # python-pptx exposes no letter spacing; spc is in hundredths of a point.
-        run._r.get_or_add_rPr().set("spc", str(int(spacing * 100)))
+    # A "\v" in the body is a deliberate line break inside the paragraph. A run
+    # cannot carry one, so each line is its own run with a break between.
+    for i, line in enumerate(body.split("\v")):
+        if i:
+            p.add_line_break()
+        run = p.add_run()
+        run.text = line
+        f = run.font
+        f.name, f.size, f.bold = font, Pt(size), bold
+        f.color.rgb = colour
+        if spacing is not None:
+            # python-pptx exposes no letter spacing; spc is in hundredths of a point.
+            run._r.get_or_add_rPr().set("spc", str(int(spacing * 100)))
     return box
 
 
@@ -120,16 +134,22 @@ def strip(slide, oy, c):
     text(slide, ox + MARGIN, oy + 45.5, QRX - MARGIN - 6, 8, c["quip"],
          font="Georgia", size=18, colour=TAN, bold=True)
 
-    text(slide, ox + MARGIN, oy + 55, QRX - MARGIN - 6, 7, c["ask"],
+    text(slide, ox + MARGIN, oy + 55, QRX - MARGIN - 6, 13, c["ask"],
          font="Calibri", size=14, colour=MAROON)
 
-    slide.shapes.add_picture(str(QR), Mm(ox + QRX), Mm(oy + 23.5),
-                             Mm(QRSIZE), Mm(QRSIZE))
+    for i, ((_, png), cap) in enumerate(zip(CODES, c["caps"])):
+        x = ox + QRX + i * (QRSIZE + QRGAP)
+        slide.shapes.add_picture(str(png), Mm(x), Mm(oy + 25),
+                                 Mm(QRSIZE), Mm(QRSIZE))
+        text(slide, x - 3, oy + 69, QRSIZE + 6, 6, cap,
+             font="Trebuchet MS", size=10, colour=MAROON, bold=True,
+             spacing=1.5, align=PP_ALIGN.CENTER)
 
-    text(slide, ox + QRX - 8, oy + 75, QRSIZE + 16, 6, c["cap"],
-         font="Trebuchet MS", size=10, colour=MAROON, bold=True,
-         spacing=1.5, align=PP_ALIGN.CENTER)
 
+for url, png in CODES:
+    # 33 modules at 36px: the same 1188px image the review code always had.
+    segno.make(url, error="m").save(str(png), kind="png", scale=36, border=2,
+                                    dark="#531C23", light="#FBF7F0")
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Mm(PAGE_W), Mm(PAGE_H)

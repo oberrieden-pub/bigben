@@ -23,6 +23,9 @@ SITE = "https://oberrieden.pub"
 # from further away, and if the Google link ever changes only
 # src/pages/review/index.astro changes - nothing has to be reprinted.
 REVIEW = "https://oberrieden.pub/review"
+# The "Follow us" code, through the same kind of redirect
+# (src/pages/instagram/index.astro), so a new handle needs no reprint.
+INSTAGRAM = "https://oberrieden.pub/instagram"
 
 
 def font(name):
@@ -60,6 +63,7 @@ for token, value in (
     ("__BITTER__", font("bitter-700-latin.woff2")),
     ("__GEIST6__", font("geist-600-latin.woff2")),
     ("__QR_REVIEW__", qr(REVIEW)),
+    ("__QR_INSTAGRAM__", qr(INSTAGRAM)),
 ):
     html = html.replace(token, value)
 

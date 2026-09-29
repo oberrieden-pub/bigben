@@ -49,14 +49,21 @@ body{
   padding:3.6mm 14mm;flex:0 0 auto;
 }
 
+/* Two codes, review and Instagram, at 42mm each. At 50mm there was room for
+   only one: the German joke line alone is 143mm wide, and two 50mm codes
+   leave the text 138mm. At 42mm, 6mm apart, the text has 154mm. The asks are
+   broken at the sentence on purpose: the German one is 152mm on one line,
+   too close to the edge to trust, and the joke reads better on its own. */
 .body{
-  flex:1 1 auto;display:grid;grid-template-columns:1fr 58mm;
+  flex:1 1 auto;display:grid;grid-template-columns:1fr auto;
   align-items:center;gap:9mm;padding:0 14mm;
 }
+.codes{display:flex;gap:6mm}
+.codes .code{width:42mm}
 
-/* Pinned rather than centred, 9mm above where centring put it - about 10% of
-   the strip - which lands the address level with the top of the code. */
-.body > div:first-child{align-self:start;margin-top:10.5mm}
+/* Pinned rather than centred, so the address sits level with the top of the
+   codes. With two 42mm codes that is 15.2mm; it was 10.5mm beside one at 50. */
+.body > div:first-child{align-self:start;margin-top:15.2mm}
 
 .url{
   font-family:"Bitter",Georgia,serif;font-weight:700;
@@ -72,7 +79,7 @@ body{
 
 .code{display:flex;flex-direction:column;align-items:center;gap:2.5mm}
 /* Maroon on the cream ground measures 12.6:1, which any phone reads. */
-.code svg{width:100%;max-width:50mm;height:auto;display:block}
+.code svg{width:100%;max-width:42mm;height:auto;display:block}
 .code .cap{
   font-family:"Cabin",system-ui,Arial,sans-serif;font-weight:600;
   font-size:10pt;letter-spacing:.12em;text-transform:uppercase;
@@ -92,9 +99,12 @@ body{
       <div>
         <p class="url">oberrieden.pub</p>
         <p class="quip">Neue Website. Immer noch das gleiche gute Bier.</p>
-        <p class="ask">Hat es Ihnen gefallen? Sagen Sie es Google. Wenn nicht, dem Wirt.</p>
+        <p class="ask">Hat es Ihnen gefallen? Sagen Sie es Google.<br>Wenn nicht, dem Wirt.</p>
       </div>
-      <div class="code">__QR_REVIEW__<p class="cap">Bewerten Sie uns</p></div>
+      <div class="codes">
+        <div class="code">__QR_REVIEW__<p class="cap">Bewerten Sie uns</p></div>
+        <div class="code">__QR_INSTAGRAM__<p class="cap">Folgen Sie uns</p></div>
+      </div>
     </div>
   </section>
 
@@ -106,9 +116,12 @@ body{
       <div>
         <p class="url">oberrieden.pub</p>
         <p class="quip">New website. Still the same great beer.</p>
-        <p class="ask">Enjoyed it? Tell Google. If not, tell the landlord.</p>
+        <p class="ask">Enjoyed it? Tell Google.<br>If not, tell the landlord.</p>
       </div>
-      <div class="code">__QR_REVIEW__<p class="cap">Review us</p></div>
+      <div class="codes">
+        <div class="code">__QR_REVIEW__<p class="cap">Review us</p></div>
+        <div class="code">__QR_INSTAGRAM__<p class="cap">Follow us</p></div>
+      </div>
     </div>
   </section>
 

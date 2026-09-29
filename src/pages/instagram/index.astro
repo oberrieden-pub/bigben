@@ -1,0 +1,54 @@
+---
+/* oberrieden.pub/instagram -> the pub's Instagram account.
+
+   The twin of review/index.astro, for the "Follow us" code on the printed
+   banner. Printed material points here rather than at Instagram directly, for
+   the same reasons as the review link:
+
+   - A short URL makes a far less dense QR code, which scans from further away
+     across a pub.
+   - If the handle ever changes, pub.ts changes and every printed banner
+     keeps working. Nothing has to be reprinted.
+
+   Deliberately not built on Base.astro: no fonts, no stylesheet, no images.
+   Nobody should ever see this page for more than an instant, so it carries the
+   redirect, a visible link for anyone whose browser blocks it, and nothing
+   else. */
+import { pub } from "../../data/pub";
+
+const target = pub.instagram;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Big Ben Pub — follow us on Instagram</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #531c23;
+        color: #f0e8dc;
+        font: 16px/1.5 system-ui, Arial, sans-serif;
+        text-align: center;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      a { color: #ddba7a }
+    </style>
+  </head>
+  <body>
+    <p>
+      Taking you to Instagram &hellip;<br />
+      <a href={target}>Big Ben Pub on Instagram</a>
+    </p>
+    <script is:inline define:vars={{ target }}>
+      location.replace(target);
+    </script>
+  </body>
+</html>
