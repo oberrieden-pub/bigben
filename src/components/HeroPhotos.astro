@@ -8,13 +8,14 @@
  *
  *   closed, daylight   the frontage, shut           day-closed
  *   open,   daylight   door open, lamps off         day-open
- *   open,   dusk       moonrise over the lake       dusk-open
- *   open,   dark       door open, lamps lit         evening-open
+ *   open,   after sunset   door open, lamps lit     evening-open
  *   closed, dark       lights out                   night-closed
  *
- * "Dusk" runs from 45 minutes before sunset to 30 after. Dusk while closed
- * shows the closed photo, so the picture never suggests the pub is open when
- * it is not.
+ * While open, the lamps-off door shows until sunset and the lamp-lit door
+ * after it. There used to be a dusk slot between them, a moonrise over the
+ * lake; it was dropped on 30 September 2026. Closed after sunset shows the
+ * closed photo, so the picture never suggests the pub is open when it is
+ * not.
  *
  * night-closed has no photograph of its own yet - nothing so far shows the
  * outside after closing - so it borrows day-closed. When one arrives, add it
@@ -34,7 +35,6 @@ import { Image } from "astro:assets";
 import { hours, type Lang } from "../data/pub";
 import front from "../assets/photos/exterior-front.jpg";
 import openDay from "../assets/photos/exterior-open-day.jpg";
-import moonrise from "../assets/photos/lake-moonrise.jpg";
 import door from "../assets/photos/exterior-door.jpg";
 
 interface Props { lang: Lang }
@@ -48,13 +48,11 @@ const alt = {
   en: {
     front: "The front of the Big Ben Pub on Alte Landstrasse, Oberrieden.",
     openDay: "The front door of the Big Ben Pub standing open in the afternoon.",
-    moonrise: "The moon rising over the Zürichsee, seen from the pub.",
     door: "The front door of the Big Ben Pub standing open at dusk, lamps lit.",
   },
   de: {
     front: "Die Front des Big Ben Pub an der Alten Landstrasse in Oberrieden.",
     openDay: "Die offene Eingangstür des Big Ben Pub am Nachmittag.",
-    moonrise: "Der Mond geht über dem Zürichsee auf, vom Pub aus gesehen.",
     door: "Die offene Eingangstür des Big Ben Pub in der Abenddämmerung.",
   },
 }[lang];
@@ -62,14 +60,13 @@ const alt = {
 const slots = [
   { slot: "day-closed", src: front, alt: alt.front },
   { slot: "day-open", src: openDay, alt: alt.openDay },
-  { slot: "dusk-open", src: moonrise, alt: alt.moonrise },
   { slot: "evening-open", src: door, alt: alt.door },
 ];
 ---
 
 <script is:inline define:vars={{ hours, LAT, LNG }}>
   (function () {
-    var SLOTS = ["day-closed", "day-open", "dusk-open", "evening-open", "night-closed"];
+    var SLOTS = ["day-closed", "day-open", "evening-open", "night-closed"];
 
     /* Minutes since midnight in Zurich, and the weekday, for any instant. */
     function zurich(date) {
@@ -113,9 +110,7 @@ const slots = [
       var open = !!today && z.t >= today[0] && z.t < today[1];
 
       if (!open) return z.t >= s.rise && z.t < s.set ? "day-closed" : "night-closed";
-      if (z.t < s.set - 45) return "day-open";
-      if (z.t < s.set + 30) return "dusk-open";
-      return "evening-open";
+      return z.t < s.set ? "day-open" : "evening-open";
     }
 
     try { document.documentElement.setAttribute("data-hero", pick()); } catch (e) {}

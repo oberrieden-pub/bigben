@@ -150,7 +150,6 @@ html[data-hero="day-closed"] .hero-bg[data-slot="day-closed"],
 /* No night photograph yet: closed after dark borrows the daylight frontage. */
 html[data-hero="night-closed"] .hero-bg[data-slot="day-closed"],
 html[data-hero="day-open"] .hero-bg[data-slot="day-open"],
-html[data-hero="dusk-open"] .hero-bg[data-slot="dusk-open"],
 html[data-hero="evening-open"] .hero-bg[data-slot="evening-open"]{display:block}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
