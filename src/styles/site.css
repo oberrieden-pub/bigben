@@ -1,7 +1,7 @@
 /* Big Ben Pub.
-   Palette and section rhythm follow flowsight.ch/bigben-pub, which is the pub's current
-   official page, so the two read as the same business: warm off-white ground, dark brown
-   bands, tan primary action, red for emphasis.
+   Palette and section rhythm follow the pub's earlier page on flowsight.ch, which this
+   site replaced on 20 September 2026: warm off-white ground, dark brown bands, tan
+   primary action, red for emphasis.
 
    Every component styles itself from the semantic tokens below (--surface, --on-surface,
    --accent and friends). A section marked .dark re-maps those tokens for its own subtree,
