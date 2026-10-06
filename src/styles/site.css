@@ -150,7 +150,11 @@ html[data-hero="day-closed"] .hero-bg[data-slot="day-closed"],
 /* No night photograph yet: closed after dark borrows the daylight frontage. */
 html[data-hero="night-closed"] .hero-bg[data-slot="day-closed"],
 html[data-hero="day-open"] .hero-bg[data-slot="day-open"],
-html[data-hero="evening-open"] .hero-bg[data-slot="evening-open"]{display:block}
+html[data-hero="evening-open"] .hero-bg[data-slot="evening-open"],
+html[data-hero="sunday-open"] .hero-bg[data-slot="sunday-open"]{display:block}
+/* The session is an interior, twice as wide as it is tall, with the players
+   left of centre. A narrow screen crops the sides, so keep the crop on them. */
+.hero-bg[data-slot="sunday-open"]{object-position:42% 62%}
 .hero::after{
   content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));

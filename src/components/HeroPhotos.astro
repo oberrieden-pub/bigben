@@ -9,7 +9,12 @@
  *   closed, daylight   the frontage, shut           day-closed
  *   open,   daylight   door open, lamps off         day-open
  *   open,   after sunset   door open, lamps lit     evening-open
+ *   open,   Sunday     the session in full swing    sunday-open
  *   closed, dark       lights out                   night-closed
+ *
+ * Sunday is the day the music is on, so while the pub is open on a Sunday
+ * the hero is the session, inside, whatever the light. It is the one
+ * interior among the heroes. Closed on a Sunday follows the usual rule.
  *
  * While open, the lamps-off door shows until sunset and the lamp-lit door
  * after it. There used to be a dusk slot between them, a moonrise over the
@@ -36,6 +41,7 @@ import { hours, type Lang } from "../data/pub";
 import front from "../assets/photos/exterior-front.jpg";
 import openDay from "../assets/photos/exterior-open-day.jpg";
 import door from "../assets/photos/exterior-door.jpg";
+import session from "../assets/photos/music-session-wide.jpg";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -49,11 +55,13 @@ const alt = {
     front: "The front of the Big Ben Pub on Alte Landstrasse, Oberrieden.",
     openDay: "The front door of the Big Ben Pub standing open in the afternoon.",
     door: "The front door of the Big Ben Pub standing open at dusk, lamps lit.",
+    session: "A Sunday session at the Big Ben Pub: guitar, bodhrán and harp, and a full house listening.",
   },
   de: {
     front: "Die Front des Big Ben Pub an der Alten Landstrasse in Oberrieden.",
     openDay: "Die offene Eingangstür des Big Ben Pub am Nachmittag.",
     door: "Die offene Eingangstür des Big Ben Pub in der Abenddämmerung.",
+    session: "Eine Sonntagssession im Big Ben Pub: Gitarre, Bodhrán und Harfe vor vollem Haus.",
   },
 }[lang];
 
@@ -61,12 +69,13 @@ const slots = [
   { slot: "day-closed", src: front, alt: alt.front },
   { slot: "day-open", src: openDay, alt: alt.openDay },
   { slot: "evening-open", src: door, alt: alt.door },
+  { slot: "sunday-open", src: session, alt: alt.session },
 ];
 ---
 
 <script is:inline define:vars={{ hours, LAT, LNG }}>
   (function () {
-    var SLOTS = ["day-closed", "day-open", "evening-open", "night-closed"];
+    var SLOTS = ["day-closed", "day-open", "evening-open", "sunday-open", "night-closed"];
 
     /* Minutes since midnight in Zurich, and the weekday, for any instant. */
     function zurich(date) {
@@ -110,6 +119,8 @@ const slots = [
       var open = !!today && z.t >= today[0] && z.t < today[1];
 
       if (!open) return z.t >= s.rise && z.t < s.set ? "day-closed" : "night-closed";
+      /* Sunday is the music day: the session, whatever the light. */
+      if (z.d === 0) return "sunday-open";
       return z.t < s.set ? "day-open" : "evening-open";
     }
 

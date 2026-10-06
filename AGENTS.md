@@ -160,11 +160,19 @@ from sunrise and sunset calculated for the date.
 | closed | daylight | `day-closed` | `exterior-front` |
 | open | daylight | `day-open` | `exterior-open-day` |
 | open | after sunset | `evening-open` | `exterior-door` |
+| open | any, on a Sunday | `sunday-open` | `music-session-wide` |
 | closed | dark | `night-closed` | none yet - borrows `exterior-front` |
 
 While open, the lamps-off door shows until sunset and the lamp-lit door after
 it. Closed after sunset shows the closed photograph, so the picture never
-implies the pub is open. A dusk slot with a moonrise over the lake sat between
+implies the pub is open.
+
+**Sunday is the exception.** It is the day the music is on, so while the pub is
+open on a Sunday the hero is the session, an interior, whatever the light. The
+photograph is the copy from the pub's earlier FlowSight page, 1264 px wide,
+which is all there is: Astro will not enlarge it, and the hero's dark overlay
+hides the softness on a large screen. If the full-size original turns up,
+replace the file. The consent of the people in it is confirmed. A dusk slot with a moonrise over the lake sat between
 the two doors until 30 September 2026, when it was dropped.
 
 **All the photographs are in the page, but only one is ever downloaded.** A
@@ -172,7 +180,7 @@ script sets `data-hero` on `<html>` as the parser reaches it, before any image,
 and CSS in `site.css` hides the rest. That only works because every hero image
 is `loading="lazy"`: a lazy image that is `display:none` is never fetched, an
 eager one is. Do not make them eager for speed - the page would download all
-three. Without the script, and for search engines, `day-closed` shows.
+four. Without the script, and for search engines, `day-closed` shows.
 
 `?hero=<slot>` forces a photograph, to check one without waiting for sunset.
 
