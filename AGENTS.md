@@ -160,15 +160,18 @@ from sunrise and sunset calculated for the date.
 | closed | daylight | `day-closed` | `exterior-front` |
 | open | daylight | `day-open` | `exterior-open-day` |
 | open | after sunset | `evening-open` | `exterior-door` |
-| open | any, on a Sunday | `sunday-open` | `music-session-wide` |
+| open | Sunday, 12:00 to 15:00 | `sunday-open` | `music-session-wide` |
 | closed | dark | `night-closed` | none yet - borrows `exterior-front` |
 
 While open, the lamps-off door shows until sunset and the lamp-lit door after
 it. Closed after sunset shows the closed photograph, so the picture never
 implies the pub is open.
 
-**Sunday is the exception.** It is the day the music is on, so while the pub is
-open on a Sunday the hero is the session, an interior, whatever the light. The
+**Sunday noon to three is the exception.** That is when the session normally
+plays (`session` in `pub.ts`), so for those hours the hero is the session, an
+interior, whatever the light. The rest of Sunday follows the rule above. The
+times only choose the photograph; they are not printed, because the music is
+on most Sundays and the site carries no event times. The
 photograph is the copy from the pub's earlier FlowSight page, 1264 px wide,
 which is all there is: Astro will not enlarge it, and the hero's dark overlay
 hides the softness on a large screen. If the full-size original turns up,

@@ -9,12 +9,13 @@
  *   closed, daylight   the frontage, shut           day-closed
  *   open,   daylight   door open, lamps off         day-open
  *   open,   after sunset   door open, lamps lit     evening-open
- *   open,   Sunday     the session in full swing    sunday-open
+ *   open,   Sunday 12-15   the session in full swing sunday-open
  *   closed, dark       lights out                   night-closed
  *
- * Sunday is the day the music is on, so while the pub is open on a Sunday
- * the hero is the session, inside, whatever the light. It is the one
- * interior among the heroes. Closed on a Sunday follows the usual rule.
+ * The Sunday session normally plays from noon to three (`session` in
+ * pub.ts). For those hours, if the pub is open, the hero is the session,
+ * inside, whatever the light. It is the one interior among the heroes. The
+ * rest of Sunday follows the usual rule.
  *
  * While open, the lamps-off door shows until sunset and the lamp-lit door
  * after it. There used to be a dusk slot between them, a moonrise over the
@@ -37,7 +38,7 @@
  * sunset.
  */
 import { Image } from "astro:assets";
-import { hours, type Lang } from "../data/pub";
+import { hours, session as sessionTime, type Lang } from "../data/pub";
 import front from "../assets/photos/exterior-front.jpg";
 import openDay from "../assets/photos/exterior-open-day.jpg";
 import door from "../assets/photos/exterior-door.jpg";
@@ -73,7 +74,7 @@ const slots = [
 ];
 ---
 
-<script is:inline define:vars={{ hours, LAT, LNG }}>
+<script is:inline define:vars={{ hours, sessionTime, LAT, LNG }}>
   (function () {
     var SLOTS = ["day-closed", "day-open", "evening-open", "sunday-open", "night-closed"];
 
@@ -119,8 +120,9 @@ const slots = [
       var open = !!today && z.t >= today[0] && z.t < today[1];
 
       if (!open) return z.t >= s.rise && z.t < s.set ? "day-closed" : "night-closed";
-      /* Sunday is the music day: the session, whatever the light. */
-      if (z.d === 0) return "sunday-open";
+      /* While the Sunday session normally plays: the session, whatever
+         the light. Before and after it, Sunday is a day like any other. */
+      if (z.d === sessionTime.day && z.t >= sessionTime.from && z.t < sessionTime.to) return "sunday-open";
       return z.t < s.set ? "day-open" : "evening-open";
     }
 

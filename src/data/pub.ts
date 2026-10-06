@@ -126,6 +126,14 @@ export const hours: ([number, number] | null)[] = [
   [13 * 60 + 30, 23 * 60 + 30], // Saturday
 ];
 
+/* When the Sunday session normally plays: noon to three, as minutes from
+   midnight like the hours above. Per the landlord, 6 October 2026.
+
+   Used only to choose the hero photograph (HeroPhotos.astro). It is not
+   printed anywhere: the music is on most Sundays, not every Sunday, and the
+   site carries no dates or times of events. */
+export const session = { day: 0, from: 12 * 60, to: 15 * 60 };
+
 export const dayNames: Record<Lang, string[]> = {
   en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   de: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
