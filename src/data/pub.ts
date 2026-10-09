@@ -26,16 +26,16 @@ export const pub = {
      Instagram for 14 days and then released to anyone. */
   instagram: "https://www.instagram.com/oberrieden.pub/",
   instagramHandle: "@oberrieden.pub",
-  /* The /people/<slug>/<id>/ form, because the page has no vanity username.
-     The number is the page id and is the part that matters.
+  /* The page took the username oberrieden.pub on 20 September 2026, to match
+     the domain and the Instagram handle. Its page id is 61560243984952, and
+     the long form facebook.com/people/Big-Ben-Pub-Oberrieden/<id>/ still
+     reaches it.
 
-     The tidier facebook.com/BigBenPubOberrieden that used to be here is not
+     Not to be confused with facebook.com/BigBenPubOberrieden, which is not
      the pub: Facebook answers it with "This content isn't available at the
-     moment". Do not shorten this link back to that. Note also that curl gets
-     HTTP 400 from both, so a status code proves nothing here - it has to be
-     opened in a browser. Confirmed 19 September 2026. */
-  facebook:
-    "https://www.facebook.com/people/Big-Ben-Pub-Oberrieden/61560243984952/",
+     moment". Note also that curl gets HTTP 400 from Facebook, so a status
+     code proves nothing here - it has to be opened in a browser. */
+  facebook: "https://www.facebook.com/oberrieden.pub/",
   /* The listing itself. cid is the decimal of the second half of the feature
      id, 0x67127cbd2a207a2b, and is the shortest unambiguous way to open a
      Google place.
