@@ -194,6 +194,17 @@ html[data-hero="sunday-open"] .hero-bg[data-slot="sunday-open"]{display:block}
 /* Must restate the colour: .hero .btn above has the same specificity and comes first,
    so without this the filled button inherits cream on tan at 2.4:1. */
 .hero .btn.call{color:var(--accent-ink);border-color:var(--accent)}
+/* The pub's two social pages, as a matched pair under the buttons rather than
+   in the row with them: the row is for what people act on, a call and the way
+   there. Service names, not handles, so the two read alike. Each link is 44px
+   tall, which a thumb needs, though the text is small. */
+.follow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 26px;margin:14px 0 0}
+.follow a{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;
+  font-family:"Geist",system-ui,Arial,sans-serif;font-size:14px;font-weight:600;letter-spacing:.05em;
+  color:var(--cream);text-decoration:none;
+}
+.follow a:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* Sections */
 .band .inner{padding-block:clamp(38px,7vw,68px)}
