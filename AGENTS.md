@@ -306,6 +306,12 @@ the chips and the status pill are square-cornered like everything else, and a
 token by that name holding a small value would have misled whoever read it
 next. Do not reintroduce it; use `--r-sm`.
 
+The topbar's left side is the menu button and two icon-only links, Instagram
+and Facebook, each a 44px square. They carry no text, so each has an
+`aria-label`. Below 560px the two icons are hidden: the topbar's grid keeps
+both sides the same width, and three controls on the left would push the
+wordmark off centre on a phone. The hero just below carries both links.
+
 `--ctl-h` (44px) is one height for every control in the topbar, so the menu
 button and the two chips line up and are equally easy to hit. The chips get
 that height from the tap-target padding block further down the file.

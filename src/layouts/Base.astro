@@ -93,8 +93,19 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
       <div class="inner">
         <div class="left">
           <SectionNav lang={lang} home={navBase} enHref={enHref} deHref={deHref} />
-          <a class="chip" href={pub.instagram}>
-            <Icon name="instagram" />{pub.instagramHandle}
+          <a
+            class="chip icon-only"
+            href={pub.instagram}
+            aria-label={lang === "en" ? "Big Ben Pub on Instagram" : "Big Ben Pub auf Instagram"}
+          >
+            <Icon name="instagram" />
+          </a>
+          <a
+            class="chip icon-only"
+            href={pub.facebook}
+            aria-label={lang === "en" ? "Big Ben Pub on Facebook" : "Big Ben Pub auf Facebook"}
+          >
+            <Icon name="facebook" />
           </a>
         </div>
         <a class="topmark" href={home}>Big Ben<br />Pub</a>
