@@ -659,7 +659,7 @@ html.lb-open{overflow:hidden}
    than the body one. */
 .navmenu nav a{
   display:block;padding:7px 12px;border-radius:var(--r-sm);
-  font-family:"Bitter",Georgia,serif;font-size:15px;font-weight:600;
+  font-family:"Bitter",Georgia,serif;font-size:17px;font-weight:600;
   letter-spacing:-.01em;color:var(--cream);text-decoration:none;white-space:nowrap;
 }
 .navmenu nav a:hover{background:#5E2129;color:var(--sign-gold)}
@@ -697,7 +697,7 @@ html.lb-open{overflow:hidden}
    close up: smaller type, less padding, a tighter toggle. */
 @media (max-width:560px){
   .navmenu .navpanel{padding:5px;min-width:0;width:min(74vw,250px)}
-  .navmenu nav a{padding:4px 10px;font-size:14px;line-height:1.35}
+  .navmenu nav a{padding:4px 10px;font-size:16px;line-height:1.35}
   .navlang{margin-top:5px;padding-top:6px}
   .navlang a{padding:5px 10px}
 }
