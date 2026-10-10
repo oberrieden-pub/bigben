@@ -307,7 +307,8 @@ token by that name holding a small value would have misled whoever read it
 next. Do not reintroduce it; use `--r-sm`.
 
 The topbar's left side is the menu button and two icon-only links, Instagram
-and Facebook, each a 44px square. They carry no text, so each has an
+and Facebook, each a 44px maroon square like the menu button, with the mark
+inside in the service's own colours. They carry no text, so each has an
 `aria-label`. Below 560px the two icons are hidden: the topbar's grid keeps
 both sides the same width, and three controls on the left would push the
 wordmark off centre on a phone. The hero just below carries both links.
