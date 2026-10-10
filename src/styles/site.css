@@ -115,17 +115,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid var(--tan);outline-offset:3
    size as the menu button beside them. No text, so each link carries an
    aria-label in Base.astro. */
 .topbar .chip.icon-only{width:var(--ctl-h);padding:0;justify-content:center}
-.topbar .chip.icon-only .icon{width:22px;height:22px}
-/* In their own colours, so they stand out from the maroon bar: each tile is
-   the service's colour with the mark in white on it, which is how both
-   services draw their own icons. The border stays, transparent, so the gold
-   hover border above still shows and the tile does not change size. */
-.topbar .chip.icon-only.ig,.topbar .chip.icon-only.fb{color:#fff;border-color:transparent}
-.topbar .chip.icon-only.ig{
-  background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);
-}
-.topbar .chip.icon-only.fb{background:#1877f2}
-.topbar .chip.icon-only.ig:hover,.topbar .chip.icon-only.fb:hover{border-color:var(--sign-gold)}
+.topbar .chip.icon-only .icon{width:19px;height:19px}
 .topbar .inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:12px}
 .chip{
   justify-self:start;display:inline-flex;align-items:center;gap:7px;
