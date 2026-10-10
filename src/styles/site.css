@@ -382,6 +382,23 @@ footer a{color:var(--cream)}
 .chip{gap:7px}
 footer a.social{display:inline-flex;align-items:center;gap:7px;text-decoration:none}
 footer a.social:hover{text-decoration:underline}
+/* Beside the words Instagram and Facebook, in the hero and the footer, the
+   marks are in their own colours. Sized in em so they follow the text: 22px
+   beside the hero's 16px. The topbar pair stays plain.
+
+   Instagram is its gradient tile with the camera in white; the padding insets
+   the drawing so the camera does not touch the tile's edge. Facebook is its
+   blue disc. The f in that drawing is a hole, so a white spot behind it,
+   smaller than the disc, makes the f white without a white ring showing
+   round the outside. */
+.follow a .icon,footer a.social .icon{width:1.375em;height:1.375em}
+.follow a[href*="instagram.com"] .icon,footer a.social[href*="instagram.com"] .icon{
+  box-sizing:border-box;padding:.17em;border-radius:.36em;color:#fff;
+  background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);
+}
+.follow a[href*="facebook.com"] .icon,footer a.social[href*="facebook.com"] .icon{
+  color:#1877f2;background:radial-gradient(circle,#fff 0 55%,transparent 56%);
+}
 .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center}
 
 /* A paragraph that runs the full width of the band. Sized up so the line does
