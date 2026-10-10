@@ -292,6 +292,15 @@ footer .inner{
   display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;
 }
 footer a{color:var(--cream)}
+/* When the row does not fit on one line it wrapped unevenly: two links pushed
+   to opposite edges, then two more. So below the width where it fits, it is a
+   plain list instead, one item to a line, address first. The German row is
+   the longer and needs 875px; 880 covers both. The links keep their 12px tap
+   padding, which is also what spaces the lines. */
+@media (max-width:880px){
+  footer .inner{flex-direction:column;align-items:flex-start;gap:0}
+  footer .inner>span{margin-bottom:6px}
+}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
