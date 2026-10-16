@@ -1,0 +1,40 @@
+---
+/* A small round flag beside a language choice. The Union Jack for English,
+   because this is a British pub. For German, one disc split on the diagonal:
+   Swiss red with its cross upper left, German black, red and gold lower right.
+   The German pages are written for Swiss readers, but German is the language,
+   so the flag carries both.
+
+   Drawn inline rather than as emoji: Windows shows emoji flags as the bare
+   letters "GB" and "CH". No ids inside, so any number of them can sit on one
+   page; the circle comes from CSS (.flag in site.css). The thin light ring
+   keeps the red Swiss disc visible on the maroon topbar. Decorative only:
+   the language name beside it is what screen readers hear. */
+interface Props {
+  lang: "en" | "de";
+}
+const { lang } = Astro.props;
+---
+
+{
+  lang === "en" ? (
+    <svg class="flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="24" fill="#012169" />
+      <path d="M0 0L24 24M24 0L0 24" stroke="#fff" stroke-width="4.8" />
+      <path d="M0 0L24 24M24 0L0 24" stroke="#C8102E" stroke-width="1.6" />
+      <path d="M12 0V24M0 12H24" stroke="#fff" stroke-width="8" />
+      <path d="M12 0V24M0 12H24" stroke="#C8102E" stroke-width="4.8" />
+      <circle cx="12" cy="12" r="11.3" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.4" />
+    </svg>
+  ) : (
+    <svg class="flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect width="24" height="8" fill="#000" />
+      <rect y="8" width="24" height="8" fill="#DD0000" />
+      <rect y="16" width="24" height="8" fill="#FFCC00" />
+      <polygon points="0,0 24,0 0,24" fill="#DA291C" />
+      <rect x="6.5" y="3.5" width="3" height="9" fill="#fff" />
+      <rect x="3.5" y="6.5" width="9" height="3" fill="#fff" />
+      <circle cx="12" cy="12" r="11.3" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.4" />
+    </svg>
+  )
+}

@@ -4,6 +4,7 @@ import "../styles/site.css";
 import { pub, type Lang } from "../data/pub";
 import Lightbox from "../components/Lightbox.astro";
 import Icon from "../components/Icon.astro";
+import Flag from "../components/Flag.astro";
 import SectionNav from "../components/SectionNav.astro";
 import SchemaOrg from "../components/SchemaOrg.astro";
 
@@ -110,7 +111,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         </div>
         <a class="topmark" href={home}>Big Ben<br />Pub</a>
         <a class="chip right" data-langswitch href={otherHref} hreflang={otherLang} lang={otherLang}>
-          {otherLabel}
+          <Flag lang={lang === "en" ? "de" : "en"} />{otherLabel}
         </a>
       </div>
     </div>
@@ -386,7 +387,7 @@ const legalLabel = lang === "en" ? "Impressum & privacy" : "Impressum & Datensch
         <a href={legal}>{legalLabel}</a>
         <a class="social" href={pub.instagram}><Icon name="instagram" />Instagram</a>
         <a class="social" href={pub.facebook}><Icon name="facebook" />Facebook</a>
-        <a data-langswitch href={otherHref} hreflang={otherLang} lang={otherLang}>{otherLabel}</a>
+        <a class="langlink" data-langswitch href={otherHref} hreflang={otherLang} lang={otherLang}><Flag lang={lang === "en" ? "de" : "en"} />{otherLabel}</a>
       </div>
     </footer>
   </body>

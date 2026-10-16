@@ -11,6 +11,7 @@
  * a scroll away, and the menu is the thing already open in your hand.
  */
 import type { Lang } from "../data/pub";
+import Flag from "./Flag.astro";
 
 interface Props {
   lang: Lang;
@@ -81,7 +82,7 @@ const langLabel = lang === "en" ? "Language" : "Sprache";
         lang="en"
         aria-current={lang === "en" ? "true" : undefined}
       >
-        EN
+        <Flag lang="en" />EN
       </a>
       <a
         href={deHref}
@@ -90,7 +91,7 @@ const langLabel = lang === "en" ? "Language" : "Sprache";
         lang="de-CH"
         aria-current={lang === "de" ? "true" : undefined}
       >
-        DE
+        <Flag lang="de" />DE
       </a>
     </div>
   </div>

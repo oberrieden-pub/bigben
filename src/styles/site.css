@@ -696,6 +696,12 @@ html.lb-open{overflow:hidden}
 .navlang a:focus-visible{outline:2px solid var(--sign-gold);outline-offset:-2px}
 /* The page you are already on. */
 .navlang a[aria-current]{background:#5E2129;color:var(--sign-gold);border-color:#7A343D}
+/* A small round flag beside each language choice: Union Jack for English,
+   half Swiss, half German for German (see Flag.astro). Sized in em, so it follows the text it
+   sits beside in the topbar, the menu and the footer. */
+.flag{width:1.35em;height:1.35em;flex:none;clip-path:circle(50%);vertical-align:-.3em}
+.navlang a{display:flex;align-items:center;justify-content:center;gap:6px}
+footer a.langlink{display:inline-flex;align-items:center;gap:7px}
 
 /* On a narrow screen the topbar cannot hold the social icons as well: the
    grid keeps both sides the same width, so three controls on the left push
