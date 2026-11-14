@@ -61,6 +61,11 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
         text-align: center;
       }
       .page { width: 100%; max-width: 480px }
+      /* Where the column is the full width of the screen, the photo starts
+         at the top edge. Centred, it left a band of maroon above it. */
+      @media (max-width: 480px) {
+        body { align-items: flex-start }
+      }
       /* The photo fades to the page's maroon over its lower part, so the
          heading below can overlap it without a hard edge. */
       .photo { position: relative; margin: 0 }
