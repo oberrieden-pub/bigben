@@ -134,20 +134,48 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
          the photo takes the left half at full height and the links are
          centred in the right half. The photo is portrait (about 0.77), close
          to the shape of half a laptop screen, so little of it is cropped;
-         the crop keeps his face. The fade turns sideways, into the maroon.
-         Only on screens wider than they are tall: on an upright tablet half
-         the width is a narrow strip that cut into his face, and the phone's
-         column fits that shape better. */
-      @media (min-width: 760px) and (min-aspect-ratio: 1/1) {
-        body { display: block }
+         The fade turns sideways, into the maroon.
+
+         The boundary is width alone, 900 px. It was "wider than tall" once,
+         and a big browser window that happened to be tall got the phone
+         column, lost in the middle of the screen. Below 900 px the column
+         is at least half the window, so it does not look lost.
+
+         On a tall window half the width is a narrow strip of a portrait
+         photo, so the crop is anchored on his face, about 40% across and
+         20% down, not on the middle of the picture. His head spans roughly
+         27% to 53% of the width; the narrowest half this rule allows still
+         shows 15% to 65%.
+
+         The pair is at most 1280 px wide. Beyond that the photo was being
+         blown up past its own pixels, and the links sat in a vast field.
+         Either side of it the page is the site's light paper, so on a big
+         screen it reads as a framed page, like the main site's own pages.
+         It is at most 1000 px tall too, centred: on a tall window the frame
+         had become a narrow strip with the photo drawn at 1.65 times its own
+         pixels. At 1000 px it is drawn at no more than 0.83. On an ordinary
+         laptop the window is shorter than that, so the frame fills the
+         height and the paper shows only at the sides. */
+      @media (min-width: 900px) {
+        body { background: #fbf7f0; align-items: center }
         .page {
-          max-width: none;
-          min-height: 100vh;
+          max-width: 1280px;
+          height: min(100vh, 1000px);
+          /* The links need about 500 px; a shorter window scrolls rather
+             than cutting them off. */
+          min-height: 520px;
           display: grid;
           grid-template-columns: 1fr 1fr;
+          /* One row exactly the frame's height. Left to size itself, the row
+             took the photo's natural height and pushed the links below the
+             bottom of a short frame. */
+          grid-template-rows: minmax(0, 1fr);
+          background: #531c23;
+          box-shadow: 0 0 32px rgba(30,22,17,.18);
+          overflow: hidden;
         }
-        .photo { height: 100vh; position: sticky; top: 0 }
-        .photo :global(img) { height: 100%; object-fit: cover; object-position: 50% 20% }
+        .photo { height: 100% }
+        .photo :global(img) { height: 100%; object-fit: cover; object-position: 40% 20% }
         .photo::after {
           background: linear-gradient(to right, rgba(83,28,35,0) 72%, #531c23 100%);
         }
@@ -173,7 +201,7 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
           src={landlord}
           alt="Der Wirt zapft ein Bier im Big Ben Pub."
           widths={[480, 929]}
-          sizes="(max-width: 480px) 100vw, (min-width: 760px) and (min-aspect-ratio: 1/1) 50vw, 480px"
+          sizes="(max-width: 480px) 100vw, (min-width: 1280px) 640px, (min-width: 900px) 50vw, 480px"
           format="avif"
           quality={72}
           loading="eager"
