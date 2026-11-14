@@ -13,9 +13,16 @@
 
    Deliberately not built on Base.astro: someone arriving from a QR code wants
    two buttons, not the menu, hours and photos. It borrows the site's colours,
-   two of its fonts and the same brand marks. */
+   two of its fonts and the same brand marks.
+
+   The background is the Sunday session, the hero's one interior, under the
+   hero's own darkening, so the heading reads and the buttons stand out. It is
+   decoration, so it has no alt text. The maroon behind it shows while it
+   loads, or if it never does. */
+import { Image } from "astro:assets";
 import Icon from "../../components/Icon.astro";
 import { pub } from "../../data/pub";
+import background from "../../assets/photos/music-session-wide.jpg";
 ---
 
 <html lang="de-CH">
@@ -48,6 +55,25 @@ import { pub } from "../../data/pub";
         text-align: center;
         padding: 24px 16px;
         box-sizing: border-box;
+      }
+      .bg {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 42% 62%;
+        z-index: -2;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));
+      }
+      @media (max-width: 560px) {
+        body::before { background: linear-gradient(rgba(30,22,17,.74),rgba(30,22,17,.90)) }
       }
       main { width: 100%; max-width: 360px }
       .pub {
@@ -92,6 +118,16 @@ import { pub } from "../../data/pub";
     </style>
   </head>
   <body>
+    <Image
+      class="bg"
+      src={background}
+      alt=""
+      widths={[800, 1400, 2000]}
+      sizes="100vw"
+      format="avif"
+      quality={68}
+      loading="eager"
+    />
     <main>
       <p class="pub">BIG BEN PUB · OBERRIEDEN</p>
       <h1>Folgen Sie uns <span lang="en">Follow us</span></h1>
