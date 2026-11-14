@@ -29,10 +29,12 @@ body{
   -webkit-print-color-adjust:exact; print-color-adjust:exact;
 }
 
-/* Three children - strip, cut line, strip - so the gap is applied twice.
-   At 6mm that made 196.3mm inside a 194mm print area and Chrome emitted a
-   second, blank page. */
-.sheet{width:281mm;display:flex;flex-direction:column;gap:4mm}
+/* Two strips with a plain white gap between them, and no printed cut line:
+   a dashed line left marks on the edge of the sign however carefully it was
+   cut. Cut anywhere in the 8mm gap; each strip has its own maroon border.
+   92 + 8 + 92 = 192mm, inside the 194mm print area. More than that and
+   Chrome emits a second, blank page, which is how a 6mm gap once failed. */
+.sheet{width:281mm;display:flex;flex-direction:column;gap:8mm}
 
 .strip{
   width:281mm;height:92mm;background:var(--paper);color:var(--maroon);
@@ -86,7 +88,6 @@ body{
   color:var(--maroon);text-align:center;line-height:1.2;margin:0;
 }
 
-.cut{height:0;border-top:.3mm dashed #C4BCB0}
 
 @media screen{ body{padding:10mm;background:#3A3330} .sheet{background:#fff;padding:8mm} }
 </style>
@@ -103,12 +104,11 @@ body{
       </div>
       <div class="codes">
         <div class="code">__QR_REVIEW__<p class="cap">Bewerten Sie uns</p></div>
-        <div class="code">__QR_INSTAGRAM__<p class="cap">Folgen Sie uns</p></div>
+        <div class="code">__QR_FOLLOW__<p class="cap">Folgen Sie uns</p></div>
       </div>
     </div>
   </section>
 
-  <div class="cut"></div>
 
   <section class="strip">
     <div class="bar">Big Ben Pub · Oberrieden Dorf</div>
@@ -120,7 +120,7 @@ body{
       </div>
       <div class="codes">
         <div class="code">__QR_REVIEW__<p class="cap">Review us</p></div>
-        <div class="code">__QR_INSTAGRAM__<p class="cap">Follow us</p></div>
+        <div class="code">__QR_FOLLOW__<p class="cap">Follow us</p></div>
       </div>
     </div>
   </section>
