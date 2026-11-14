@@ -82,18 +82,21 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
         padding: 0 16px 24px;
         max-width: 360px;
       }
+      /* The ask is a small caps line in both languages, the same words as the
+         captions under the banner's codes, so neither language outranks the
+         other. The heading is the handle, which is the same on Instagram and
+         Facebook (pub.ts keeps them in step). */
       .pub {
-        margin: 0 0 6px;
+        margin: 0 0 8px;
         font: 600 13px/1.4 Cabin, system-ui, sans-serif;
         letter-spacing: .18em;
         color: #ddba7a;
       }
       h1 {
         margin: 0 0 22px;
-        font: 700 28px/1.25 Bitter, Georgia, serif;
+        font: 700 30px/1.25 Bitter, Georgia, serif;
         text-shadow: 0 1px 6px rgba(30,22,17,.6);
       }
-      h1 span { display: block; font-size: 20px; color: #ddba7a }
       ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px }
       a.choice {
         display: flex;
@@ -139,8 +142,8 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
         />
       </figure>
       <main>
-        <p class="pub">BIG BEN PUB · OBERRIEDEN</p>
-        <h1>Folgen Sie uns <span lang="en">Follow us</span></h1>
+        <p class="pub">FOLGEN SIE UNS · <span lang="en">FOLLOW US</span></p>
+        <h1>{pub.instagramHandle}</h1>
         <ul>
           <li>
             <a class="choice" href={pub.instagram}>
