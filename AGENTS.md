@@ -389,16 +389,25 @@ anywhere else, the privacy page has to change in the same commit.
 `banner.html`, `banner.pdf` and `banner.pptx` are all build outputs. Edit the
 generators, never the artefacts:
 
-    python print/make-banner.py        # banner.html, from banner.template.html
-    python print/make-banner-pdf.py    # banner.pdf, from banner.html
-    python print/make-banner-pptx.py   # banner.pptx
+    tk node print/make-banner.cjs        # banner.html, from banner.template.html
+    py -3.12 print/make-banner-pdf.py    # banner.pdf, from banner.html
+    tk node print/make-banner-pptx.cjs   # banner.pptx and the QR PNGs
 
-The wording lives in `banner.template.html` **and** `make-banner-pptx.py`, so a
+Nothing to install: the Node scripts use the machine's global `qrcode` and
+`pptxgenjs`, and the PDF script is standard-library Python and headless Chrome.
+
+The wording lives in `banner.template.html` **and** `make-banner-pptx.cjs`, so a
 copy change means editing both. `print/README.md` has the detail.
 
-The QR code points at `oberrieden.pub/review`, never at Google directly. That
-is the point: the review link has changed three times and the poster has never
-needed reprinting.
+There is no printed cut line, on purpose: a dashed line left marks on the edge
+of the sign however carefully it was cut. Do not add one back.
+
+The QR codes point at `oberrieden.pub/review` and `oberrieden.pub/follow`,
+never at Google, Instagram or Facebook directly. That is the point: the review
+link has changed three times and the poster has never needed reprinting.
+`/follow` offers both social accounts; `/instagram` stays as a straight
+redirect for anything printed before `/follow` existed. Decode any regenerated
+code before handing it over.
 
 ## Verifying your work
 

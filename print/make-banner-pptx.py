@@ -19,9 +19,8 @@ import pathlib
 import segno
 from pptx import Presentation
 from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_CONNECTOR, MSO_SHAPE
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.enum.dml import MSO_LINE_DASH_STYLE
 from pptx.oxml.ns import qn
 from pptx.util import Mm, Pt
 
@@ -47,9 +46,8 @@ MARGIN = 14
 QRSIZE = 42                 # two codes; at 50 only one fits beside the text
 QRGAP = 6
 QRX = W - MARGIN - QRSIZE * 2 - QRGAP   # left edge of the first code
-# 8 + 92 = 100, cut at 105, second strip 110 to 202, 8mm left at the foot.
+# 8 + 92 = 100, a 10mm gap to cut in, second strip 110 to 202, 8mm left at the foot.
 STRIP_Y = (SHEET, 110)
-CUT_Y = 105
 
 CONTENT = [
     dict(quip="Neue Website. Immer noch das gleiche gute Bier.",
@@ -118,7 +116,7 @@ def strip(slide, oy, c):
     ox = SHEET
 
     # The edge of the sign, so it reads as an object hung on a dark wall,
-    # and so the cut line is obvious.
+    # and so it is clear where to cut.
     rect(slide, ox, oy, W, H, PAPER, line=MAROON, line_pt=1)
     # The fascia board.
     rect(slide, ox, oy, W, BAR, MAROON)
@@ -167,12 +165,9 @@ bg.fore_color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
 for oy, c in zip(STRIP_Y, CONTENT):
     strip(slide, oy, c)
 
-# Where to cut.
-line = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT,
-                                  Mm(SHEET), Mm(CUT_Y), Mm(SHEET + W), Mm(CUT_Y))
-line.line.color.rgb = RGBColor(0xC4, 0xBC, 0xB0)
-line.line.width = Pt(0.75)
-line.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+# No printed cut line: a dashed line left marks on the edge of the sign
+# however carefully it was cut. Cut anywhere in the white gap between the
+# strips (100 to 110 mm); each strip has its own maroon border.
 
 slide.notes_slide.notes_text_frame.text = NOTES
 
