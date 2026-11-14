@@ -123,8 +123,12 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
       a[href*="facebook.com"] :global(.icon) {
         color: #1877f2; background: radial-gradient(circle,#fff 0 55%,transparent 56%);
       }
-      .site { margin: 22px 0 0; font-size: 15px }
-      .site a { color: #ddba7a }
+      /* The website is a quiet line, not a third button: the socials are what
+         this page is for, and the site is deliberately static. A gold globe
+         beside the address, no box. */
+      .site { margin: 24px 0 0; font: 600 16px/1.3 Cabin, system-ui, sans-serif }
+      .site a { display: inline-flex; align-items: center; gap: 8px; color: #ddba7a }
+      .site :global(.icon) { width: 22px; height: 22px; flex: none }
     </style>
   </head>
   <body>
@@ -158,7 +162,7 @@ import landlord from "../../assets/photos/landlord-taps.jpg";
             </a>
           </li>
         </ul>
-        <p class="site"><a href="/">oberrieden.pub</a></p>
+        <p class="site"><a href="/"><Icon name="web" />oberrieden.pub</a></p>
       </main>
     </div>
   </body>
