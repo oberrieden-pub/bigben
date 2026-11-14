@@ -15,14 +15,19 @@
    two buttons, not the menu, hours and photos. It borrows the site's colours,
    two of its fonts and the same brand marks.
 
-   The background is the Sunday session, the hero's one interior, under the
-   hero's own darkening, so the heading reads and the buttons stand out. It is
-   decoration, so it has no alt text. The maroon behind it shows while it
-   loads, or if it never does. */
+   The landlord at the taps heads the page, in a column with the links below
+   him, not behind them. As a background his face ended up under the buttons
+   and the photo lost its character. The bottom of the photo fades into the
+   maroon so the heading can sit on the fade. At phone width the whole page,
+   face included, fits on one screen without scrolling.
+
+   The photo is a cleaned-up version of the original (lens flare off the tap
+   badges), 929 px wide: enough for the 480 px column at twice the density.
+   His consent covers it; nobody else is in the frame. */
 import { Image } from "astro:assets";
 import Icon from "../../components/Icon.astro";
 import { pub } from "../../data/pub";
-import background from "../../assets/photos/music-session-wide.jpg";
+import landlord from "../../assets/photos/landlord-taps.jpg";
 ---
 
 <html lang="de-CH">
@@ -47,35 +52,31 @@ import background from "../../assets/photos/music-session-wide.jpg";
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: #531c23;
         color: #f0e8dc;
         font: 16px/1.5 system-ui, Arial, sans-serif;
         text-align: center;
-        padding: 24px 16px;
-        box-sizing: border-box;
       }
-      .bg {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 42% 62%;
-        z-index: -2;
-      }
-      body::before {
+      .page { width: 100%; max-width: 480px }
+      /* The photo fades to the page's maroon over its lower part, so the
+         heading below can overlap it without a hard edge. */
+      .photo { position: relative; margin: 0 }
+      .photo :global(img) { display: block; width: 100%; height: auto }
+      .photo::after {
         content: "";
-        position: fixed;
+        position: absolute;
         inset: 0;
-        z-index: -1;
-        background: linear-gradient(rgba(30,22,17,.62),rgba(30,22,17,.86));
+        background: linear-gradient(rgba(83,28,35,0) 52%, rgba(83,28,35,.75) 78%, #531c23 100%);
       }
-      @media (max-width: 560px) {
-        body::before { background: linear-gradient(rgba(30,22,17,.74),rgba(30,22,17,.90)) }
+      main {
+        position: relative;
+        margin: -76px auto 0;
+        padding: 0 16px 24px;
+        max-width: 360px;
       }
-      main { width: 100%; max-width: 360px }
       .pub {
         margin: 0 0 6px;
         font: 600 13px/1.4 Cabin, system-ui, sans-serif;
@@ -83,8 +84,9 @@ import background from "../../assets/photos/music-session-wide.jpg";
         color: #ddba7a;
       }
       h1 {
-        margin: 0 0 28px;
+        margin: 0 0 22px;
         font: 700 28px/1.25 Bitter, Georgia, serif;
+        text-shadow: 0 1px 6px rgba(30,22,17,.6);
       }
       h1 span { display: block; font-size: 20px; color: #ddba7a }
       ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px }
@@ -113,39 +115,43 @@ import background from "../../assets/photos/music-session-wide.jpg";
       a[href*="facebook.com"] :global(.icon) {
         color: #1877f2; background: radial-gradient(circle,#fff 0 55%,transparent 56%);
       }
-      .site { margin: 28px 0 0; font-size: 15px }
+      .site { margin: 22px 0 0; font-size: 15px }
       .site a { color: #ddba7a }
     </style>
   </head>
   <body>
-    <Image
-      class="bg"
-      src={background}
-      alt=""
-      widths={[800, 1400, 2000]}
-      sizes="100vw"
-      format="avif"
-      quality={68}
-      loading="eager"
-    />
-    <main>
-      <p class="pub">BIG BEN PUB · OBERRIEDEN</p>
-      <h1>Folgen Sie uns <span lang="en">Follow us</span></h1>
-      <ul>
-        <li>
-          <a class="choice" href={pub.instagram}>
-            <Icon name="instagram" />
-            <span>Instagram<small>{pub.instagramHandle}</small></span>
-          </a>
-        </li>
-        <li>
-          <a class="choice" href={pub.facebook}>
-            <Icon name="facebook" />
-            <span>Facebook<small>Big Ben Pub Oberrieden</small></span>
-          </a>
-        </li>
-      </ul>
-      <p class="site"><a href="/">oberrieden.pub</a></p>
-    </main>
+    <div class="page">
+      <figure class="photo">
+        <Image
+          src={landlord}
+          alt="Der Wirt zapft ein Bier im Big Ben Pub."
+          widths={[480, 929]}
+          sizes="(max-width: 480px) 100vw, 480px"
+          format="avif"
+          quality={72}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+      <main>
+        <p class="pub">BIG BEN PUB · OBERRIEDEN</p>
+        <h1>Folgen Sie uns <span lang="en">Follow us</span></h1>
+        <ul>
+          <li>
+            <a class="choice" href={pub.instagram}>
+              <Icon name="instagram" />
+              <span>Instagram<small>{pub.instagramHandle}</small></span>
+            </a>
+          </li>
+          <li>
+            <a class="choice" href={pub.facebook}>
+              <Icon name="facebook" />
+              <span>Facebook<small>Big Ben Pub Oberrieden</small></span>
+            </a>
+          </li>
+        </ul>
+        <p class="site"><a href="/">oberrieden.pub</a></p>
+      </main>
+    </div>
   </body>
 </html>
