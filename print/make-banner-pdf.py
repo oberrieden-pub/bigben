@@ -32,7 +32,7 @@ if browser is None:
     sys.exit("No Chrome or Edge found; cannot print to PDF.")
 
 if not SRC.exists():
-    sys.exit("print/banner.html is missing - run make-banner.py first.")
+    sys.exit("print/banner.html is missing - run 'tk node print/make-banner.cjs' first.")
 
 profile = pathlib.Path(tempfile.mkdtemp(prefix="banner-chrome-"))
 # Chrome refuses to overwrite a file another process holds open, and a PDF
